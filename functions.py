@@ -4,6 +4,27 @@ from pyperclip import copy as pypercopy
 from time import sleep
 from webbrowser import open_new_tab
 
+def help_():
+    typewrite("notepad", interval=0.08)
+    sleep(0.50)
+    hotkey("enter")
+    sleep(0.50)
+    pypercopy("""Commands:
+
+Google Search -- Open powertoys and type "-{search query}"
+Youtube Search -- Open powertoys and type "youtube {search query}"
+Google Images Search -- Open powertoys and type "images {search query}"
+Translate -- Available Languages: French, Arabic, English | Open powertoys and type "to{language name} {query}"
+Sarcasm -- Changes case of letters to be alternate (like this: hElLo) | Open powertoys and type "sarcasm {query}"
+Spacer -- Adds a space in between each letter (like this: h e l l o) | Open powertoys and type "spacer {query}"
+SpoilerSpam -- (Intended for discord only) Adds a ||x|| on each letter to turn it into a spoiler | Open powertoys and type "spoilerspam {query}"
+Copypaste -- Copies characters that are annoying/difficult to find. Available characters: éÉàèùÀÈÙâêîôûÂÊÎÔÛëïüËÏÜçÇㅤ²³ | Open powertoys and type "copypaste {query}"
+Discord Commands -- These may not work on your pc and they are intended for me, if you would like to use them, either look in the source code or too bad.
+    """)
+    sleep(0.50)
+    hotkey("ctrl", "v")
+
+
 def googlesearch():
     contents = "+".join(argv[1:])
     hotkey("esc")
