@@ -1,6 +1,5 @@
 from sys import argv
 from functions import *
-from pyautogui import typewrite
 
 instructions = {
     '-': googlesearch,
