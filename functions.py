@@ -3,6 +3,7 @@ from pyautogui import hotkey, click, typewrite
 from pyperclip import copy as pypercopy
 from time import sleep
 from webbrowser import open_new_tab
+from os import system
 
 def help_():
     typewrite("notepad", interval=0.08)
@@ -132,7 +133,9 @@ def copypaste():
         '3164': 'ㅤ',
         'hangul filler': 'ㅤ',
         'square': '²',
-        'cube': '³'
+        'cube': '³',
+        'divison': '÷',
+        'multi': '×'
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
@@ -143,29 +146,12 @@ def copypaste():
 
 def goingidle():
     sleep(0.50)
-    click(119, 1004)
-    sleep(0.75)
-    click(215, 942)
-    sleep(0.75)
-    click(818, 429)
-    sleep(0.75)
-    typewrite("pc on sleep | might not respond to dms/pings", interval=0.04)
-    sleep(0.75)
-    click(847, 654)
-    sleep(0.75)
-    click(784, 771)
-    sleep(0.75)
-    click(1156, 757)
-    sleep(0.50)
+    system("start C:\Items\Code\powertoys-utilities\supplementary-ahks\goingidle.ahk")
+    
 
 
 def imback():
-    sleep(0.50)
-    click(119, 1004)
-    sleep(0.75)
-    click(343, 938)
-    sleep(0.50)
-    click(208, 757)
+    system("start C:\Items\Code\powertoys-utilities\supplementary-ahks\imback.ahk")
 
 
 def discord():
