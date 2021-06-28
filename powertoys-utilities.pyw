@@ -13,7 +13,8 @@ instructions = {
     'spacer': spacer,
     'spoilerspam': spoilerspam,
     'copypaste': copypaste,
-    'discord': discord
+    'discord': discord,
+    'help': help_
 }
 
 for i in instructions:
