@@ -1,5 +1,5 @@
 from sys import argv
-from pyautogui import hotkey, click, typewrite
+from pyautogui import hotkey, typewrite
 from pyperclip import copy as pypercopy
 from time import sleep
 from webbrowser import open_new_tab
@@ -135,7 +135,8 @@ def copypaste():
         'square': '²',
         'cube': '³',
         'divison': '÷',
-        'multi': '×'
+        'multi': '×',
+        '!=': '≠'
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
@@ -165,3 +166,31 @@ def discord():
             hotkey("esc")
             sleep(0.50)
             options[i]()
+
+def emojify():
+    converted = []
+    special_char = {
+        ' ': ':black_large_square:',
+        '?': ':question:',
+        '!': ':exclamation:',
+        '1': ':one:',
+        '2': ':two:',
+        '3': ':three:',
+        '4': ':four:',
+        '5': ':five:',
+        '6': ':six:',
+        '7': ':seven:',
+        '8': ':eight:',
+        '9': ':nine:',
+        '0': ':zero:'
+    }
+    for i in " ".join(argv[2:]):
+        if 'a' <= i.lower() <= 'z':
+            converted.append(f':regional_indicator_{i.lower()}:')
+        
+        elif i in special_char:
+            converted.append(special_char[i])
+            
+    pypercopy(" ".join(converted))
+    sleep(0.25)
+    hotkey("esc")
