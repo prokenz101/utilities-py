@@ -3,6 +3,8 @@ Sleep 750
 Click 215 942
 Sleep 750
 Click 818 429
+Click 818 429
+Click 818 429
 Send pc on sleep | might not respond to dms/pings
 Sleep 0.75
 Click 847 654
