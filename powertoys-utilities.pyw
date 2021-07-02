@@ -13,9 +13,13 @@ instructions = {
     'spoilerspam': spoilerspam,
     'copypaste': copypaste,
     'discord': discord,
+    'emojify': emojify,
     'help': help_
 }
 
-for i in instructions:
-    if argv[1].startswith(i):
-        instructions[i]()
+try:
+    for i in instructions:
+        if argv[1].startswith(i):
+            instructions[i]()
+except Exception as e:
+    typewrite(e)
