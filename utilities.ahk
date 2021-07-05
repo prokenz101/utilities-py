@@ -11,8 +11,12 @@ Send, {Left}
 Return
 
 $'::
-SendRaw, ''
-Send, {Left}
+If (A_PriorKey = "Space") {
+    SendRaw, ''
+    Send, {Left}    
+} Else {
+    SendRaw, '
+}
 Return
 
 $(::
