@@ -6,11 +6,14 @@ Click 818 429
 Click 818 429
 Click 818 429
 Send jhfAozljsfhalskdasdjaksfhajdahsdkADKhdlAHDdAD;LjsdlSLhSKJDHAJSHDKSJDHHKBSHDJASHDKJHiuydiauhaisdyasfjsldgnxfooidjaslas;jdj;jhkjhk
-Sleep 0.75
-Click 830 666
+Click 822 531
 Sleep 750
-Click 796 819
+Click 852 784
 Sleep 750
-Click 1159 761
+Click 813 661
+Sleep 750
+Click 818 813
+Sleep 750
+Click 1158 753
 sleep 500
 ExitApp
