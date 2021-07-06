@@ -147,12 +147,11 @@ def copypaste():
 
 def goingidle():
     sleep(0.50)
-    system("start C:\Items\Code\powertoys-utilities\supplementary-ahks\goingidle.ahk")
+    system("start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk")
     
 
-
 def imback():
-    system("start C:\Items\Code\powertoys-utilities\supplementary-ahks\imback.ahk")
+    system("start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk")
 
 
 def discord():
