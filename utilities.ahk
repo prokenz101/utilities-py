@@ -2,7 +2,7 @@ F8::
 Send, ^a
 Send, ^c
 Sleep, 150
-Run pythonw powertoys-utilities.pyw %Clipboard%
+Run pythonw utilities.pyw %Clipboard%
 Return
 
 $"::
@@ -13,15 +13,21 @@ Return
 $'::
 If (A_PriorKey = "Space") {
     SendRaw, ''
-    Send, {Left}    
+    Send, {Left}
 } Else {
     SendRaw, '
 }
 Return
 
 $(::
-SendRaw, ()
-Send, {Left}
+; MsgBox, , , %A_PriorKey%
+If (A_PriorKey = ";") {
+    SendRaw, (
+}
+Else {
+    SendRaw, ()
+    Send, {Left}
+}
 Return
 
 ${::
