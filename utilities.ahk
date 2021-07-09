@@ -40,6 +40,15 @@ SendRaw, []
 Send, {Left}
 Return
 
+^+K::
+Send, {Home}
+Sleep, 150
+Send, {Shift down}
+Send, {End down}
+Send, {Shift up}
+Send, {End up}
+Send, {BackSpace 2}
+
 F9::
 Reload
 Return
