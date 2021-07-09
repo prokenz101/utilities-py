@@ -14,7 +14,7 @@ instructions = {
     'copypaste': copypaste,
     'discord': discord,
     'emojify': emojify,
-    'help': help_
+    'spam': spambot
 }
 
 try:
