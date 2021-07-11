@@ -4,6 +4,16 @@ from pyperclip import copy as pypercopy
 from time import sleep
 from webbrowser import open_new_tab
 from os import system
+from win10toast import ToastNotifier
+
+
+def cp_notif():
+    toaster = ToastNotifier()
+    toaster.show_toast(
+        "Success!",
+        "Message copied to clipboard.",
+        duration=2,
+    )
 
 
 def googlesearch():
@@ -71,6 +81,7 @@ def sarcasm():
     hotkey("esc")
     sleep(0.50)
     pypercopy("".join(contents_list))
+    cp_notif()
 
 
 def spacer():
@@ -78,6 +89,7 @@ def spacer():
     hotkey("esc")
     sleep(0.50)
     pypercopy(" ".join(contents))
+    cp_notif()
 
 
 def spoilerspam():
@@ -89,6 +101,7 @@ def spoilerspam():
     hotkey("esc")
     sleep(0.50)
     pypercopy(f'{"||".join(contents)}||')
+    cp_notif()
 
 
 def copypaste():
@@ -121,17 +134,27 @@ def copypaste():
         "cedille C": "Ç",
         "3164": "ㅤ",
         "hangul filler": "ㅤ",
+        "raised to 0": "⁰",
         "square": "²",
         "cube": "³",
+        "raised to 4": "⁴",
+        "raised to 5": "⁵",
+        "raised to 6": "⁶",
+        "raised to 7": "⁷",
+        "raised to 8": "⁸",
+        "raised to 9": "⁹",
+        "raised to n": "ⁿ",
         "divison": "÷",
         "multi": "×",
         "!=": "≠",
+        "shrug": "¯\_(ツ)_/¯",
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
             pypercopy(copypaste_dict[i])
             sleep(0.50)
             hotkey("esc")
+            cp_notif()
 
 
 def goingidle():
@@ -182,6 +205,7 @@ def emojify():
     pypercopy(" ".join(converted))
     sleep(0.25)
     hotkey("esc")
+    cp_notif()
 
 
 def spambot():
