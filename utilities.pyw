@@ -12,7 +12,9 @@ instructions = {
     'spacer': spacer,
     'spoilerspam': spoilerspam,
     'copypaste': copypaste,
+    'cp': copypaste,
     'discord': discord,
+    'dsc': discord,
     'emojify': emojify,
     'spam': spambot
 }
