@@ -135,6 +135,7 @@ def copypaste():
         "3164": "ㅤ",
         "hangul filler": "ㅤ",
         "raised to 0": "⁰",
+        "raised to 1": "¹",
         "square": "²",
         "cube": "³",
         "raised to 4": "⁴",
