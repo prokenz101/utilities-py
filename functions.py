@@ -16,24 +16,27 @@ def cp_notif():
     )
 
 
-def googlesearch():
-    contents = "+".join(argv[1:])
+def esc():
+    sleep(0.50)
     hotkey("esc")
     sleep(0.50)
+
+
+def googlesearch():
+    contents = "+".join(argv[1:])
+    esc()
     open_new_tab(f"https://www.google.com/search?q={contents[1:]}")
 
 
 def youtubesearch():
     contents = "+".join(argv[1:])
-    hotkey("esc")
-    sleep(0.50)
+    esc()
     open_new_tab(f"https://www.youtube.com/results?search_query={contents[8:]}")
 
 
 def imagesearch():
     contents = "+".join(argv[1:])
-    hotkey("esc")
-    sleep(0.50)
+    esc()
     open_new_tab(
         f"https://www.google.com/search?q={contents[7:]}&safe=strict&tbm=isch&sxsrf=ALeKk029ouHDkHfq3RFVc8WpFzOvZZ8s4g%3A1624376552976&source=hp&biw=1536&bih=763&ei=6ATSYIOrOduJhbIPzda7yAs&oq=hello&gs_lcp=CgNpbWcQAzIFCAAQsQMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyBQgAELEDMgUIABCxAzICCAA6BwgjEOoCECc6BAgjECc6CAgAELEDEIMBUNIGWKcJYLELaABwAHgAgAGPAogByAqSAQUwLjEuNZgBAKABAaoBC2d3cy13aXotaW1nsAEK&sclient=img&ved=0ahUKEwiDv62byqvxAhXbREEAHU3rDrkQ4dUDCAc&uact=5"
     )
@@ -41,8 +44,7 @@ def imagesearch():
 
 def toenglish():
     contents = "%20".join(argv[2:])
-    hotkey("esc")
-    sleep(0.50)
+    esc()
     open_new_tab(
         f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
     )
@@ -50,8 +52,7 @@ def toenglish():
 
 def tofrench():
     contents = "%20".join(argv[1:])
-    hotkey("esc")
-    sleep(0.50)
+    esc()
     open_new_tab(
         f"https://translate.google.com/?sl=en&tl=fr&text={contents[11:]}&op=translate"
     )
@@ -59,8 +60,7 @@ def tofrench():
 
 def toarabic():
     contents = "%20".join(argv[1:])
-    hotkey("esc")
-    sleep(0.50)
+    esc()
     open_new_tab(
         f"https://translate.google.com/?sl=en&tl=ar&text={contents[11:]}&op=translate"
     )
@@ -78,16 +78,14 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    hotkey("esc")
-    sleep(0.50)
+    esc()
     pypercopy("".join(contents_list))
     cp_notif()
 
 
 def spacer():
     contents = " ".join(argv[2:])
-    hotkey("esc")
-    sleep(0.50)
+    esc()
     pypercopy(" ".join(contents))
     cp_notif()
 
@@ -98,8 +96,7 @@ def spoilerspam():
     for i in base_var:
         contents.append(f"||{i}")
 
-    hotkey("esc")
-    sleep(0.50)
+    esc()
     pypercopy(f'{"||".join(contents)}||')
     cp_notif()
 
@@ -148,13 +145,16 @@ def copypaste():
         "divison": "÷",
         "multi": "×",
         "!=": "≠",
+        "greater than or equal to": "≥",
+        ">=": "≥",
+        "lesser than or equal to": "≤",
+        "<=": "≤",
         "shrug": "¯\_(ツ)_/¯",
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
             pypercopy(copypaste_dict[i])
-            sleep(0.50)
-            hotkey("esc")
+            esc()
             cp_notif()
 
 
@@ -174,8 +174,7 @@ def discord():
 
     for i in options:
         if " ".join(argv[2:]) in i:
-            hotkey("esc")
-            sleep(0.50)
+            esc()
             options[i]()
 
 
@@ -204,8 +203,7 @@ def emojify():
             converted.append(special_char[i])
 
     pypercopy(" ".join(converted))
-    sleep(0.25)
-    hotkey("esc")
+    esc()
     cp_notif()
 
 
@@ -225,7 +223,7 @@ def spambot():
     if "--interval=" in interval_list[0]:
         interval = interval_list[0]
 
-    hotkey("esc")
+    esc()
 
     for i in range(int(number)):
         typewrite(" ".join(word))
@@ -236,3 +234,18 @@ def spambot():
 
         except UnboundLocalError:
             pass
+
+
+def extend():
+    extendables = {
+        "widepeepohappy": ":widepeepoHappy1::widepeepoHappy2::widepeepoHappy3::widepeepoHappy4:",
+        "widepeeposad": ":widepeepoSad1::widepeepoSad2::widepeepoSad3::widePeepoSad4:",
+        "widepeepoblanket": ":widepeepoBlanket1::widepeepoBlanket2::widepeepoBlanket3::widepeepoBlanket4:",
+        'dogeburger': ':dogeburger1::dogeburger2::dogeburger3:'
+    }
+
+    for i in extendables:
+        if i in " ".join(argv[2:]).lower():
+            pypercopy(extendables[i])
+            esc()
+            cp_notif()
