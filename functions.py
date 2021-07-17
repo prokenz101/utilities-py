@@ -7,12 +7,12 @@ from os import system
 from win10toast import ToastNotifier
 
 
-def cp_notif():
+def cp_notif(title, subtitle, interval):
     toaster = ToastNotifier()
     toaster.show_toast(
-        "Success!",
-        "Message copied to clipboard.",
-        duration=2,
+        title,
+        subtitle,
+        duration=interval,
     )
 
 
@@ -80,14 +80,14 @@ def sarcasm():
 
     esc()
     pypercopy("".join(contents_list))
-    cp_notif()
+    cp_notif("Success!", "Message copied to clipboard.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
     esc()
     pypercopy(" ".join(contents))
-    cp_notif()
+    cp_notif("Success!", "Message copied to clipboard.", 2)
 
 
 def spoilerspam():
@@ -98,7 +98,7 @@ def spoilerspam():
 
     esc()
     pypercopy(f'{"||".join(contents)}||')
-    cp_notif()
+    cp_notif("Success!", "Message copied to clipboard.", 2)
 
 
 def copypaste():
@@ -155,7 +155,7 @@ def copypaste():
         if " ".join(argv[2:]) in i:
             pypercopy(copypaste_dict[i])
             esc()
-            cp_notif()
+            cp_notif("Success!", "Message copied to clipboard.", 2)
 
 
 def goingidle():
@@ -204,10 +204,11 @@ def emojify():
 
     pypercopy(" ".join(converted))
     esc()
-    cp_notif()
+    cp_notif("Success!", "Message copied to clipboard.", 2)
 
 
 def spambot():
+    cp_notif("Spamming.", "Move mouse to corner of screen to stop.", 3)
     number = argv[2]
     interval_list = argv[::-1]
     word = argv[3:]
@@ -236,6 +237,7 @@ def spambot():
             pass
 
 
+
 def extend():
     extendables = {
         "widepeepohappy": ":widepeepoHappy1::widepeepoHappy2::widepeepoHappy3::widepeepoHappy4:",
@@ -248,4 +250,4 @@ def extend():
         if i in " ".join(argv[2:]).lower():
             pypercopy(extendables[i])
             esc()
-            cp_notif()
+            cp_notif("Success!", "Message copied to clipboard.", 2)
