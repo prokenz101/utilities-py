@@ -16,7 +16,8 @@ instructions = {
     'discord': discord,
     'dsc': discord,
     'emojify': emojify,
-    'spam': spambot
+    'spam': spambot,
+    'extend': extend
 }
 
 try:
