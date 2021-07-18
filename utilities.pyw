@@ -17,7 +17,8 @@ instructions = {
     'dsc': discord,
     'emojify': emojify,
     'spam': spambot,
-    'extend': extend
+    'extend': extend,
+    'load': mcprofiles
 }
 
 try:
