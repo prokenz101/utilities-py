@@ -237,13 +237,12 @@ def spambot():
             pass
 
 
-
 def extend():
     extendables = {
         "widepeepohappy": ":widepeepoHappy1::widepeepoHappy2::widepeepoHappy3::widepeepoHappy4:",
         "widepeeposad": ":widepeepoSad1::widepeepoSad2::widepeepoSad3::widePeepoSad4:",
         "widepeepoblanket": ":widepeepoBlanket1::widepeepoBlanket2::widepeepoBlanket3::widepeepoBlanket4:",
-        'dogeburger': ':dogeburger1::dogeburger2::dogeburger3:'
+        "dogeburger": ":dogeburger1::dogeburger2::dogeburger3:",
     }
 
     for i in extendables:
@@ -251,3 +250,8 @@ def extend():
             pypercopy(extendables[i])
             esc()
             cp_notif("Success!", "Message copied to clipboard.", 2)
+
+
+def mcprofiles():
+    esc()
+    system(f'start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {" ".join(argv[1:])}')
