@@ -252,6 +252,11 @@ def extend():
             cp_notif("Success!", "Message copied to clipboard.", 2)
 
 
-def mcprofiles():
+def load():
+    esc()
+    system(f'start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {" ".join(argv[1:])}')
+
+
+def backup():
     esc()
     system(f'start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {" ".join(argv[1:])}')
