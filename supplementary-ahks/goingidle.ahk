@@ -16,7 +16,7 @@ Sleep 750
 Click 784 771
 Sleep 750
 Click 1156 757
-sleep 1000
+sleep 1750
 Click 45 60
 sleep 900
 Click 177 116
