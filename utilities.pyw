@@ -20,6 +20,8 @@ instructions = {
     "extend": extend,
     "load": load,
     "backup": backup,
+    "mcversion": mcversion,
+    "done?": mccheck,
 }
 
 try:
@@ -27,4 +29,4 @@ try:
         if argv[1].startswith(i):
             instructions[i]()
 except Exception as e:
-    typewrite(e)
+    notification("An Error Has Occured.", str(e), 30)
