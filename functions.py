@@ -1,5 +1,5 @@
 from sys import argv
-from pyautogui import hotkey, typewrite
+from pyautogui import FailSafeException, hotkey, typewrite
 from pyperclip import copy as pypercopy
 from time import sleep
 from webbrowser import open_new_tab
@@ -7,19 +7,14 @@ from os import system
 from win10toast import ToastNotifier
 
 
-def cp_notif(title, subtitle, interval):
+def notification(title, subtitle, interval, icon=None, threaded=True):
     toaster = ToastNotifier()
-    toaster.show_toast(
-        title,
-        subtitle,
-        duration=interval,
-    )
+    toaster.show_toast(title, subtitle, icon_path=icon, duration=interval)
 
-
-def esc():
-    sleep(0.50)
+def esc(interval=0.50):
+    sleep(interval)
     hotkey("esc")
-    sleep(0.50)
+    sleep(interval)
 
 
 def googlesearch():
@@ -80,14 +75,14 @@ def sarcasm():
 
     esc()
     pypercopy("".join(contents_list))
-    cp_notif("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
     esc()
     pypercopy(" ".join(contents))
-    cp_notif("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def spoilerspam():
@@ -98,7 +93,7 @@ def spoilerspam():
 
     esc()
     pypercopy(f'{"||".join(contents)}||')
-    cp_notif("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def copypaste():
@@ -155,7 +150,7 @@ def copypaste():
         if " ".join(argv[2:]) in i:
             pypercopy(copypaste_dict[i])
             esc()
-            cp_notif("Success!", "Message copied to clipboard.", 2)
+            notification("Success!", "Message copied to clipboard.", 2)
 
 
 def goingidle():
@@ -169,8 +164,16 @@ def imback():
     system("start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk")
 
 
+def randomaboutme():
+    system("start C:\\Items\\Code\\utilities\\supplementary-ahks\\randomaboutme.ahk")
+
+
 def discord():
-    options = {"going idle": goingidle, "im back": imback}
+    options = {
+        "going idle": goingidle,
+        "im back": imback,
+        "random about me": randomaboutme
+    }
 
     for i in options:
         if " ".join(argv[2:]) in i:
@@ -204,16 +207,15 @@ def emojify():
 
     pypercopy(" ".join(converted))
     esc()
-    cp_notif("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def spambot():
-    cp_notif("Spamming.", "Move mouse to corner of screen to stop.", 3)
+    notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
     number = argv[2]
     interval_list = argv[::-1]
     word = argv[3:]
     last_of_spam = " ".join(word[::-1])
-    print(last_of_spam)
 
     if "--interval=" in last_of_spam:
         word = argv[3:-1]
@@ -221,20 +223,19 @@ def spambot():
     if argv[2] == "infinite":
         number = 100000
 
+    interval = 0
     if "--interval=" in interval_list[0]:
-        interval = interval_list[0]
+        interval = int(interval_list[0][11:])
 
     esc()
 
-    for i in range(int(number)):
-        typewrite(" ".join(word))
-        hotkey("enter")
-
-        try:
-            sleep(int(interval[11:]))
-
-        except UnboundLocalError:
-            pass
+    try:
+        for i in range(int(number)):
+            typewrite(" ".join(word))
+            hotkey("enter")
+            sleep(interval)
+    except FailSafeException:
+        notification("Spamming Stopped.", "Spamming was cancelled.", 10)
 
 
 def extend():
@@ -243,13 +244,14 @@ def extend():
         "widepeeposad": ":widepeepoSad1::widepeepoSad2::widepeepoSad3::widePeepoSad4:",
         "widepeepoblanket": ":widepeepoBlanket1::widepeepoBlanket2::widepeepoBlanket3::widepeepoBlanket4:",
         "dogeburger": ":dogeburger1::dogeburger2::dogeburger3:",
+        "amongpat": ":amongpat_green: :AmongPat_yellow: :amongpat_red:",
     }
 
     for i in extendables:
         if i in " ".join(argv[2:]).lower():
             pypercopy(extendables[i])
             esc()
-            cp_notif("Success!", "Message copied to clipboard.", 2)
+            notification("Success!", "Message copied to clipboard.", 2)
 
 
 def load():
@@ -259,4 +261,14 @@ def load():
 
 def backup():
     esc()
+    system("start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw backup")
+
+
+def mcversion():
+    esc()
     system(f'start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {" ".join(argv[1:])}')
+
+
+def mccheck():
+    esc()
+    system(f'start C:\\Items\\Code\\mc-profiles\\ifexists.pyw')
