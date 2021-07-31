@@ -5,7 +5,7 @@ Sleep 750
 Click 818 429
 Click 818 429
 Click 818 429
-Send jhfAozljsfhalskdasdjaksfhajdahsdkADKhdlAHDdAD;LjsdlSLhSKJDHAJSHDKSJDHHKBSHDJASHDKJHiuydiauhaisdyasfjsldgnxfooidjaslas;jdj;jhkjhk
+Send prokenz101
 Click 822 531
 Sleep 750
 Click 852 784
