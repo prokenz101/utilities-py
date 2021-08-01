@@ -11,6 +11,7 @@ def notification(title, subtitle, interval, icon=None, threaded=True):
     toaster = ToastNotifier()
     toaster.show_toast(title, subtitle, icon_path=icon, duration=interval)
 
+
 def esc(interval=0.50):
     sleep(interval)
     hotkey("esc")
@@ -172,13 +173,19 @@ def discord():
     options = {
         "going idle": goingidle,
         "im back": imback,
-        "random about me": randomaboutme
+        "random about me": randomaboutme,
     }
 
     for i in options:
         if " ".join(argv[2:]) in i:
             esc()
             options[i]()
+
+
+def titlecase():
+    esc()
+    pypercopy(" ".join(argv[2:]).title())
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def emojify():
@@ -266,9 +273,9 @@ def backup():
 
 def mcversion():
     esc()
-    system(f'start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {" ".join(argv[1:])}')
+    system(f"start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw mcversion")
 
 
 def mccheck():
     esc()
-    system(f'start C:\\Items\\Code\\mc-profiles\\ifexists.pyw')
+    system("start C:\\Items\\Code\\mc-profiles\\ifexists.pyw")
