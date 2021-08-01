@@ -22,6 +22,7 @@ instructions = {
     "backup": backup,
     "mcversion": mcversion,
     "done?": mccheck,
+    "title": titlecase
 }
 
 try:
