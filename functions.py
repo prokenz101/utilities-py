@@ -279,3 +279,22 @@ def mcversion():
 def mccheck():
     esc()
     system("start C:\\Items\\Code\\mc-profiles\\ifexists.pyw")
+
+
+def ebackup():
+    esc()
+    system("start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw ebackup")
+
+
+def mcprofiles():
+    options = {
+        "load": load,
+        "backup": backup,
+        "mcversion": mcversion,
+        "done?": mccheck,
+        "ebackup": ebackup,
+    }
+
+    for i in options:
+        if argv[2] == i:
+            options[i]()
