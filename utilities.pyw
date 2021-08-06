@@ -18,16 +18,13 @@ instructions = {
     "emojify": emojify,
     "spam": spambot,
     "extend": extend,
-    "load": load,
-    "backup": backup,
-    "mcversion": mcversion,
-    "done?": mccheck,
-    "title": titlecase
+    "mcprofiles": mcprofiles
 }
 
 try:
     for i in instructions:
         if argv[1].startswith(i):
             instructions[i]()
+
 except Exception as e:
     notification("An Error Has Occured.", str(e), 30)
