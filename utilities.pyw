@@ -19,7 +19,7 @@ instructions = {
     "spam": spambot,
     "extend": extend,
     "mcprofiles": mcprofiles,
-    "mcp": mcprofiles
+    "mp": mcprofiles
 }
 
 try:
