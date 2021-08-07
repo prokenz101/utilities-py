@@ -286,6 +286,11 @@ def ebackup():
     system("start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw ebackup")
 
 
+def eload():
+    esc()
+    system("start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw eload")
+
+
 def mcprofiles():
     options = {
         "load": load,
@@ -293,6 +298,7 @@ def mcprofiles():
         "mcversion": mcversion,
         "done?": mccheck,
         "ebackup": ebackup,
+        "eload": eload
     }
 
     for i in options:
