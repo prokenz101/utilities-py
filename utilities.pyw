@@ -18,7 +18,8 @@ instructions = {
     "emojify": emojify,
     "spam": spambot,
     "extend": extend,
-    "mcprofiles": mcprofiles
+    "mcprofiles": mcprofiles,
+    "mcp": mcprofiles
 }
 
 try:
