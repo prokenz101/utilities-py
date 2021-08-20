@@ -4,6 +4,7 @@ from pyperclip import copy as pypercopy
 from time import sleep
 from webbrowser import open_new_tab
 from os import system
+from pathlib import Path
 from win10toast import ToastNotifier
 
 
@@ -245,6 +246,51 @@ def spambot():
         notification("Spamming Stopped.", "Spamming was cancelled.", 10)
 
 
+def autoclick():
+    esc()
+    supplement_ahk_path = Path(
+        R"C:\Items\Code\utilities\supplementary-ahks\autoclicker.ahk"
+    )
+    countindex = 4
+    try:
+        mousebutton = argv[3].title()
+    except IndexError:
+        pass
+
+    try:
+        supplement_ahk_path.touch()
+    except FileExistsError:
+        supplement_ahk_path.unlink(missing_ok=True)
+        sleep(0.25)
+        autoclick()
+
+    try:
+        interval = int(argv[2])
+    except ValueError:
+        mousebutton = argv[2].title()
+        countindex -= 1
+        interval = 0
+
+    try:
+        count = f", {argv[countindex]}"
+    except IndexError:
+        count = ""
+
+    supplement_ahk_path.write_text(f"""loop{count} {{
+    MouseClick, {mousebutton}
+    Sleep, {interval}
+}}
+
+ExitApp
+
+F7::
+ExitApp
+Return
+""")
+    
+    system(f"start {supplement_ahk_path}")
+
+
 def extend():
     extendables = {
         "widepeepohappy": ":widepeepoHappy1::widepeepoHappy2::widepeepoHappy3::widepeepoHappy4:",
@@ -261,46 +307,81 @@ def extend():
             notification("Success!", "Message copied to clipboard.", 2)
 
 
-def load():
+def mcpstart(func, filepath=R"C:\Items\Code\mc-profiles\mc-profiles.pyw", params=""):
     esc()
-    system(f'start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {" ".join(argv[1:])}')
-
-
-def backup():
-    esc()
-    system("start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw backup")
-
-
-def mcversion():
-    esc()
-    system(f"start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw mcversion")
-
-
-def mccheck():
-    esc()
-    system("start C:\\Items\\Code\\mc-profiles\\ifexists.pyw")
-
-
-def ebackup():
-    esc()
-    system("start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw ebackup")
-
-
-def eload():
-    esc()
-    system("start C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw eload")
+    system(f"start {filepath} {func} {params}")
 
 
 def mcprofiles():
-    options = {
-        "load": load,
-        "backup": backup,
-        "mcversion": mcversion,
-        "done?": mccheck,
-        "ebackup": ebackup,
-        "eload": eload
-    }
+    options = (
+        "backup",
+        "mcversion",
+        "done?",
+        "ebackup",
+        "eload",
+    )
+    arg = argv[2]
+    if arg == "load":
+        mcpstart("load", params=" ".join(argv[2:]))
+    elif arg in options:
+        mcpstart(" ".join(argv[2:]))
 
-    for i in options:
+
+# ahk modes
+
+ahkmodes = {
+    "utoyou": "\n::u::you",
+    "autocorrect": Path(R"C:\Items\Code\typing-utilities\autocorrect.ahk").read_text(),
+}
+
+# incomplete
+# incomplete
+# incomplete
+
+def enable():
+    customahkpath = Path(R"C:\Items\Code\utilities\supplementary-ahks\customahk.ahk")
+    customahkpath.touch(exist_ok=True)
+    for i in ahkmodes:
+        if not i in Path(R"C:\Items\Code\utilities\enabledmodes").read_text():
+            if argv[3] == i:
+                customahktext = customahkpath.read_text()
+                customahksplit = customahktext.split("\n")
+                customahksplit.append(ahkmodes[i])
+                customahkpath.write_text("\n".join(customahksplit))
+                enabledmodes = Path(R"C:\Items\Code\utilities\enabledmodes")
+                if Path(R"C:\Items\Code\utilities\enabledmodes").read_text() == "":
+                    system(
+                        R"start C:\Items\Code\utilities\supplementary-ahks\customahk.ahk"
+                    )
+
+                enabledmodes.touch(exist_ok=True)
+                enabledmodes.write_text(f"{enabledmodes.read_text()}\n{i}")
+                notification("Enabled.", f"Enabled '{i}' mode.", 3)
+
+        else:
+            notification("Hey!", "That mode is already enabled.", 3)
+            exit()
+
+
+def disable():
+    customahkpath = Path(R"C:\Items\Code\utilities\supplementary-ahks\customahk.ahk")
+    # continue from here
+
+
+def ahkclear():
+    system('powershell.exe -c "Get-Process autohotkey | Stop-Process"')
+    system(R"start C:\Items\Code\utilities\utilities.ahk")
+    Path(R"C:\Items\Code\utilities\enabledmodes").write_text("")
+    try:
+        Path(R"C:\Items\Code\utilities\supplementary-ahks\customahk.ahk").unlink()
+    except FileNotFoundError:
+        notification("File does not exist.", "It seems that no ahk file exists.", 3)
+        # notification("Cleared All Files.", "The program has deleted all AHKs.", 3)
+
+
+def ahk():
+    possibilities = {"enable": enable, "disable": disable, "clearall": ahkclear}
+    for i in possibilities:
         if argv[2] == i:
-            options[i]()
+            esc()
+            possibilities[i]()
