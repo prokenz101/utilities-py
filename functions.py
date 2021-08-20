@@ -276,18 +276,22 @@ def autoclick():
     except IndexError:
         count = ""
 
-    supplement_ahk_path.write_text(f"""loop{count} {{
+    supplement_ahk_path.write_text(
+        f"""loop{count} {{
     MouseClick, {mousebutton}
     Sleep, {interval}
 }}
 
+FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
 ExitApp
 
 F7::
 ExitApp
 Return
-""")
-    
+"""
+    )
+
+    notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
     system(f"start {supplement_ahk_path}")
 
 
@@ -337,6 +341,7 @@ ahkmodes = {
 # incomplete
 # incomplete
 # incomplete
+
 
 def enable():
     customahkpath = Path(R"C:\Items\Code\utilities\supplementary-ahks\customahk.ahk")
