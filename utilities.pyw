@@ -19,7 +19,9 @@ instructions = {
     "spam": spambot,
     "extend": extend,
     "mcprofiles": mcprofiles,
-    "mp": mcprofiles
+    "autoclick": autoclick,
+    "mp": mcprofiles,
+    "ahk": ahk
 }
 
 try:
@@ -28,4 +30,4 @@ try:
             instructions[i]()
 
 except Exception as e:
-    notification("An Error Has Occured.", str(e), 30)
+    notification("An Error Has Occured.", str(e), 10)
