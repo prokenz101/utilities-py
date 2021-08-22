@@ -21,7 +21,6 @@ instructions = {
     "mcprofiles": mcprofiles,
     "autoclick": autoclick,
     "mp": mcprofiles,
-    "ahk": ahk
 }
 
 try:
