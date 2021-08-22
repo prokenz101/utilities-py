@@ -40,7 +40,7 @@ def imagesearch():
 
 
 def toenglish():
-    contents = "%20".join(argv[2:])
+    contents = "%20".join(argv[3:])
     esc()
     open_new_tab(
         f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
@@ -48,19 +48,30 @@ def toenglish():
 
 
 def tofrench():
-    contents = "%20".join(argv[1:])
+    contents = "%20".join(argv[3:])
     esc()
     open_new_tab(
-        f"https://translate.google.com/?sl=en&tl=fr&text={contents[11:]}&op=translate"
+        f"https://translate.google.com/?sl=en&tl=fr&text={contents[0:]}&op=translate"
     )
 
 
 def toarabic():
-    contents = "%20".join(argv[1:])
+    contents = "%20".join(argv[3:])
     esc()
     open_new_tab(
-        f"https://translate.google.com/?sl=en&tl=ar&text={contents[11:]}&op=translate"
+        f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
     )
+
+
+def translate():
+    languages = {
+        "tofrench": tofrench,
+        "toenglish": toenglish,
+        "toarabic": toarabic
+    }
+    for i in languages:
+        if i == argv[2]:
+            languages[i]()
 
 
 def sarcasm():
