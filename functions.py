@@ -1,11 +1,10 @@
 from sys import argv
-from pyautogui import FailSafeException, hotkey, typewrite
-import pyautogui
+from pyautogui import FailSafeException, hotkey, typewrite, mouseDown
 from pyperclip import copy as pypercopy
 from time import sleep
 from webbrowser import open_new_tab
-from os import system
 from pathlib import Path
+from subprocess import call
 from win10toast import ToastNotifier
 
 
@@ -158,17 +157,17 @@ def copypaste():
 
 def goingidle():
     sleep(0.50)
-    system("start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk")
+    call("start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk", shell=True)
     sleep(12.5)
     hotkey("win", "m")
 
 
 def imback():
-    system("start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk")
+    call("start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk", shell=True)
 
 
 def randomaboutme():
-    system("start C:\\Items\\Code\\utilities\\supplementary-ahks\\randomaboutme.ahk")
+    call("start C:\\Items\\Code\\utilities\\supplementary-ahks\\randomaboutme.ahk", shell=True)
 
 
 def discord():
@@ -249,7 +248,7 @@ def spambot():
 
 def autoclick():
     esc()
-    supplement_ahk_path = Path(
+    AHKPATH = Path(
         R"C:\Items\Code\utilities\supplementary-ahks\autoclicker.ahk"
     )
     countindex = 4
@@ -259,9 +258,9 @@ def autoclick():
         pass
 
     try:
-        supplement_ahk_path.touch()
+        AHKPATH.touch()
     except FileExistsError:
-        supplement_ahk_path.unlink(missing_ok=True)
+        AHKPATH.unlink(missing_ok=True)
         sleep(0.25)
         autoclick()
 
@@ -277,38 +276,45 @@ def autoclick():
     except IndexError:
         count = ""
 
-    supplement_ahk_path.write_text(
+    AHKPATH.write_text(
         f"""loop{count} {{
     MouseClick, {mousebutton}
     Sleep, {interval}
 }}
-
 FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
 ExitApp
-
 F7::
+FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
 ExitApp
 Return
 """
     )
 
     notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
-    system(f"start {supplement_ahk_path}")
+    call(f"{AHKPATH}", shell=True)
 
 
 def tapemouse():
-        esc()
-        try:
-            if argv[3].startswith("wait="):
-                sleep(int(argv[3][5:]))
-        except IndexError:
-            pass
-        try:
-            pyautogui.mouseDown(button=argv[2].lower())
-            notification(f"Taping {argv[2].title()} Mouse Button.", f"The {argv[2]} mouse button has been taped down.", 3)
-        except FailSafeException:
-            notification("Couldn't Start TapeMouse.", "The tapemouse was stopped due to FailSafeException.", 3)
-        
+    esc()
+    try:
+        if argv[3].startswith("wait="):
+            sleep(int(argv[3][5:]))
+    except IndexError:
+        pass
+    try:
+        mouseDown(button=argv[2].lower())
+        notification(
+            f"Taping {argv[2].title()} Mouse Button.",
+            f"The {argv[2]} mouse button has been taped down.",
+            3,
+        )
+    except FailSafeException:
+        notification(
+            "Couldn't Start TapeMouse.",
+            "The tapemouse was stopped due to FailSafeException.",
+            3,
+        )
+
 
 def extend():
     extendables = {
@@ -328,7 +334,7 @@ def extend():
 
 def mcpstart(func, filepath=R"C:\Items\Code\mc-profiles\mc-profiles.pyw", params=""):
     esc()
-    system(f"start {filepath} {func} {params}")
+    call(f"start {filepath} {func} {params}", shell=True)
 
 
 def mcprofiles():
