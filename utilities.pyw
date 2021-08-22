@@ -21,6 +21,7 @@ instructions = {
     "mcprofiles": mcprofiles,
     "autoclick": autoclick,
     "mp": mcprofiles,
+    "tapemouse": tapemouse
 }
 
 try:
