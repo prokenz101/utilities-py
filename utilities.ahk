@@ -5,6 +5,12 @@ Sleep, 150
 Run, pythonw utilities.pyw %Clipboard%
 Return
 
++F8::
+Send, ^c
+Sleep, 150
+Run, pythonw utilities.pyw %Clipboard%
+Return
+
 $"::
 SendRaw, ""
 Send, {Left}
@@ -20,7 +26,6 @@ If (A_PriorKey = "Space") {
 Return
 
 $(::
-; MsgBox, , , %A_PriorKey%
 If (A_PriorKey = ";") {
     SendRaw, (
 }
