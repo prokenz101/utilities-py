@@ -1,3 +1,4 @@
+from os import remove
 from sys import argv
 from pyautogui import FailSafeException, hotkey, typewrite, mouseDown
 from pyperclip import copy as pypercopy
@@ -64,11 +65,7 @@ def toarabic():
 
 
 def translate():
-    languages = {
-        "tofrench": tofrench,
-        "toenglish": toenglish,
-        "toarabic": toarabic
-    }
+    languages = {"tofrench": tofrench, "toenglish": toenglish, "toarabic": toarabic}
     for i in languages:
         if i == argv[2]:
             languages[i]()
@@ -78,6 +75,8 @@ def sarcasm():
     contents = " ".join(argv[2:])
     contents_list = []
     state = "upper"
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
     for i in contents:
         if state == "upper":
             contents_list.append(i.lower())
@@ -86,30 +85,30 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    esc()
     pypercopy("".join(contents_list))
-    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
     esc()
-    pypercopy(" ".join(contents))
     notification("Success!", "Message copied to clipboard.", 2)
+    pypercopy(" ".join(contents))
 
 
 def spoilerspam():
     base_var = " ".join(argv[2:])
     contents = []
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
     for i in base_var:
         contents.append(f"||{i}")
 
-    esc()
     pypercopy(f'{"||".join(contents)}||')
-    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def copypaste():
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
     copypaste_dict = {
         "aigu e": "é",
         "aigu E": "É",
@@ -139,17 +138,6 @@ def copypaste():
         "cedille C": "Ç",
         "3164": "ㅤ",
         "hangul filler": "ㅤ",
-        "raised to 0": "⁰",
-        "raised to 1": "¹",
-        "square": "²",
-        "cube": "³",
-        "raised to 4": "⁴",
-        "raised to 5": "⁵",
-        "raised to 6": "⁶",
-        "raised to 7": "⁷",
-        "raised to 8": "⁸",
-        "raised to 9": "⁹",
-        "raised to n": "ⁿ",
         "divison": "÷",
         "multi": "×",
         "!=": "≠",
@@ -162,13 +150,14 @@ def copypaste():
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
             pypercopy(copypaste_dict[i])
-            esc()
-            notification("Success!", "Message copied to clipboard.", 2)
 
 
 def goingidle():
     sleep(0.50)
-    call("start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk", shell=True)
+    call(
+        "start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk",
+        shell=True,
+    )
     sleep(12.5)
     hotkey("win", "m")
 
@@ -177,15 +166,10 @@ def imback():
     call("start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk", shell=True)
 
 
-def randomaboutme():
-    call("start C:\\Items\\Code\\utilities\\supplementary-ahks\\randomaboutme.ahk", shell=True)
-
-
 def discord():
     options = {
         "going idle": goingidle,
         "im back": imback,
-        "random about me": randomaboutme,
     }
 
     for i in options:
@@ -196,11 +180,12 @@ def discord():
 
 def titlecase():
     esc()
-    pypercopy(" ".join(argv[2:]).title())
     notification("Success!", "Message copied to clipboard.", 2)
+    pypercopy(" ".join(argv[2:]).title())
 
 
 def emojify():
+    esc()
     converted = []
     special_char = {
         " ": ":black_large_square:",
@@ -225,9 +210,99 @@ def emojify():
             converted.append(special_char[i])
 
     pypercopy(" ".join(converted))
-    esc()
     notification("Success!", "Message copied to clipboard.", 2)
 
+
+def exponent():
+    converted = []
+    esc()
+    superscript_char = {
+        "1": "¹",
+        "2": "²",
+        "3": "³",
+        "4": "⁴",
+        "5": "⁵",
+        "6": "⁶",
+        "7": "⁷",
+        "8": "⁸",
+        "9": "⁹",
+        "0": "⁰",
+        "-": "⁻",
+        "=": "⁼",
+        "+": "⁺",
+        # fmt: off
+        "a": "ᵃ", "b": "ᵇ", "c": 'ᶜ', "d": "ᵈ", "e": "ᵉ", 
+        "f": "ᶠ", "g": "ᵍ", "h": "ʰ", "i": "ᶦ", "j": "ʲ", 
+        "k": "ᵏ", "l": "ˡ", 'm': "ᵐ", 'n': "ⁿ", 'o': "ᵒ", 
+        'p': "ᵖ", 'r': "ʳ", 's': "ˢ", 't': "ᵗ",'u': "ᵘ", 
+        'v': "ᵛ", 'w': "ʷ", 'x': "ˣ", 'y': "ʸ", 'z': "ᶻ"
+        # fmt: on
+    }
+    for i in " ".join(argv[2:]):
+        if i in superscript_char:
+            converted.append(superscript_char[i])
+
+    pypercopy("".join(converted))
+    notification("Success!", "Message copied to clipboard.", 2)
+
+
+def fr_e():
+    # invalid character error
+    notification(
+        "Hey!", "It seems you tried to input a character that we don't have.", 3
+    )
+    exit()
+
+
+def split(word):
+    return [char for char in word]
+
+
+def fraction():
+    converted = []
+    esc()
+    char = {
+        # fmt: off
+        "0": ("⁰", "₀"), "1": ("¹", "₁"), "2": ("²", "₂"), 
+        "3": ("³", "₃"), "4": ("⁴", "₄"), "5": ("⁵", "₅"),
+        "6": ("⁶", "₆"), "7": ("⁷", "₇"), 
+        "8": ("⁸", "₈"), "9": ("⁹", "₉"),
+        "+": ("⁺", "₊"), "-": ("⁻", "₋"), "=": ("⁼", "₌"),
+        "(": ("⁽", "₍"), ")": ("⁾", "₎"),
+        "a": ("ᵃ", "ₐ"), "b": ("ᵇ", fr_e), "c": ("ᶜ", fr_e),
+        "d": ("ᵈ", fr_e), "e": ("ᵉ", "ₑ"), "f": ("ᶠ", fr_e), 
+        "g": ("ᵍ", fr_e), "h": ("ʰ", "ₕ"), "i": ("ⁱ", "ᵢ"), "j": ("ʲ", "ⱼ"), 
+        "k": ("ᵏ", "ₖ"), "l": ("ˡ", "ₗ"), "m": ("ᵐ", "ₘ"), "n": ("ⁿ", "ₙ"),
+        "o": ("ᵒ", "ₒ"), "p": ("ᵖ", "ₚ"), "r": ("ʳ", "ᵣ"), "s": ("ˢ", "ₛ"),
+        "t": ("ᵗ", "ₜ"), "u": ("ᵘ", "ᵤ"), "v": ("ᵛ", "ᵥ"), "w": ("ʷ", fr_e), 
+        "x": ("ˣ", "ₓ"), "y": ("ʸ", fr_e), "z": ("ᶻ", fr_e),
+        # fmt: on
+    }
+    splitargv = split(argv[2])
+    numerator = "".join(splitargv[: splitargv.index("/")])
+    print(numerator)
+    denominator = "".join(splitargv[splitargv.index("/") + 1 :])
+    print(denominator)
+
+    try:
+        for i in char:
+            for x in numerator:
+                if i == x:
+                    converted.append(char[i][0])
+
+        converted.append("⁄")
+
+        for i in char:
+            for x in denominator:
+                if i == x:
+                    converted.append(char[i][1])
+
+        pypercopy("".join(converted))
+
+    except TypeError:
+        fr_e()
+
+    notification("Success!", "Message copied to clipboard.", 2)
 
 def spambot():
     notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
@@ -259,9 +334,7 @@ def spambot():
 
 def autoclick():
     esc()
-    AHKPATH = Path(
-        R"C:\Items\Code\utilities\supplementary-ahks\autoclicker.ahk"
-    )
+    AHKPATH = Path(R"C:\Items\Code\utilities\supplementary-ahks\autoclicker.ahk")
     countindex = 4
     try:
         mousebutton = argv[3].title()
@@ -301,8 +374,8 @@ Return
 """
     )
 
-    notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
     call(f"{AHKPATH}", shell=True)
+    notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
 
 
 def tapemouse():
