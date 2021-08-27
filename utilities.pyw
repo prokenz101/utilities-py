@@ -18,8 +18,13 @@ instructions = {
     "extend": extend,
     "mcprofiles": mcprofiles,
     "autoclick": autoclick,
-    "mp": mcprofiles,
-    "tapemouse": tapemouse
+    "tapemouse": tapemouse,
+    "exponent": exponent,
+    "ep": exponent,
+    "fraction": fraction,
+    "fc": fraction, 
+    "superscript": exponent,
+    "mp": mcprofiles
 }
 
 try:
