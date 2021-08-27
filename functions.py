@@ -75,8 +75,6 @@ def sarcasm():
     contents = " ".join(argv[2:])
     contents_list = []
     state = "upper"
-    esc()
-    notification("Success!", "Message copied to clipboard.", 2)
     for i in contents:
         if state == "upper":
             contents_list.append(i.lower())
@@ -86,29 +84,29 @@ def sarcasm():
             state = "upper"
 
     pypercopy("".join(contents_list))
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
+    pypercopy(" ".join(contents))
     esc()
     notification("Success!", "Message copied to clipboard.", 2)
-    pypercopy(" ".join(contents))
 
 
 def spoilerspam():
     base_var = " ".join(argv[2:])
     contents = []
-    esc()
-    notification("Success!", "Message copied to clipboard.", 2)
     for i in base_var:
         contents.append(f"||{i}")
 
     pypercopy(f'{"||".join(contents)}||')
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def copypaste():
-    esc()
-    notification("Success!", "Message copied to clipboard.", 2)
     copypaste_dict = {
         "aigu e": "é",
         "aigu E": "É",
@@ -150,6 +148,9 @@ def copypaste():
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
             pypercopy(copypaste_dict[i])
+    
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def goingidle():
@@ -179,13 +180,12 @@ def discord():
 
 
 def titlecase():
+    pypercopy(" ".join(argv[2:]).title())
     esc()
     notification("Success!", "Message copied to clipboard.", 2)
-    pypercopy(" ".join(argv[2:]).title())
 
 
 def emojify():
-    esc()
     converted = []
     special_char = {
         " ": ":black_large_square:",
@@ -210,12 +210,12 @@ def emojify():
             converted.append(special_char[i])
 
     pypercopy(" ".join(converted))
+    esc()
     notification("Success!", "Message copied to clipboard.", 2)
 
 
 def exponent():
     converted = []
-    esc()
     superscript_char = {
         "1": "¹",
         "2": "²",
@@ -243,6 +243,7 @@ def exponent():
             converted.append(superscript_char[i])
 
     pypercopy("".join(converted))
+    esc()
     notification("Success!", "Message copied to clipboard.", 2)
 
 
@@ -260,7 +261,6 @@ def split(word):
 
 def fraction():
     converted = []
-    esc()
     char = {
         # fmt: off
         "0": ("⁰", "₀"), "1": ("¹", "₁"), "2": ("²", "₂"), 
@@ -302,7 +302,9 @@ def fraction():
     except TypeError:
         fr_e()
 
+    esc()
     notification("Success!", "Message copied to clipboard.", 2)
+
 
 def spambot():
     notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
