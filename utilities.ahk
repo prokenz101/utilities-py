@@ -11,6 +11,8 @@ Sleep, 150
 Run, pythonw utilities.pyw %Clipboard%
 Return
 
+#IfWinNotActive, ahk_exe Code.exe
+
 $"::
 SendRaw, ""
 Send, {Left}
