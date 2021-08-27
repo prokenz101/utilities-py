@@ -22,9 +22,9 @@ instructions = {
     "exponent": exponent,
     "ep": exponent,
     "fraction": fraction,
-    "fc": fraction, 
+    "fc": fraction,
     "superscript": exponent,
-    "mp": mcprofiles
+    "mp": mcprofiles,
 }
 
 try:
