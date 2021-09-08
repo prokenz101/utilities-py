@@ -1,4 +1,3 @@
-from os import remove
 from sys import argv
 from pyautogui import FailSafeException, hotkey, typewrite, mouseDown
 from pyperclip import copy as pypercopy
@@ -139,6 +138,7 @@ def copypaste():
         "divison": "÷",
         "multi": "×",
         "!=": "≠",
+        "congruence": "≅",
         "greater than or equal to": "≥",
         ">=": "≥",
         "lesser than or equal to": "≤",
@@ -369,6 +369,7 @@ def autoclick():
 }}
 FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
 ExitApp
+
 F7::
 FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
 ExitApp
