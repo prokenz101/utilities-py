@@ -21,6 +21,9 @@ instructions = {
     "tapemouse": tapemouse,
     "exponent": exponent,
     "ep": exponent,
+    "title": titlecase,
+    "titlecase": titlecase,
+    "cursive": cursive,
     "fraction": fraction,
     "fc": fraction,
     "superscript": exponent,
@@ -29,7 +32,7 @@ instructions = {
 
 try:
     for i in instructions:
-        if argv[1].startswith(i):
+        if argv[1].lower().startswith(i):
             instructions[i]()
 
 except Exception as e:
