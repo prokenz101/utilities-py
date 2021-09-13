@@ -423,9 +423,9 @@ def tapemouse():
 
 def extend():
     extendables = {
-        "widepeepohappy": ":widepeepoHappy1::widepeepoHappy2::widepeepoHappy3::widepeepoHappy4:",
-        "widepeeposad": ":widepeepoSad1::widepeepoSad2::widepeepoSad3::widePeepoSad4:",
-        "widepeepoblanket": ":widepeepoBlanket1::widepeepoBlanket2::widepeepoBlanket3::widepeepoBlanket4:",
+        "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
+        "widepeeposad": ":widepeeposad1::widepeeposad2::widepeeposad3::widepeeposad4:",
+        "widepeepoblanket": ":widepeepoblanket1::widepeepoblanket2::widepeepoblanket3::widepeepoblanket4:",
         "dogeburger": ":dogeburger1::dogeburger2::dogeburger3:",
         "amongpat": ":amongpat_green: :AmongPat_yellow: :amongpat_red:",
     }
@@ -438,6 +438,8 @@ def extend():
 
 
 def mcprofiles():
+    esc()
+
     if argv[2] == "done?":
         call(R"python C:\Items\Code\mc-profiles\ifexists.pyw", shell=True)
         sleep(1)
