@@ -219,14 +219,15 @@ def exponent():
     superscript_char = {
         # fmt: off
         "-": "⁻", "=": "⁼", "+": "⁺",
-        "1": "¹", "2": "²", "3": "³", 
+        "1": "¹", "2": "²", "3": "³",
         "4": "⁴", "5": "⁵", "6": "⁶",
         "7": "⁷", "8": "⁸", "9": "⁹", "0": "⁰",
-        "a": "ᵃ", "b": "ᵇ", "c": 'ᶜ', "d": "ᵈ", "e": "ᵉ", 
-        "f": "ᶠ", "g": "ᵍ", "h": "ʰ", "i": "ᶦ", "j": "ʲ", 
-        "k": "ᵏ", "l": "ˡ", 'm': "ᵐ", 'n': "ⁿ", 'o': "ᵒ", 
-        'p': "ᵖ", 'r': "ʳ", 's': "ˢ", 't': "ᵗ",'u': "ᵘ", 
-        'v': "ᵛ", 'w': "ʷ", 'x': "ˣ", 'y': "ʸ", 'z': "ᶻ"
+        "a": "ᵃ", "b": "ᵇ", "c": 'ᶜ', "d": "ᵈ", "e": "ᵉ",
+        "f": "ᶠ", "g": "ᵍ", "h": "ʰ", "i": "ᶦ", "j": "ʲ",
+        "k": "ᵏ", "l": "ˡ", 'm': "ᵐ", 'n': "ⁿ", 'o': "ᵒ",
+        'p': "ᵖ", 'r': "ʳ", 's': "ˢ", 't': "ᵗ",'u': "ᵘ",
+        'v': "ᵛ", 'w': "ʷ", 'x': "ˣ", 'y': "ʸ", 'z': "ᶻ",
+        "(": "⁽", ")": "⁾" 
         # fmt: on
     }
     for i in " ".join(argv[2:]):
@@ -296,32 +297,37 @@ def fraction():
         "x": ("ˣ", "ₓ"), "y": ("ʸ", fr_e), "z": ("ᶻ", fr_e),
         # fmt: on
     }
-    splitargv = split(argv[2])
-    numerator = "".join(splitargv[: splitargv.index("/")])
-    print(numerator)
-    denominator = "".join(splitargv[splitargv.index("/") + 1 :])
-    print(denominator)
 
-    try:
-        for i in char:
-            for x in numerator:
-                if i == x:
-                    converted.append(char[i][0])
+    slash_index = "".join(argv[2:]).index("/")
+    print(slash_index)
+    numerator = argv[2:slash_index]
+    print("".join(numerator))
+    # splitargv = split(argv[2])
+    # numerator = "".join(splitargv[: splitargv.index("/")])
+    # print(numerator)
+    # denominator = "".join(splitargv[splitargv.index("/") + 1 :])
+    # print(denominator)
 
-        converted.append("⁄")
+    # try:
+    #     for i in char:
+    #         for x in numerator:
+    #             if i == x:
+    #                 converted.append(char[i][0])
 
-        for i in char:
-            for x in denominator:
-                if i == x:
-                    converted.append(char[i][1])
+    #     converted.append("⁄")
 
-        pypercopy("".join(converted))
+    #     for i in char:
+    #         for x in denominator:
+    #             if i == x:
+    #                 converted.append(char[i][1])
 
-    except TypeError:
-        fr_e()
+    #     pypercopy("".join(converted))
 
-    esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    # except TypeError:
+    #     fr_e()
+
+    # esc()
+    # notification("Success!", "Message copied to clipboard.", 2)
 
 
 def spambot():
