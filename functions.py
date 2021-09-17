@@ -466,9 +466,6 @@ def extend():
     extendables = {
         "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
         "widepeeposad": ":widepeeposad1::widepeeposad2::widepeeposad3::widepeeposad4:",
-        "widepeepoblanket": ":widepeepoblanket1::widepeepoblanket2::widepeepoblanket3::widepeepoblanket4:",
-        "dogeburger": ":dogeburger1::dogeburger2::dogeburger3:",
-        "amongpat": ":amongpat_green: :AmongPat_yellow: :amongpat_red:",
     }
 
     for i in extendables:
