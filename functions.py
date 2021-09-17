@@ -94,43 +94,21 @@ def spoilerspam():
 
 def copypaste():
     copypaste_dict = {
-        "aigu e": "é",
-        "aigu E": "É",
-        "grave a": "à",
-        "grave e": "è",
-        "grave u": "ù",
-        "grave A": "À",
-        "grave E": "È",
-        "grave U": "Ù",
-        "chapeau a": "â",
-        "chapeau e": "ê",
-        "chapeau i": "î",
-        "chapeau o": "ô",
-        "chapeau u": "û",
-        "chapeau A": "Â",
-        "chapeau E": "Ê",
-        "chapeau I": "Î",
-        "chapeau O": "Ô",
-        "chapeau U": "Û",
-        "trema e": "ë",
-        "trema i": "ï",
-        "trema u": "ü",
-        "trema E": "Ë",
-        "trema I": "Ï",
-        "trema U": "Ü",
-        "cedille c": "ç",
-        "cedille C": "Ç",
-        "3164": "ㅤ",
-        "hangul filler": "ㅤ",
-        "divison": "÷",
-        "multi": "×",
-        "!=": "≠",
-        "congruence": "≅",
-        "greater than or equal to": "≥",
-        ">=": "≥",
-        "lesser than or equal to": "≤",
-        "<=": "≤",
+        # fmt: off
+        "aigu e": "é", "aigu E": "É", "grave a": "à",
+        "grave e": "è", "grave u": "ù", "grave A": "À",
+        "grave E": "È", "grave U": "Ù", "chapeau a": "â",
+        "chapeau e": "ê", "chapeau i": "î", "chapeau o": "ô",
+        "chapeau u": "û", "chapeau A": "Â", "chapeau E": "Ê",
+        "chapeau I": "Î", "chapeau O": "Ô", "chapeau U": "Û",
+        "trema e": "ë", "trema i": "ï", "trema u": "ü",
+        "trema E": "Ë", "trema I": "Ï", "trema U": "Ü",
+        "cedille c": "ç", "cedille C": "Ç", "3164": "ㅤ",
+        "hangul filler": "ㅤ", "divison": "÷", "multi": "×",
+        "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
+        ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
         "shrug": "¯\_(ツ)_/¯",
+        # fmt: on
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
@@ -356,7 +334,9 @@ def spambot():
 
 def autoclick():
     esc()
-    AHKPATH = Path(R"C:\Users\user\Downloads\PythonFiles\utilities\AutoClicker\autoclicker.ahk")
+    AHKPATH = Path(
+        R"C:\Users\user\Downloads\PythonFiles\utilities\AutoClicker\autoclicker.ahk"
+    )
     countindex = 4
     try:
         mousebutton = argv[3].title()
