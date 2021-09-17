@@ -2,11 +2,11 @@
 
 simple utilities that I mostly made for myself
 
-Please note: This is a side project for me and its primarily used for me, myself and I.
+Please note: This is a side project for me and its primarily used for me, myself and I. (and a few others)
 
 That means: I won't be adding any features that I dont need.
 
-Modules required: [pyperclip](https://pypi.org/project/pyperclip/), [pyautogui](https://pypi.org/project/PyAutoGUI/)
+Modules required: [pyperclip](https://pypi.org/project/pyperclip/), [pyautogui](https://pypi.org/project/PyAutoGUI/), [win10toast](https://pypi.org/project/win10toast/)
 
 Open [powertoys](https://github.com/microsoft/PowerToys) and type 'help' for a list of commands.
 
