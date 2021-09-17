@@ -356,7 +356,7 @@ def spambot():
 
 def autoclick():
     esc()
-    AHKPATH = Path(R"C:\Users\user\Downloads\PythonFiles\AutoClicker\autoclicker.ahk")
+    AHKPATH = Path(R"C:\Users\user\Downloads\PythonFiles\utilities\AutoClicker\autoclicker.ahk")
     countindex = 4
     try:
         mousebutton = argv[3].title()
