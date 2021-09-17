@@ -64,7 +64,14 @@ def toarabic():
 
 
 def translate():
-    languages = {"tofrench": tofrench, "toenglish": toenglish, "toarabic": toarabic}
+    languages = {
+        "tofrench": tofrench,
+        "f": tofrench,
+        "toenglish": toenglish,
+        "e": toenglish,
+        "toarabic": toarabic,
+        "a": toarabic,
+    }
     for i in languages:
         if i == argv[2]:
             languages[i]()
