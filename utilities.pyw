@@ -2,21 +2,15 @@ from sys import argv
 from functions import *
 
 instructions = {
-    "-": googlesearch,
-    "youtube": youtubesearch,
-    "images": imagesearch,
     "translate": translate,
     "sarcasm": sarcasm,
     "spacer": spacer,
     "spoilerspam": spoilerspam,
     "copypaste": copypaste,
     "cp": copypaste,
-    "discord": discord,
-    "dsc": discord,
     "emojify": emojify,
     "spam": spambot,
     "extend": extend,
-    "mcprofiles": mcprofiles,
     "autoclick": autoclick,
     "tapemouse": tapemouse,
     "exponent": exponent,
@@ -29,7 +23,6 @@ instructions = {
     "flip": flipped,
     "upside-down": flipped,
     "superscript": exponent,
-    "mp": mcprofiles,
 }
 
 try:
