@@ -19,26 +19,6 @@ def esc(interval=0.50):
     sleep(interval)
 
 
-def googlesearch():
-    contents = "+".join(argv[1:])
-    esc()
-    open_new_tab(f"https://www.google.com/search?q={contents[1:]}")
-
-
-def youtubesearch():
-    contents = "+".join(argv[1:])
-    esc()
-    open_new_tab(f"https://www.youtube.com/results?search_query={contents[8:]}")
-
-
-def imagesearch():
-    contents = "+".join(argv[1:])
-    esc()
-    open_new_tab(
-        f"https://www.google.com/search?q={contents[7:]}&safe=strict&tbm=isch&sxsrf=ALeKk029ouHDkHfq3RFVc8WpFzOvZZ8s4g%3A1624376552976&source=hp&biw=1536&bih=763&ei=6ATSYIOrOduJhbIPzda7yAs&oq=hello&gs_lcp=CgNpbWcQAzIFCAAQsQMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyBQgAELEDMgUIABCxAzICCAA6BwgjEOoCECc6BAgjECc6CAgAELEDEIMBUNIGWKcJYLELaABwAHgAgAGPAogByAqSAQUwLjEuNZgBAKABAaoBC2d3cy13aXotaW1nsAEK&sclient=img&ved=0ahUKEwiDv62byqvxAhXbREEAHU3rDrkQ4dUDCAc&uact=5"
-    )
-
-
 def toenglish():
     contents = "%20".join(argv[3:])
     esc()
@@ -64,7 +44,14 @@ def toarabic():
 
 
 def translate():
-    languages = {"tofrench": tofrench, "toenglish": toenglish, "toarabic": toarabic}
+    languages = {
+        "tofrench": tofrench,
+        "f": tofrench,
+        "toenglish": toenglish,
+        "e": toenglish,
+        "toarabic": toarabic,
+        "a": toarabic,
+    }
     for i in languages:
         if i == argv[2]:
             languages[i]()
@@ -151,32 +138,6 @@ def copypaste():
 
     esc()
     notification("Success!", "Message copied to clipboard.", 2)
-
-
-def goingidle():
-    sleep(0.50)
-    call(
-        "start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk",
-        shell=True,
-    )
-    sleep(12.5)
-    hotkey("win", "m")
-
-
-def imback():
-    call("start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk", shell=True)
-
-
-def discord():
-    options = {
-        "going idle": goingidle,
-        "im back": imback,
-    }
-
-    for i in options:
-        if " ".join(argv[2:]) in i:
-            esc()
-            options[i]()
 
 
 def titlecase():
@@ -395,7 +356,7 @@ def spambot():
 
 def autoclick():
     esc()
-    AHKPATH = Path(R"C:\Items\Code\utilities\supplementary-ahks\autoclicker.ahk")
+    AHKPATH = Path(R"C:\Users\user\Downloads\PythonFiles\AutoClicker\autoclicker.ahk")
     countindex = 4
     try:
         mousebutton = argv[3].title()
@@ -466,9 +427,6 @@ def extend():
     extendables = {
         "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
         "widepeeposad": ":widepeeposad1::widepeeposad2::widepeeposad3::widepeeposad4:",
-        "widepeepoblanket": ":widepeepoblanket1::widepeepoblanket2::widepeepoblanket3::widepeepoblanket4:",
-        "dogeburger": ":dogeburger1::dogeburger2::dogeburger3:",
-        "amongpat": ":amongpat_green: :AmongPat_yellow: :amongpat_red:",
     }
 
     for i in extendables:
@@ -476,17 +434,3 @@ def extend():
             pypercopy(extendables[i])
             esc()
             notification("Success!", "Message copied to clipboard.", 2)
-
-
-def mcprofiles():
-    esc()
-
-    if argv[2] == "done?":
-        call(R"python C:\Items\Code\mc-profiles\ifexists.pyw", shell=True)
-        sleep(1)
-        exit()
-
-    call(
-        f"python C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {''.join(argv[2:])}",
-        shell=True,
-    )
