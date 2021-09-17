@@ -26,6 +26,8 @@ instructions = {
     "cursive": cursive,
     "fraction": fraction,
     "fc": fraction,
+    "flip": flipped,
+    "upside-down": flipped,
     "superscript": exponent,
     "mp": mcprofiles,
 }
