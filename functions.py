@@ -209,7 +209,38 @@ def emojify():
         elif i in special_char:
             converted.append(special_char[i])
 
+        else:
+            converted.append(i)
+
     pypercopy(" ".join(converted))
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
+
+
+def flipped():
+    converted = []
+    flipped_char = {
+        # fmt: off
+        "a": "ɐ", "b": "q", "c": 'ɔ', "d": "p", "e": "ǝ",
+        "f": "ɟ", "g": "ƃ", "h": "ɥ", "i": "ᴉ", "j": "ɾ",
+        "k": "ʞ", "l": "l", 'm': "ɯ", 'n': "u", 'o': "o",
+        'p': "d", 'r': "ɹ", 's': "s", 't': "ʇ",'u': "n",
+        'v': "ʌ", 'w': "ʍ", 'x': "x", 'y': "ʎ", 'z': "z",
+        "A": "∀", "B": "q", "C": "Ɔ", "D": "p", "E": "Ǝ",
+        "F": "Ⅎ", "G": "פ", "H": "H", "I": "I", "J": "ſ",
+        "K": "ʞ", "L": "˥", "M": "W", "N": "N", "O": "O",
+        "P": "Ԁ", "Q": "Q", "R": "ɹ", "S": "S", "T": "┴",
+        "U": "∩", "V": "Λ", "W": "M", "X": "X", "Y": "⅄", "Z": "Z"
+        # fmt: on
+    }
+    for i in " ".join(argv[2:]):
+        if i in flipped_char:
+            converted.append(flipped_char[i])
+        else:
+            converted.append(i)
+
+    converted.reverse()
+    pypercopy("".join(converted))
     esc()
     notification("Success!", "Message copied to clipboard.", 2)
 
@@ -227,12 +258,14 @@ def exponent():
         "k": "ᵏ", "l": "ˡ", 'm': "ᵐ", 'n': "ⁿ", 'o': "ᵒ",
         'p': "ᵖ", 'r': "ʳ", 's': "ˢ", 't': "ᵗ",'u': "ᵘ",
         'v': "ᵛ", 'w': "ʷ", 'x': "ˣ", 'y': "ʸ", 'z': "ᶻ",
-        "(": "⁽", ")": "⁾" 
+        "(": "⁽", ")": "⁾"
         # fmt: on
     }
     for i in " ".join(argv[2:]):
         if i in superscript_char:
             converted.append(superscript_char[i])
+        else:
+            converted.append(i)
 
     pypercopy("".join(converted))
     esc()
@@ -272,6 +305,8 @@ def cursive():
     for i in " ".join(argv[2:]):
         if i in char:
             converted.append(char[i])
+        else:
+            converted.append(i)
 
     pypercopy("".join(converted))
     esc()
@@ -298,36 +333,36 @@ def fraction():
         # fmt: on
     }
 
-    slash_index = "".join(argv[2:]).index("/")
-    print(slash_index)
-    numerator = argv[2:slash_index]
-    print("".join(numerator))
-    # splitargv = split(argv[2])
-    # numerator = "".join(splitargv[: splitargv.index("/")])
-    # print(numerator)
-    # denominator = "".join(splitargv[splitargv.index("/") + 1 :])
-    # print(denominator)
+    # slash_index = "".join(argv[2:]).index("/")
+    # print(slash_index)
+    # numerator = argv[2:slash_index]
+    # print("".join(numerator))
+    splitargv = split(argv[2])
+    numerator = "".join(splitargv[: splitargv.index("/")])
+    print(numerator)
+    denominator = "".join(splitargv[splitargv.index("/") + 1 :])
+    print(denominator)
 
-    # try:
-    #     for i in char:
-    #         for x in numerator:
-    #             if i == x:
-    #                 converted.append(char[i][0])
+    try:
+        for i in char:
+            for x in numerator:
+                if i == x:
+                    converted.append(char[i][0])
 
-    #     converted.append("⁄")
+        converted.append("⁄")
 
-    #     for i in char:
-    #         for x in denominator:
-    #             if i == x:
-    #                 converted.append(char[i][1])
+        for i in char:
+            for x in denominator:
+                if i == x:
+                    converted.append(char[i][1])
 
-    #     pypercopy("".join(converted))
+        pypercopy("".join(converted))
 
-    # except TypeError:
-    #     fr_e()
+    except TypeError:
+        fr_e()
 
-    # esc()
-    # notification("Success!", "Message copied to clipboard.", 2)
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
 
 
 def spambot():
