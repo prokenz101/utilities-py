@@ -1,8 +1,7 @@
 from sys import argv
-from pyautogui import FailSafeException, hotkey, typewrite, mouseDown
-from pyperclip import copy as pypercopy
+from pyautogui import FailSafeException, hotkey, mouseDown, write
 from time import sleep
-from webbrowser import open_new_tab
+from webbrowser import open
 from pathlib import Path
 from subprocess import call
 from win10toast import ToastNotifier
@@ -22,7 +21,7 @@ def esc(interval=0.50):
 def toenglish():
     contents = "%20".join(argv[3:])
     esc()
-    open_new_tab(
+    open(
         f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
     )
 
@@ -30,7 +29,7 @@ def toenglish():
 def tofrench():
     contents = "%20".join(argv[3:])
     esc()
-    open_new_tab(
+    open(
         f"https://translate.google.com/?sl=en&tl=fr&text={contents[0:]}&op=translate"
     )
 
@@ -38,7 +37,7 @@ def tofrench():
 def toarabic():
     contents = "%20".join(argv[3:])
     esc()
-    open_new_tab(
+    open(
         f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
     )
 
@@ -69,16 +68,16 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    pypercopy("".join(contents_list))
+    write("".join(contents_list), 0.25)
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
-    pypercopy(" ".join(contents))
+    write(" ".join(contents), 0.25)
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def spoilerspam():
@@ -87,9 +86,9 @@ def spoilerspam():
     for i in base_var:
         contents.append(f"||{i}")
 
-    pypercopy(f'{"||".join(contents)}||')
+    write(f'{"||".join(contents)}||', 0.25)
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def copypaste():
@@ -112,16 +111,16 @@ def copypaste():
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
-            pypercopy(copypaste_dict[i])
+            write(copypaste_dict[i], 0.25)
 
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def titlecase():
-    pypercopy(" ".join(argv[2:]).title())
+    write(" ".join(argv[2:]).title(), 0.25)
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def emojify():
@@ -151,9 +150,9 @@ def emojify():
         else:
             converted.append(i)
 
-    pypercopy(" ".join(converted))
+    write(" ".join(converted), 0.25)
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def flipped():
@@ -179,9 +178,9 @@ def flipped():
             converted.append(i)
 
     converted.reverse()
-    pypercopy("".join(converted))
+    write("".join(converted), 0.25)
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def exponent():
@@ -206,9 +205,9 @@ def exponent():
         else:
             converted.append(i)
 
-    pypercopy("".join(converted))
+    write("".join(converted), 0.25)
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def fr_e():
@@ -240,16 +239,15 @@ def cursive():
         "Z": "𝓩", 'z': "𝔃", " ": " "
         # fmt: on
     }
-    base_num = 0
     for i in " ".join(argv[2:]):
         if i in char:
             converted.append(char[i])
         else:
             converted.append(i)
 
-    pypercopy("".join(converted))
+    write("".join(converted), 0.25)
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def fraction():
@@ -272,15 +270,9 @@ def fraction():
         # fmt: on
     }
 
-    # slash_index = "".join(argv[2:]).index("/")
-    # print(slash_index)
-    # numerator = argv[2:slash_index]
-    # print("".join(numerator))
     splitargv = split(argv[2])
     numerator = "".join(splitargv[: splitargv.index("/")])
-    print(numerator)
     denominator = "".join(splitargv[splitargv.index("/") + 1 :])
-    print(denominator)
 
     try:
         for i in char:
@@ -295,13 +287,13 @@ def fraction():
                 if i == x:
                     converted.append(char[i][1])
 
-        pypercopy("".join(converted))
+        write("".join(converted), 0.25)
 
     except TypeError:
         fr_e()
 
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    notification("Success!", "Message Typed.", 2)
 
 
 def spambot():
@@ -325,7 +317,7 @@ def spambot():
 
     try:
         for i in range(int(number)):
-            typewrite(" ".join(word))
+            write(" ".join(word), 0.25)
             hotkey("enter")
             sleep(interval)
     except FailSafeException:
@@ -411,6 +403,6 @@ def extend():
 
     for i in extendables:
         if i in " ".join(argv[2:]).lower():
-            pypercopy(extendables[i])
+            write(extendables[i])
             esc()
-            notification("Success!", "Message copied to clipboard.", 2)
+            notification("Success!", "Message Typed.", 2)
