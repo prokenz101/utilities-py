@@ -27,7 +27,6 @@ instructions = {
 }
 
 try:
-    notification(argv[1])
     for i in instructions:
         if argv[1].lower() == i:
             instructions[i]()
