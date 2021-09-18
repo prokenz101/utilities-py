@@ -1,5 +1,6 @@
 from sys import argv
 from pyautogui import FailSafeException, hotkey, mouseDown, typewrite
+from pyperclip import copy, paste
 from time import sleep
 from webbrowser import open_new_tab
 from pathlib import Path
@@ -40,8 +41,8 @@ def help():
     upside-down: flipped text,
     superscript: same as exponent"""
     call(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Notepad.lnk", shell=True)
-    sleep(1)
-    typewrite(help_msg, 0.25)
+    sleep(5)
+    typewrite(help_msg, 0.04)
 
 def toenglish():
     contents = "%20".join(argv[3:])
@@ -90,13 +91,13 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    typewrite("".join(contents_list), 0.25)  
+    typewrite("".join(contents_list), 0.04)  
     notification("Success!", "Message Typed.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
-    typewrite(" ".join(contents), 0.25)   
+    typewrite(" ".join(contents), 0.04)   
     notification("Success!", "Message Typed.", 2)
 
 
@@ -106,7 +107,7 @@ def spoilerspam():
     for i in base_var:
         contents.append(f"||{i}")
 
-    typewrite(f'{"||".join(contents)}||', 0.25)  
+    typewrite(f'{"||".join(contents)}||', 0.04)  
     notification("Success!", "Message Typed.", 2)
 
 
@@ -130,12 +131,15 @@ def copypaste():
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
-            typewrite(copypaste_dict[i], 0.25) 
+            copy(copypaste_dict[i])
+            hotkey("backspace")
+            sleep(0.5)
+            hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
 
 def titlecase():
-    typewrite(" ".join(argv[2:]).title(), 0.25) 
+    typewrite(" ".join(argv[2:]).title(), 0.04) 
     notification("Success!", "Message Typed.", 2)
 
 def emojify():
@@ -165,7 +169,7 @@ def emojify():
         else:
             converted.append(i)
 
-    typewrite(" ".join(converted), 0.25)
+    typewrite(" ".join(converted), 0.04)
     notification("Success!", "Message Typed.", 2)
 
 
@@ -192,7 +196,10 @@ def flipped():
             converted.append(i)
 
     converted.reverse()
-    typewrite("".join(converted), 0.25)
+    copy("".join(converted))
+    hotkey("backspace")
+    sleep(0.5)
+    hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
 
@@ -218,7 +225,10 @@ def exponent():
         else:
             converted.append(i)
 
-    typewrite("".join(converted), 0.25)
+    copy("".join(converted))
+    hotkey("backspace")
+    sleep(0.5)
+    hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
 
@@ -257,8 +267,11 @@ def cursive():
         else:
             converted.append(i)
 
-    typewrite("".join(converted), 0.25) 
-    notification("Success!", "Message Typed.", 2)
+    copy("".join(converted))
+    hotkey("backspace")
+    sleep(0.5)
+    hotkey("ctrl", "v")
+    notification("Success!", "Message Typed", 2)
 
 
 def fraction():
@@ -298,12 +311,15 @@ def fraction():
                 if i == x:
                     converted.append(char[i][1])
 
-        typewrite("".join(converted), 0.25)
+        copy("".join(converted), 0.04)
+        hotkey("backspace")
+        sleep(0.5)
+        hotkey("ctrl", "v")
+        notification("Success!", "Message Typed.", 2)
 
     except TypeError:
         fr_e()
 
-    notification("Success!", "Message Typed.", 2)
 
 
 def spambot():
@@ -325,7 +341,7 @@ def spambot():
 
     try:
         for i in range(int(number)):
-            typewrite(" ".join(word), 0.25)
+            typewrite(" ".join(word), 0.04)
             hotkey("enter")
             sleep(interval)
     except FailSafeException:
@@ -346,7 +362,7 @@ def autoclick():
         AHKPATH.touch()
     except FileExistsError:
         AHKPATH.unlink(missing_ok=True)
-        sleep(0.25)
+        sleep(0.04)
         autoclick()
 
     try:
@@ -409,5 +425,5 @@ def extend():
 
     for i in extendables:
         if i in " ".join(argv[2:]).lower():
-            typewrite(extendables[i], 0.25)
+            typewrite(extendables[i], 0.04)
             notification("Success!", "Message Typed.", 2)

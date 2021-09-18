@@ -25,10 +25,9 @@ instructions = {
     "upside-down": flipped,
     "superscript": exponent,
 }
-
 try:
     for i in instructions:
-        if argv[1].lower() == i:
+        if argv[1].lower().startswith(i):
             instructions[i]()
 
 except Exception as e:
