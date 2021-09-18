@@ -1,5 +1,5 @@
 from sys import argv
-from pyautogui import FailSafeException, hotkey, mouseDown, write
+from pyautogui import FailSafeException, hotkey, mouseDown, typewrite
 from time import sleep
 from webbrowser import open
 from pathlib import Path
@@ -17,10 +17,34 @@ def esc(interval=0.50):
     hotkey("esc")
     sleep(interval)
 
+def help():
+    help_comment = """translate: translate lang <thing to translate>,
+    help: help,
+    sarcasm: sarcasm text,
+    spacer: spacer text,
+    spoilerspam: spoilerspam text,
+    copypaste: copypaste <weird symbol in text>,
+    emojify: emojify text,
+    spam: *just done use it,
+    extend: extend (will type the extended emojys),
+    autoclick: autoclick,
+    tapemouse: tapemouse,
+    exponent: exponent text/num,
+    ep: exponent text/num,
+    title: titlecase text,
+    titlecase: titlecase, text,
+    cursive: cursive text,
+    fraction: fraction num,
+    fc: fraction num,
+    flip: flipped text,
+    upside-down: flipped text,
+    superscript: same as exponent"""
+    call(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Notepad.lnk", shell=True)
+    sleep(1)
+    typewrite(help_comment, 0.2)
 
 def toenglish():
     contents = "%20".join(argv[3:])
-    esc()
     open(
         f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
     )
@@ -28,15 +52,13 @@ def toenglish():
 
 def tofrench():
     contents = "%20".join(argv[3:])
-    esc()
     open(
         f"https://translate.google.com/?sl=en&tl=fr&text={contents[0:]}&op=translate"
     )
 
 
 def toarabic():
-    contents = "%20".join(argv[3:])
-    esc()
+    contents = "%20".join(argv[3:])    
     open(
         f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
     )
@@ -68,15 +90,13 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    write("".join(contents_list))
-    esc()
+    typewrite("".join(contents_list))  
     notification("Success!", "Message Typed.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
-    write(" ".join(contents))
-    esc()
+    typewrite(" ".join(contents))   
     notification("Success!", "Message Typed.", 2)
 
 
@@ -86,8 +106,7 @@ def spoilerspam():
     for i in base_var:
         contents.append(f"||{i}")
 
-    write(f'{"||".join(contents)}||')
-    esc()
+    typewrite(f'{"||".join(contents)}||')  
     notification("Success!", "Message Typed.", 2)
 
 
@@ -111,17 +130,13 @@ def copypaste():
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
-            write(copypaste_dict[i])
-
-    esc()
+            typewrite(copypaste_dict[i]) 
     notification("Success!", "Message Typed.", 2)
 
 
 def titlecase():
-    write(" ".join(argv[2:]).title())
-    esc()
+    typewrite(" ".join(argv[2:]).title()) 
     notification("Success!", "Message Typed.", 2)
-
 
 def emojify():
     converted = []
@@ -150,8 +165,7 @@ def emojify():
         else:
             converted.append(i)
 
-    write(" ".join(converted))
-    esc()
+    typewrite(" ".join(converted)) 
     notification("Success!", "Message Typed.", 2)
 
 
@@ -178,8 +192,7 @@ def flipped():
             converted.append(i)
 
     converted.reverse()
-    write("".join(converted))
-    esc()
+    typewrite("".join(converted))
     notification("Success!", "Message Typed.", 2)
 
 
@@ -205,8 +218,7 @@ def exponent():
         else:
             converted.append(i)
 
-    write("".join(converted))
-    esc()
+    typewrite("".join(converted)) 
     notification("Success!", "Message Typed.", 2)
 
 
@@ -245,8 +257,7 @@ def cursive():
         else:
             converted.append(i)
 
-    write("".join(converted))
-    esc()
+    typewrite("".join(converted)) 
     notification("Success!", "Message Typed.", 2)
 
 
@@ -287,12 +298,11 @@ def fraction():
                 if i == x:
                     converted.append(char[i][1])
 
-        write("".join(converted))
+        typewrite("".join(converted))
 
     except TypeError:
         fr_e()
 
-    esc()
     notification("Success!", "Message Typed.", 2)
 
 
@@ -313,19 +323,16 @@ def spambot():
     if "--interval=" in interval_list[0]:
         interval = int(interval_list[0][11:])
 
-    esc()
-
     try:
         for i in range(int(number)):
-            write(" ".join(word))
+            typewrite(" ".join(word))
             hotkey("enter")
             sleep(interval)
     except FailSafeException:
         notification("Spamming Stopped.", "Spamming was cancelled.", 10)
 
 
-def autoclick():
-    esc()
+def autoclick(): 
     AHKPATH = Path(
         R"C:\Users\user\Downloads\PythonFiles\utilities\AutoClicker\autoclicker.ahk"
     )
@@ -354,7 +361,7 @@ def autoclick():
     except IndexError:
         count = ""
 
-    AHKPATH.write_text(
+    AHKPATH.typewrite_text(
         f"""loop{count} {{
     MouseClick, {mousebutton}
     Sleep, {interval}
@@ -374,7 +381,6 @@ Return
 
 
 def tapemouse():
-    esc()
     try:
         if argv[3].startswith("wait="):
             sleep(int(argv[3][5:]))
@@ -403,6 +409,5 @@ def extend():
 
     for i in extendables:
         if i in " ".join(argv[2:]).lower():
-            write(extendables[i])
-            esc()
+            typewrite(extendables[i])
             notification("Success!", "Message Typed.", 2)

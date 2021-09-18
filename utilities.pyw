@@ -3,6 +3,7 @@ from functions import *
 
 instructions = {
     "translate": translate,
+    "help": help,
     "sarcasm": sarcasm,
     "spacer": spacer,
     "spoilerspam": spoilerspam,
@@ -26,9 +27,11 @@ instructions = {
 }
 
 try:
+    notification(argv[1])
     for i in instructions:
-        if argv[1].lower().startswith(i):
+        if argv[1].lower() == i:
             instructions[i]()
+            notification("func has run", interval=1)
 
 except Exception as e:
     notification("An Error Has Occured.", str(e), 10)
