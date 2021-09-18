@@ -1,7 +1,7 @@
 from sys import argv
 from pyautogui import FailSafeException, hotkey, mouseDown, typewrite
 from time import sleep
-from webbrowser import open
+from webbrowser import open_new_tab
 from pathlib import Path
 from subprocess import call
 from win10toast import ToastNotifier
@@ -18,14 +18,14 @@ def esc(interval=0.50):
     sleep(interval)
 
 def help():
-    help_comment = """translate: translate lang <thing to translate>,
+    help_msg = """translate: translate lang <thing to translate>,
     help: help,
     sarcasm: sarcasm text,
     spacer: spacer text,
     spoilerspam: spoilerspam text,
     copypaste: copypaste <weird symbol in text>,
     emojify: emojify text,
-    spam: *just done use it,
+    spam: *just dont use it,
     extend: extend (will type the extended emojys),
     autoclick: autoclick,
     tapemouse: tapemouse,
@@ -41,25 +41,25 @@ def help():
     superscript: same as exponent"""
     call(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Notepad.lnk", shell=True)
     sleep(1)
-    typewrite(help_comment, 0.2)
+    typewrite(help_msg, 0.25)
 
 def toenglish():
     contents = "%20".join(argv[3:])
-    open(
+    open_new_tab(
         f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
     )
 
 
 def tofrench():
     contents = "%20".join(argv[3:])
-    open(
+    open_new_tab(
         f"https://translate.google.com/?sl=en&tl=fr&text={contents[0:]}&op=translate"
     )
 
 
 def toarabic():
     contents = "%20".join(argv[3:])    
-    open(
+    open_new_tab(
         f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
     )
 
@@ -90,13 +90,13 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    typewrite("".join(contents_list))  
+    typewrite("".join(contents_list), 0.25)  
     notification("Success!", "Message Typed.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
-    typewrite(" ".join(contents))   
+    typewrite(" ".join(contents), 0.25)   
     notification("Success!", "Message Typed.", 2)
 
 
@@ -106,7 +106,7 @@ def spoilerspam():
     for i in base_var:
         contents.append(f"||{i}")
 
-    typewrite(f'{"||".join(contents)}||')  
+    typewrite(f'{"||".join(contents)}||', 0.25)  
     notification("Success!", "Message Typed.", 2)
 
 
@@ -130,12 +130,12 @@ def copypaste():
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
-            typewrite(copypaste_dict[i]) 
+            typewrite(copypaste_dict[i], 0.25) 
     notification("Success!", "Message Typed.", 2)
 
 
 def titlecase():
-    typewrite(" ".join(argv[2:]).title()) 
+    typewrite(" ".join(argv[2:]).title(), 0.25) 
     notification("Success!", "Message Typed.", 2)
 
 def emojify():
@@ -165,7 +165,7 @@ def emojify():
         else:
             converted.append(i)
 
-    typewrite(" ".join(converted)) 
+    typewrite(" ".join(converted), 0.25)
     notification("Success!", "Message Typed.", 2)
 
 
@@ -192,7 +192,7 @@ def flipped():
             converted.append(i)
 
     converted.reverse()
-    typewrite("".join(converted))
+    typewrite("".join(converted), 0.25)
     notification("Success!", "Message Typed.", 2)
 
 
@@ -218,7 +218,7 @@ def exponent():
         else:
             converted.append(i)
 
-    typewrite("".join(converted)) 
+    typewrite("".join(converted), 0.25)
     notification("Success!", "Message Typed.", 2)
 
 
@@ -257,7 +257,7 @@ def cursive():
         else:
             converted.append(i)
 
-    typewrite("".join(converted)) 
+    typewrite("".join(converted), 0.25) 
     notification("Success!", "Message Typed.", 2)
 
 
@@ -298,7 +298,7 @@ def fraction():
                 if i == x:
                     converted.append(char[i][1])
 
-        typewrite("".join(converted))
+        typewrite("".join(converted), 0.25)
 
     except TypeError:
         fr_e()
@@ -325,7 +325,7 @@ def spambot():
 
     try:
         for i in range(int(number)):
-            typewrite(" ".join(word))
+            typewrite(" ".join(word), 0.25)
             hotkey("enter")
             sleep(interval)
     except FailSafeException:
@@ -409,5 +409,5 @@ def extend():
 
     for i in extendables:
         if i in " ".join(argv[2:]).lower():
-            typewrite(extendables[i])
+            typewrite(extendables[i], 0.25)
             notification("Success!", "Message Typed.", 2)

@@ -31,7 +31,6 @@ try:
     for i in instructions:
         if argv[1].lower() == i:
             instructions[i]()
-            notification("func has run", interval=1)
 
 except Exception as e:
     notification("An Error Has Occured.", str(e), 10)
