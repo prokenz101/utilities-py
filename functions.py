@@ -68,14 +68,14 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    write("".join(contents_list), 0.25)
+    write("".join(contents_list))
     esc()
     notification("Success!", "Message Typed.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
-    write(" ".join(contents), 0.25)
+    write(" ".join(contents))
     esc()
     notification("Success!", "Message Typed.", 2)
 
@@ -86,7 +86,7 @@ def spoilerspam():
     for i in base_var:
         contents.append(f"||{i}")
 
-    write(f'{"||".join(contents)}||', 0.25)
+    write(f'{"||".join(contents)}||')
     esc()
     notification("Success!", "Message Typed.", 2)
 
@@ -111,14 +111,14 @@ def copypaste():
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
-            write(copypaste_dict[i], 0.25)
+            write(copypaste_dict[i])
 
     esc()
     notification("Success!", "Message Typed.", 2)
 
 
 def titlecase():
-    write(" ".join(argv[2:]).title(), 0.25)
+    write(" ".join(argv[2:]).title())
     esc()
     notification("Success!", "Message Typed.", 2)
 
@@ -150,7 +150,7 @@ def emojify():
         else:
             converted.append(i)
 
-    write(" ".join(converted), 0.25)
+    write(" ".join(converted))
     esc()
     notification("Success!", "Message Typed.", 2)
 
@@ -178,7 +178,7 @@ def flipped():
             converted.append(i)
 
     converted.reverse()
-    write("".join(converted), 0.25)
+    write("".join(converted))
     esc()
     notification("Success!", "Message Typed.", 2)
 
@@ -205,7 +205,7 @@ def exponent():
         else:
             converted.append(i)
 
-    write("".join(converted), 0.25)
+    write("".join(converted))
     esc()
     notification("Success!", "Message Typed.", 2)
 
@@ -245,7 +245,7 @@ def cursive():
         else:
             converted.append(i)
 
-    write("".join(converted), 0.25)
+    write("".join(converted))
     esc()
     notification("Success!", "Message Typed.", 2)
 
@@ -287,7 +287,7 @@ def fraction():
                 if i == x:
                     converted.append(char[i][1])
 
-        write("".join(converted), 0.25)
+        write("".join(converted))
 
     except TypeError:
         fr_e()
@@ -317,7 +317,7 @@ def spambot():
 
     try:
         for i in range(int(number)):
-            write(" ".join(word), 0.25)
+            write(" ".join(word))
             hotkey("enter")
             sleep(interval)
     except FailSafeException:
