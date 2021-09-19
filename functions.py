@@ -6,10 +6,16 @@ from webbrowser import open_new_tab
 from pathlib import Path
 from subprocess import call
 from win10toast import ToastNotifier
-from pickle import load
 
-with open("encryptorkey.json", "rb") as f:
-    key = load(f)
+encryption_dict = {
+        "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
+        "e": "❡", "f": "ᄑ", "g": "ᢂ", "h": "ᠷ",
+        "i": "ង", "j": "ᕒ", "k": "ᔵ", "l": "ᥔ",
+        "m": "ቤ", "n": "ᔇ", "o": "፨", "p": "፱",
+        "q": "ᑴ", "r": "ን", "s": "᠉", "t": "ሤ",
+        "u": "ᡧ", "v": "ቕ", "w": "ሠ", "x": "ᒂ",
+        "y": "ᡆ", "z": "ᅆ"
+    }
 
 def notification(title, subtitle, interval, icon=None, threaded=True):
     toaster = ToastNotifier()
@@ -406,24 +412,25 @@ def extend():
             notification("Success!", "Message Typed.", 2)
 
 def encrypt():
-    msg = " ".join(argv[2:])
+    msg = " ".join(argv[2:]).lower()
     result = ""
     result_2 = ""
     for ch in msg:
         try:
-            result += key[ch.lower()]
+            result += encryption_dict[ch.lower()]
         except KeyError:
             result += ch
     for ch in result:
         try:
-            result_2 += key[ch.lower()]
+            result_2 += encryption_dict[ch.lower()]
         except KeyError:
             result_2 += ch
     
-    typewrite(result_2, 0.04)
+    copy(result_2)
+    hotkey("ctrl", "v")
 
 def get_key(val):
-    for key_, value in key.items():
+    for key_, value in encryption_dict.items():
         if val == value:
             return key_
 
