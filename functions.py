@@ -215,7 +215,7 @@ def encrypt():
         # fmt: on
     }
     converted = []
-    for i in " ".join(argv[2:]):
+    for i in " ".join(argv[2:]).lower():
         if i in encrpytion_dict:
             converted.append(encrpytion_dict[i])
         else:
@@ -240,7 +240,7 @@ def decrypt():
         # fmt: on
     }
     converted = []
-    for i in " ".join(argv[2:]):
+    for i in " ".join(argv[2:]).lower():
         if i in decrpytion_dict:
             converted.append(decrpytion_dict[i])
         else:
