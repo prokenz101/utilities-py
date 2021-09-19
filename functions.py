@@ -6,7 +6,10 @@ from webbrowser import open_new_tab
 from pathlib import Path
 from subprocess import call
 from win10toast import ToastNotifier
+from pickle import load
 
+with open("encryptorkey.json", "rb") as f:
+    key = load(f)
 
 def notification(title, subtitle, interval, icon=None, threaded=True):
     toaster = ToastNotifier()
@@ -17,32 +20,6 @@ def esc(interval=0.50):
     sleep(interval)
     hotkey("esc")
     sleep(interval)
-
-def help():
-    help_msg = """translate: translate lang <thing to translate>,
-    help: help,
-    sarcasm: sarcasm text,
-    spacer: spacer text,
-    spoilerspam: spoilerspam text,
-    copypaste: copypaste <weird symbol in text>,
-    emojify: emojify text,
-    spam: *just dont use it,
-    extend: extend (will type the extended emojys),
-    autoclick: autoclick,
-    tapemouse: tapemouse,
-    exponent: exponent text/num,
-    ep: exponent text/num,
-    title: titlecase text,
-    titlecase: titlecase, text,
-    cursive: cursive text,
-    fraction: fraction num,
-    fc: fraction num,
-    flip: flipped text,
-    upside-down: flipped text,
-    superscript: same as exponent"""
-    call(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Notepad.lnk", shell=True)
-    sleep(5)
-    typewrite(help_msg, 0.04)
 
 def toenglish():
     contents = "%20".join(argv[3:])
@@ -427,3 +404,46 @@ def extend():
         if i in " ".join(argv[2:]).lower():
             typewrite(extendables[i], 0.04)
             notification("Success!", "Message Typed.", 2)
+
+def encrypt():
+    msg = " ".join(argv[2:])
+    result = ""
+    result_2 = ""
+    for ch in msg:
+        try:
+            result += key[ch.lower()]
+        except KeyError:
+            result += ch
+    for ch in result:
+        try:
+            result_2 += key[ch.lower()]
+        except KeyError:
+            result_2 += ch
+    
+    typewrite(result_2, 0.04)
+
+def get_key(val):
+    for key_, value in key.items():
+        if val == value:
+            return key_
+
+    raise KeyError
+
+def decrypt():
+    msg = " ".join(argv[2:])
+    result = ""
+    result_2 = ""
+    for ch in msg:
+        try:
+            result += get_key(ch)
+        except KeyError:
+            result += ch
+
+    for ch in result:
+        try:
+            result_2 += get_key(ch)
+        except KeyError:
+            result_2 += ch
+    
+    hotkey("backspace")
+    notification("Decrypted Message", result_2, 5)

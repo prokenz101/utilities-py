@@ -3,7 +3,6 @@ from functions import *
 
 instructions = {
     "translate": translate,
-    "help": help,
     "sarcasm": sarcasm,
     "spacer": spacer,
     "spoilerspam": spoilerspam,
@@ -24,6 +23,8 @@ instructions = {
     "flip": flipped,
     "upside-down": flipped,
     "superscript": exponent,
+    "encrypt": encrypt,
+    "decrypt": decrypt
 }
 try:
     for i in instructions:
