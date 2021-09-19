@@ -414,19 +414,13 @@ def extend():
 def encrypt():
     msg = " ".join(argv[2:]).lower()
     result = ""
-    result_2 = ""
     for ch in msg:
         try:
             result += encryption_dict[ch]
         except KeyError:
             result += ch
-    for ch in result:
-        try:
-            result_2 += encryption_dict[ch]
-        except KeyError:
-            result_2 += ch
-    
-    copy(result_2)
+
+    copy(result)
     hotkey("ctrl", "v")
 
 def get_key(val):
@@ -439,18 +433,11 @@ def get_key(val):
 def decrypt():
     msg = " ".join(argv[2:])
     result = ""
-    result_2 = ""
     for ch in msg:
         try:
             result += get_key(ch)
         except KeyError:
             result += ch
 
-    for ch in result:
-        try:
-            result_2 += get_key(ch)
-        except KeyError:
-            result_2 += ch
-    
     hotkey("backspace")
-    notification("Decrypted Message", result_2, 5)
+    notification("Decrypted Message", result, 5)
