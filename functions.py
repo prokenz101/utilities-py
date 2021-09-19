@@ -470,3 +470,46 @@ def mcprofiles():
         f"python C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {''.join(argv[2:])}",
         shell=True,
     )
+  
+def encrypt():
+    msg = " ".join(argv[2:])
+    result = ""
+    result_2 = ""
+    for ch in msg:
+        try:
+            result += key[ch.lower()]
+        except KeyError:
+            result += ch
+    for ch in result:
+        try:
+            result_2 += key[ch.lower()]
+        except KeyError:
+            result_2 += ch
+    
+    copy(result_2)
+
+def get_key(val):
+    for key_, value in key.items():
+        if val == value:
+            return key_
+
+    raise KeyError
+
+def decrypt():
+    msg = " ".join(argv[2:])
+    result = ""
+    result_2 = ""
+    for ch in msg:
+        try:
+            result += get_key(ch)
+        except KeyError:
+            result += ch
+
+    for ch in result:
+        try:
+            result_2 += get_key(ch)
+        except KeyError:
+            result_2 += ch
+    
+    hotkey("backspace")
+    notification("Decrypted Message", result_2, 5)
