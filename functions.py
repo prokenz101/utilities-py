@@ -114,6 +114,7 @@ def spoilerspam():
 
 def copypaste():
     copypaste_dict = {
+        # fmt: off
         "aigu e": "é", "aigu E": "É", "grave a": "à",
         "grave e": "è", "grave u": "ù", "grave A": "À",
         "grave E": "È", "grave U": "Ù", "chapeau a": "â",
@@ -126,7 +127,8 @@ def copypaste():
         "hangul filler": "ㅤ", "divison": "÷", "multi": "×",
         "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
         ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
-        "shrug": "¯\_(ツ)_/¯",
+        "shrug": "¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️"
+        # fmt: on
     }
     for i in copypaste_dict:
         if " ".join(argv[2:]) in i:
@@ -198,6 +200,58 @@ def emojify():
     pypercopy(" ".join(converted))
     esc()
     notification("Success!", "Message copied to clipboard.", 2)
+
+
+def encrypt():
+    encrpytion_dict = {
+        # fmt: off
+        "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
+        "e": "❡", "f": "ᄑ", "g": "ᢂ", "h": "ᠷ",
+        "i": "ង", "j": "ᕒ", "k": "ᔵ", "l": "ᥔ",
+        "m": "ቤ", "n": "ᔇ", "o": "፨", "p": "፱",
+        "q": "ᑴ", "r": "ን", "s": "᠉", "t": "ሤ",
+        "u": "ᡧ", "v": "ቕ", "w": "ሠ", "x": "ᒂ",
+        "y": "ᡆ", "z": "ᅆ"
+        # fmt: on
+    }
+    converted = []
+    for i in " ".join(argv[2:]):
+        if i in encrpytion_dict:
+            converted.append(encrpytion_dict[i])
+        else:
+            converted.append(i)
+
+    pypercopy("".join(converted))
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
+
+
+def decrypt():
+    failed_num = 0
+    decrpytion_dict = {
+        # fmt: off
+        "ဂ": "a", "ဇ": "b", "⤓": "c", "⥳": "d",
+        "❡": "e", "ᄑ": "f", "ᢂ": "g", "ᠷ": "h",
+        "ង": "i", "ᕒ": "j", "ᔵ": "k", "ᥔ": "l",
+        "ቤ": "m", "ᔇ": "n", "፨": "o", "፱": "p",
+        "ᑴ": "q", "ን": "r", "᠉": "s", "ሤ": "t",
+        "ᡧ": "u", "ቕ": "v", "ሠ": "w", "ᒂ": "x",
+        "ᡆ": "y", "ᅆ": "z", " ": " "
+        # fmt: on
+    }
+    converted = []
+    for i in " ".join(argv[2:]):
+        if i in decrpytion_dict:
+            converted.append(decrpytion_dict[i])
+        else:
+            failed_num += 1
+
+    pypercopy("".join(converted))
+    esc()
+    if failed_num == len("".join(argv[2:])):
+        notification("Failed.", "Message could not be decrypted.", 3)
+    else:
+        notification("Message Decrypted.", f" Your message was: {''.join(converted)}", 10)
 
 
 def flipped():
