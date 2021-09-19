@@ -30,6 +30,8 @@ instructions = {
     "upside-down": flipped,
     "superscript": exponent,
     "mp": mcprofiles,
+    "encrypt":encrypt,
+    "decrypt":decrypt
 }
 
 try:
