@@ -417,12 +417,12 @@ def encrypt():
     result_2 = ""
     for ch in msg:
         try:
-            result += encryption_dict[ch.lower()]
+            result += encryption_dict[ch]
         except KeyError:
             result += ch
     for ch in result:
         try:
-            result_2 += encryption_dict[ch.lower()]
+            result_2 += encryption_dict[ch]
         except KeyError:
             result_2 += ch
     
