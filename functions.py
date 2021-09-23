@@ -5,6 +5,7 @@ from time import sleep
 from webbrowser import open_new_tab
 from pathlib import Path
 from subprocess import call
+from random import randint
 from win10toast import ToastNotifier
 
 
@@ -19,62 +20,59 @@ def esc(interval=0.50):
     sleep(interval)
 
 
-def googlesearch():
-    contents = "+".join(argv[1:])
-    esc()
-    open_new_tab(f"https://www.google.com/search?q={contents[1:]}")
+class Search:
+    def googlesearch():
+        contents = "+".join(argv[1:])
+        esc()
+        open_new_tab(f"https://www.google.com/search?q={contents[1:]}")
+
+    def youtubesearch():
+        contents = "+".join(argv[1:])
+        esc()
+        open_new_tab(f"https://www.youtube.com/results?search_query={contents[8:]}")
+
+    def imagesearch():
+        contents = "+".join(argv[1:])
+        esc()
+        open_new_tab(
+            f"https://www.google.com/search?q={contents[7:]}&safe=strict&tbm=isch&sxsrf=ALeKk029ouHDkHfq3RFVc8WpFzOvZZ8s4g%3A1624376552976&source=hp&biw=1536&bih=763&ei=6ATSYIOrOduJhbIPzda7yAs&oq=hello&gs_lcp=CgNpbWcQAzIFCAAQsQMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyBQgAELEDMgUIABCxAzICCAA6BwgjEOoCECc6BAgjECc6CAgAELEDEIMBUNIGWKcJYLELaABwAHgAgAGPAogByAqSAQUwLjEuNZgBAKABAaoBC2d3cy13aXotaW1nsAEK&sclient=img&ved=0ahUKEwiDv62byqvxAhXbREEAHU3rDrkQ4dUDCAc&uact=5"
+        )
 
 
-def youtubesearch():
-    contents = "+".join(argv[1:])
-    esc()
-    open_new_tab(f"https://www.youtube.com/results?search_query={contents[8:]}")
+class Translate:
+    def toenglish():
+        contents = "%20".join(argv[3:])
+        esc()
+        open_new_tab(
+            f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
+        )
 
+    def tofrench():
+        contents = "%20".join(argv[3:])
+        esc()
+        open_new_tab(
+            f"https://translate.google.com/?sl=en&tl=fr&text={contents[0:]}&op=translate"
+        )
 
-def imagesearch():
-    contents = "+".join(argv[1:])
-    esc()
-    open_new_tab(
-        f"https://www.google.com/search?q={contents[7:]}&safe=strict&tbm=isch&sxsrf=ALeKk029ouHDkHfq3RFVc8WpFzOvZZ8s4g%3A1624376552976&source=hp&biw=1536&bih=763&ei=6ATSYIOrOduJhbIPzda7yAs&oq=hello&gs_lcp=CgNpbWcQAzIFCAAQsQMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyBQgAELEDMgUIABCxAzICCAA6BwgjEOoCECc6BAgjECc6CAgAELEDEIMBUNIGWKcJYLELaABwAHgAgAGPAogByAqSAQUwLjEuNZgBAKABAaoBC2d3cy13aXotaW1nsAEK&sclient=img&ved=0ahUKEwiDv62byqvxAhXbREEAHU3rDrkQ4dUDCAc&uact=5"
-    )
+    def toarabic():
+        contents = "%20".join(argv[3:])
+        esc()
+        open_new_tab(
+            f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
+        )
 
-
-def toenglish():
-    contents = "%20".join(argv[3:])
-    esc()
-    open_new_tab(
-        f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
-    )
-
-
-def tofrench():
-    contents = "%20".join(argv[3:])
-    esc()
-    open_new_tab(
-        f"https://translate.google.com/?sl=en&tl=fr&text={contents[0:]}&op=translate"
-    )
-
-
-def toarabic():
-    contents = "%20".join(argv[3:])
-    esc()
-    open_new_tab(
-        f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
-    )
-
-
-def translate():
-    languages = {
-        "tofrench": tofrench,
-        "f": tofrench,
-        "toenglish": toenglish,
-        "e": toenglish,
-        "toarabic": toarabic,
-        "a": toarabic,
-    }
-    for i in languages:
-        if i == argv[2]:
-            languages[i]()
+    def translate():
+        languages = {
+            "tofrench": Translate.tofrench,
+            "f": Translate.tofrench,
+            "toenglish": Translate.toenglish,
+            "e": Translate.toenglish,
+            "toarabic": Translate.toarabic,
+            "a": Translate.toarabic,
+        }
+        for i in languages:
+            if i == argv[2]:
+                languages[i]()
 
 
 def sarcasm():
@@ -112,6 +110,19 @@ def spoilerspam():
     notification("Success!", "Message copied to clipboard.", 2)
 
 
+def randnum():
+    num1 = split(argv[2])
+    try:
+        random_num = randint(int("".join(num1[0:-1])), int(argv[3]))
+    except ValueError:
+        notification(
+            "Hey!", "It seems that the number you inputted was not a number.", 3
+        )
+    pypercopy(random_num)
+    esc()
+    notification("Success!", f"The number was: {random_num}", 3)
+
+
 def copypaste():
     copypaste_dict = {
         # fmt: off
@@ -138,30 +149,32 @@ def copypaste():
     notification("Success!", "Message copied to clipboard.", 2)
 
 
-def goingidle():
-    sleep(0.50)
-    call(
-        "start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk",
-        shell=True,
-    )
-    sleep(12.5)
-    hotkey("win", "m")
+class Discord():
+    def goingidle():
+        sleep(0.50)
+        call(
+            "start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk",
+            shell=True,
+        )
+        sleep(12.5)
+        hotkey("win", "m")
 
+    def imback():
+        call(
+            "start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk",
+            shell=True,
+        )
 
-def imback():
-    call("start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk", shell=True)
+    def discord():
+        options = {
+            "going idle": Discord.goingidle,
+            "im back": Discord.imback,
+        }
 
-
-def discord():
-    options = {
-        "going idle": goingidle,
-        "im back": imback,
-    }
-
-    for i in options:
-        if " ".join(argv[2:]) in i:
-            esc()
-            options[i]()
+        for i in options:
+            if " ".join(argv[2:]) in i:
+                esc()
+                options[i]()
 
 
 def titlecase():
@@ -202,56 +215,58 @@ def emojify():
     notification("Success!", "Message copied to clipboard.", 2)
 
 
-def encrypt():
-    encrpytion_dict = {
-        # fmt: off
-        "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
-        "e": "❡", "f": "ᄑ", "g": "ᢂ", "h": "ᠷ",
-        "i": "ង", "j": "ᕒ", "k": "ᔵ", "l": "ᥔ",
-        "m": "ቤ", "n": "ᔇ", "o": "፨", "p": "፱",
-        "q": "ᑴ", "r": "ን", "s": "᠉", "t": "ሤ",
-        "u": "ᡧ", "v": "ቕ", "w": "ሠ", "x": "ᒂ",
-        "y": "ᡆ", "z": "ᅆ"
-        # fmt: on
-    }
-    converted = []
-    for i in " ".join(argv[2:]).lower():
-        if i in encrpytion_dict:
-            converted.append(encrpytion_dict[i])
+class LanguageModifier:
+    def encrypt():
+        encrpytion_dict = {
+            # fmt: off
+            "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
+            "e": "❡", "f": "ᄑ", "g": "ᢂ", "h": "ᠷ",
+            "i": "ង", "j": "ᕒ", "k": "ᔵ", "l": "ᥔ",
+            "m": "ቤ", "n": "ᔇ", "o": "፨", "p": "፱",
+            "q": "ᑴ", "r": "ን", "s": "᠉", "t": "ሤ",
+            "u": "ᡧ", "v": "ቕ", "w": "ሠ", "x": "ᒂ",
+            "y": "ᡆ", "z": "ᅆ"
+            # fmt: on
+        }
+        converted = []
+        for i in " ".join(argv[2:]).lower():
+            if i in encrpytion_dict:
+                converted.append(encrpytion_dict[i])
+            else:
+                converted.append(i)
+
+        pypercopy("".join(converted))
+        esc()
+        notification("Success!", "Message copied to clipboard.", 2)
+
+    def decrypt():
+        failed_num = 0
+        decrpytion_dict = {
+            # fmt: off
+            "ဂ": "a", "ဇ": "b", "⤓": "c", "⥳": "d",
+            "❡": "e", "ᄑ": "f", "ᢂ": "g", "ᠷ": "h",
+            "ង": "i", "ᕒ": "j", "ᔵ": "k", "ᥔ": "l",
+            "ቤ": "m", "ᔇ": "n", "፨": "o", "፱": "p",
+            "ᑴ": "q", "ን": "r", "᠉": "s", "ሤ": "t",
+            "ᡧ": "u", "ቕ": "v", "ሠ": "w", "ᒂ": "x",
+            "ᡆ": "y", "ᅆ": "z", " ": " "
+            # fmt: on
+        }
+        converted = []
+        for i in " ".join(argv[2:]).lower():
+            if i in decrpytion_dict:
+                converted.append(decrpytion_dict[i])
+            else:
+                failed_num += 1
+
+        pypercopy("".join(converted))
+        esc()
+        if failed_num == len("".join(argv[2:])):
+            notification("Failed.", "Message could not be decrypted.", 3)
         else:
-            converted.append(i)
-
-    pypercopy("".join(converted))
-    esc()
-    notification("Success!", "Message copied to clipboard.", 2)
-
-
-def decrypt():
-    failed_num = 0
-    decrpytion_dict = {
-        # fmt: off
-        "ဂ": "a", "ဇ": "b", "⤓": "c", "⥳": "d",
-        "❡": "e", "ᄑ": "f", "ᢂ": "g", "ᠷ": "h",
-        "ង": "i", "ᕒ": "j", "ᔵ": "k", "ᥔ": "l",
-        "ቤ": "m", "ᔇ": "n", "፨": "o", "፱": "p",
-        "ᑴ": "q", "ን": "r", "᠉": "s", "ሤ": "t",
-        "ᡧ": "u", "ቕ": "v", "ሠ": "w", "ᒂ": "x",
-        "ᡆ": "y", "ᅆ": "z", " ": " "
-        # fmt: on
-    }
-    converted = []
-    for i in " ".join(argv[2:]).lower():
-        if i in decrpytion_dict:
-            converted.append(decrpytion_dict[i])
-        else:
-            failed_num += 1
-
-    pypercopy("".join(converted))
-    esc()
-    if failed_num == len("".join(argv[2:])):
-        notification("Failed.", "Message could not be decrypted.", 3)
-    else:
-        notification("Message Decrypted.", f" Your message was: {''.join(converted)}", 10)
+            notification(
+                "Message Decrypted.", f" Your message was: {''.join(converted)}", 10
+            )
 
 
 def flipped():
@@ -309,14 +324,6 @@ def exponent():
     notification("Success!", "Message copied to clipboard.", 2)
 
 
-def fr_e():
-    # invalid character error
-    notification(
-        "Hey!", "It seems you tried to input a character that we don't have.", 3
-    )
-    exit()
-
-
 def split(word):
     return [char for char in word]
 
@@ -350,56 +357,118 @@ def cursive():
     notification("Success!", "Message copied to clipboard.", 2)
 
 
-def fraction():
-    converted = []
-    char = {
-        # fmt: off
-        "0": ("⁰", "₀"), "1": ("¹", "₁"), "2": ("²", "₂"), 
-        "3": ("³", "₃"), "4": ("⁴", "₄"), "5": ("⁵", "₅"),
-        "6": ("⁶", "₆"), "7": ("⁷", "₇"), 
-        "8": ("⁸", "₈"), "9": ("⁹", "₉"),
-        "+": ("⁺", "₊"), "-": ("⁻", "₋"), "=": ("⁼", "₌"),
-        "(": ("⁽", "₍"), ")": ("⁾", "₎"),
-        "a": ("ᵃ", "ₐ"), "b": ("ᵇ", fr_e), "c": ("ᶜ", fr_e),
-        "d": ("ᵈ", fr_e), "e": ("ᵉ", "ₑ"), "f": ("ᶠ", fr_e), 
-        "g": ("ᵍ", fr_e), "h": ("ʰ", "ₕ"), "i": ("ⁱ", "ᵢ"), "j": ("ʲ", "ⱼ"), 
-        "k": ("ᵏ", "ₖ"), "l": ("ˡ", "ₗ"), "m": ("ᵐ", "ₘ"), "n": ("ⁿ", "ₙ"),
-        "o": ("ᵒ", "ₒ"), "p": ("ᵖ", "ₚ"), "r": ("ʳ", "ᵣ"), "s": ("ˢ", "ₛ"),
-        "t": ("ᵗ", "ₜ"), "u": ("ᵘ", "ᵤ"), "v": ("ᵛ", "ᵥ"), "w": ("ʷ", fr_e), 
-        "x": ("ˣ", "ₓ"), "y": ("ʸ", fr_e), "z": ("ᶻ", fr_e),
-        # fmt: on
-    }
+class Fraction:
+    def fr_e():
+        # invalid character error
+        notification(
+            "Hey!", "It seems you tried to input a character that we don't have.", 3
+        )
+        exit()
 
-    # slash_index = "".join(argv[2:]).index("/")
-    # print(slash_index)
-    # numerator = argv[2:slash_index]
-    # print("".join(numerator))
-    splitargv = split(argv[2])
-    numerator = "".join(splitargv[: splitargv.index("/")])
-    print(numerator)
-    denominator = "".join(splitargv[splitargv.index("/") + 1 :])
-    print(denominator)
+    def fraction():
+        converted = []
+        char = {
+            # fmt: off
+            "0": ("⁰", "₀"), "1": ("¹", "₁"), "2": ("²", "₂"), 
+            "3": ("³", "₃"), "4": ("⁴", "₄"), "5": ("⁵", "₅"),
+            "6": ("⁶", "₆"), "7": ("⁷", "₇"), 
+            "8": ("⁸", "₈"), "9": ("⁹", "₉"),
+            "+": ("⁺", "₊"), "-": ("⁻", "₋"), "=": ("⁼", "₌"),
+            "(": ("⁽", "₍"), ")": ("⁾", "₎"),
+            "a": ("ᵃ", "ₐ"), "b": ("ᵇ", Fraction.fr_e), "c": ("ᶜ", Fraction.fr_e),
+            "d": ("ᵈ", Fraction.fr_e), "e": ("ᵉ", "ₑ"), "f": ("ᶠ", Fraction.fr_e), 
+            "g": ("ᵍ", Fraction.fr_e), "h": ("ʰ", "ₕ"), "i": ("ⁱ", "ᵢ"), "j": ("ʲ", "ⱼ"), 
+            "k": ("ᵏ", "ₖ"), "l": ("ˡ", "ₗ"), "m": ("ᵐ", "ₘ"), "n": ("ⁿ", "ₙ"),
+            "o": ("ᵒ", "ₒ"), "p": ("ᵖ", "ₚ"), "r": ("ʳ", "ᵣ"), "s": ("ˢ", "ₛ"),
+            "t": ("ᵗ", "ₜ"), "u": ("ᵘ", "ᵤ"), "v": ("ᵛ", "ᵥ"), "w": ("ʷ", Fraction.fr_e), 
+            "x": ("ˣ", "ₓ"), "y": ("ʸ", Fraction.fr_e), "z": ("ᶻ", Fraction.fr_e),
+            # fmt: on
+        }
 
-    try:
-        for i in char:
-            for x in numerator:
-                if i == x:
-                    converted.append(char[i][0])
+        # slash_index = "".join(argv[2:]).index("/")
+        # print(slash_index)
+        # numerator = argv[2:slash_index]
+        # print("".join(numerator))
+        splitargv = split(argv[2])
+        numerator = "".join(splitargv[: splitargv.index("/")])
+        print(numerator)
+        denominator = "".join(splitargv[splitargv.index("/") + 1 :])
+        print(denominator)
 
-        converted.append("⁄")
+        try:
+            for i in char:
+                for x in numerator:
+                    if i == x:
+                        converted.append(char[i][0])
 
-        for i in char:
-            for x in denominator:
-                if i == x:
-                    converted.append(char[i][1])
+            converted.append("⁄")
 
-        pypercopy("".join(converted))
+            for i in char:
+                for x in denominator:
+                    if i == x:
+                        converted.append(char[i][1])
 
-    except TypeError:
-        fr_e()
+            pypercopy("".join(converted))
 
-    esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+        except TypeError:
+            Fraction.fr_e()
+
+        esc()
+        notification("Success!", "Message copied to clipboard.", 2)
+
+
+# def spambot():
+#     notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
+#     textindex = 3
+
+#     try:
+#         interval = int(argv[2])
+#     except ValueError:
+#         textindex -= 1
+#         interval = 0
+
+#     print(argv[-1])
+
+#     if "count=" in argv[-1]:
+#         count_word = argv[-1]
+#         count_list = []
+#         for i in count_word:
+#             try:
+#                 if i.isnumeric():
+#                     count_list.append(i)
+#             except:
+#                 pass
+
+#         count = "".join(count_list)
+#         word = argv[textindex:-1]
+#         word = " ".join(word)
+
+#     else:
+#         word = argv[textindex:]
+#         count = None
+
+#     esc()
+
+#     def spam():
+#         typewrite("".join(word))
+#         hotkey("enter")
+#         sleep(interval)
+
+#     print(interval)
+#     print(word)
+#     print(count)
+
+#     try:
+#         if count.isnumeric():
+#             for i in range(int(count)):
+#                 print("damn it went through for loop")
+#                 spam()
+
+#         elif count != None:
+#             while True: spam()
+
+#     except:
+#         pass
 
 
 def spambot():
