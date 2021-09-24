@@ -116,7 +116,7 @@ def copypaste():
         if " ".join(argv[2:]) in i:
             copy(copypaste_dict[i])
             hotkey("backspace")
-            sleep(0.5)
+            sleep(0.1)
             hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
@@ -181,7 +181,7 @@ def flipped():
     converted.reverse()
     copy("".join(converted))
     hotkey("backspace")
-    sleep(0.5)
+    sleep(0.1)
     hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
@@ -210,7 +210,7 @@ def exponent():
 
     copy("".join(converted))
     hotkey("backspace")
-    sleep(0.5)
+    sleep(0.1)
     hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
@@ -252,7 +252,7 @@ def cursive():
 
     copy("".join(converted))
     hotkey("backspace")
-    sleep(0.5)
+    sleep(0.1)
     hotkey("ctrl", "v")
     notification("Success!", "Message Typed", 2)
 
@@ -296,7 +296,7 @@ def fraction():
 
         copy("".join(converted), 0.04)
         hotkey("backspace")
-        sleep(0.5)
+        sleep(0.1)
         hotkey("ctrl", "v")
         notification("Success!", "Message Typed.", 2)
 
