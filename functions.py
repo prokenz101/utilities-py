@@ -138,7 +138,19 @@ def copypaste():
         "hangul filler": "ㅤ", "divison": "÷", "multi": "×",
         "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
         ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
-        "shrug": "¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️"
+        "shrug": "¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️",
+        "csprint": """using System;
+
+namespace Code
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("");
+        }
+    }
+}"""
         # fmt: on
     }
     for i in copypaste_dict:
@@ -149,7 +161,7 @@ def copypaste():
     notification("Success!", "Message copied to clipboard.", 2)
 
 
-class Discord():
+class Discord:
     def goingidle():
         sleep(0.50)
         call(
