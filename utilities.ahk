@@ -1,6 +1,6 @@
 F8::
     Send, ^a
     Send, ^c
-    Sleep, 150
+    Sleep, 100
     Run, pythonw utilities.pyw %Clipboard%
 Return

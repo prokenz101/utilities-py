@@ -24,7 +24,8 @@ instructions = {
     "upside-down": flipped,
     "superscript": exponent,
     "encrypt": encrypt,
-    "decrypt": decrypt
+    "decrypt": decrypt,
+    "reverse" : reverse
 }
 try:
     for i in instructions:

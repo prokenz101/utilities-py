@@ -416,6 +416,7 @@ def extend():
             copy(extendables[i], 0.04)
             notification("Success!", "Message Typed.", 2)
 
+
 def encrypt():
     msg = " ".join(argv[2:]).lower()
     result = ""
@@ -428,12 +429,14 @@ def encrypt():
     copy(result)
     hotkey("ctrl", "v")
 
+
 def get_key(val):
     for key_, value in encryption_dict.items():
         if val == value:
             return key_
 
     raise KeyError
+
 
 def decrypt():
     msg = " ".join(argv[2:])
@@ -446,3 +449,8 @@ def decrypt():
 
     hotkey("backspace")
     notification("Decrypted Message", result, 5)
+
+
+def reverse():
+    copy(" ".join(argv[2:])[::-1])
+    hotkey("ctrl", "v")
