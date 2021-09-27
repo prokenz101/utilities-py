@@ -65,10 +65,13 @@ class Translate:
         languages = {
             "tofrench": Translate.tofrench,
             "f": Translate.tofrench,
+            "french": Translate.tofrench,
             "toenglish": Translate.toenglish,
             "e": Translate.toenglish,
+            "english": Translate.toenglish,
             "toarabic": Translate.toarabic,
             "a": Translate.toarabic,
+            "arabic": Translate.toarabic,
         }
         for i in languages:
             if i == argv[2]:
@@ -88,6 +91,12 @@ def sarcasm():
             state = "upper"
 
     pypercopy("".join(contents_list))
+    esc()
+    notification("Success!", "Message copied to clipboard.", 2)
+
+
+def reverse():
+    pypercopy(" ".join(argv[2:])[::-1])
     esc()
     notification("Success!", "Message copied to clipboard.", 2)
 
@@ -121,6 +130,36 @@ def randnum():
     pypercopy(random_num)
     esc()
     notification("Success!", f"The number was: {random_num}", 3)
+
+
+def reminder():
+    def remind_notif(singular=False):
+        if singular == True:
+            sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]} and its time!"
+        elif singular == False:
+            sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]}s and its time!"
+
+        notification(
+            "Reminder!",
+            sentence,
+            5,
+        )
+
+    time_options = {"s": (1, "second"), "m": (60, "minute"), "h": (3600, "hour")}
+    esc()
+    if float(argv[2][:-1]) == 1:
+        one = True
+    else:
+        one = False
+
+    for i in time_options:
+        if argv[2].endswith(i):
+            waiting_time = float(argv[2][:-1]) * time_options[i][0]
+            sleep(waiting_time)
+            if one == True:
+                remind_notif(singular=True)
+            else:
+                remind_notif()
 
 
 def copypaste():
@@ -248,7 +287,6 @@ class LanguageModifier:
                 converted.append(i)
 
         pypercopy("".join(converted))
-        esc()
         notification("Success!", "Message copied to clipboard.", 2)
 
     def decrypt():
@@ -272,7 +310,6 @@ class LanguageModifier:
                 failed_num += 1
 
         pypercopy("".join(converted))
-        esc()
         if failed_num == len("".join(argv[2:])):
             notification("Failed.", "Message could not be decrypted.", 3)
         else:
@@ -369,6 +406,23 @@ def cursive():
     notification("Success!", "Message copied to clipboard.", 2)
 
 
+def arrowmouse():
+    if argv[2] == "enable":
+        call(R"start supplementary-ahks\arrowmouse.ahk", shell=True)
+        notification(
+            "Enabled.",
+            "Arrow mouse has been enabled. Use 'arrowmouse disable' to disable.",
+            3,
+        )
+    elif argv[2] == "disable":
+        hotkey("f13")
+        notification(
+            "Disabled.",
+            "Arrow mouse has been disabled.",
+            3,
+        )
+
+
 class Fraction:
     def fr_e():
         # invalid character error
@@ -396,16 +450,9 @@ class Fraction:
             "x": ("ˣ", "ₓ"), "y": ("ʸ", Fraction.fr_e), "z": ("ᶻ", Fraction.fr_e),
             # fmt: on
         }
-
-        # slash_index = "".join(argv[2:]).index("/")
-        # print(slash_index)
-        # numerator = argv[2:slash_index]
-        # print("".join(numerator))
         splitargv = split(argv[2])
         numerator = "".join(splitargv[: splitargv.index("/")])
-        print(numerator)
         denominator = "".join(splitargv[splitargv.index("/") + 1 :])
-        print(denominator)
 
         try:
             for i in char:
@@ -427,60 +474,6 @@ class Fraction:
 
         esc()
         notification("Success!", "Message copied to clipboard.", 2)
-
-
-# def spambot():
-#     notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
-#     textindex = 3
-
-#     try:
-#         interval = int(argv[2])
-#     except ValueError:
-#         textindex -= 1
-#         interval = 0
-
-#     print(argv[-1])
-
-#     if "count=" in argv[-1]:
-#         count_word = argv[-1]
-#         count_list = []
-#         for i in count_word:
-#             try:
-#                 if i.isnumeric():
-#                     count_list.append(i)
-#             except:
-#                 pass
-
-#         count = "".join(count_list)
-#         word = argv[textindex:-1]
-#         word = " ".join(word)
-
-#     else:
-#         word = argv[textindex:]
-#         count = None
-
-#     esc()
-
-#     def spam():
-#         typewrite("".join(word))
-#         hotkey("enter")
-#         sleep(interval)
-
-#     print(interval)
-#     print(word)
-#     print(count)
-
-#     try:
-#         if count.isnumeric():
-#             for i in range(int(count)):
-#                 print("damn it went through for loop")
-#                 spam()
-
-#         elif count != None:
-#             while True: spam()
-
-#     except:
-#         pass
 
 
 def spambot():
@@ -512,33 +505,28 @@ def spambot():
 
 
 def autoclick():
+    # fmt: off
     esc()
     AHKPATH = Path(R"C:\Items\Code\utilities\supplementary-ahks\autoclicker.ahk")
     countindex = 4
-    try:
-        mousebutton = argv[3].title()
-    except IndexError:
-        pass
+    try: mousebutton = argv[3].title()
+    except IndexError: pass
 
-    try:
-        AHKPATH.touch()
+    try: AHKPATH.touch()
     except FileExistsError:
         AHKPATH.unlink(missing_ok=True)
         sleep(0.25)
         autoclick()
 
-    try:
-        interval = int(argv[2])
+    try: interval = int(argv[2])
     except ValueError:
         mousebutton = argv[2].title()
         countindex -= 1
         interval = 0
 
-    try:
-        count = f", {argv[countindex]}"
-    except IndexError:
-        count = ""
-
+    try: count = f", {argv[countindex]}"
+    except IndexError: count = ""
+    # fmt: on
     AHKPATH.write_text(
         f"""loop{count} {{
     MouseClick, {mousebutton}
@@ -554,8 +542,8 @@ Return
 """
     )
 
-    call(f"{AHKPATH}", shell=True)
     notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
+    call(f"{AHKPATH}", shell=True)
 
 
 def tapemouse():
