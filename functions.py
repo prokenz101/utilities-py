@@ -74,13 +74,15 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    typewrite("".join(contents_list), 0.04)  
+    copy("".join(contents_list))
+    hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
 
 def spacer():
     contents = " ".join(argv[2:])
-    typewrite(" ".join(contents), 0.04)   
+    copy(" ".join(contents))
+    hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
 
@@ -90,7 +92,8 @@ def spoilerspam():
     for i in base_var:
         contents.append(f"||{i}")
 
-    typewrite(f'{"||".join(contents)}||', 0.04)  
+    copy(f'{"||".join(contents)}||')
+    hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
 
@@ -122,7 +125,8 @@ def copypaste():
 
 
 def titlecase():
-    typewrite(" ".join(argv[2:]).title(), 0.04) 
+    copy(" ".join(argv[2:]).title())
+    hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
 def emojify():
@@ -152,7 +156,8 @@ def emojify():
         else:
             converted.append(i)
 
-    typewrite(" ".join(converted), 0.04)
+    copy(" ".join(converted))
+    hotkey("ctrl", "v")
     notification("Success!", "Message Typed.", 2)
 
 
@@ -408,7 +413,7 @@ def extend():
 
     for i in extendables:
         if i in " ".join(argv[2:]).lower():
-            typewrite(extendables[i], 0.04)
+            copy(extendables[i], 0.04)
             notification("Success!", "Message Typed.", 2)
 
 def encrypt():
