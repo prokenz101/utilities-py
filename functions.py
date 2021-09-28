@@ -454,3 +454,20 @@ def decrypt():
 def reverse():
     copy(" ".join(argv[2:])[::-1])
     hotkey("ctrl", "v")
+
+
+def arrowmouse():
+    if argv[2] == "enable":
+        call(R"start supplementary-ahks\arrowmouse.ahk", shell=True)
+        notification(
+            "Enabled.",
+            "Arrow mouse has been enabled. Use 'arrowmouse disable' to disable.",
+            3,
+        )
+    elif argv[2] == "disable":
+        hotkey("f13")
+        notification(
+            "Disabled.",
+            "Arrow mouse has been disabled.",
+            3,
+        )
