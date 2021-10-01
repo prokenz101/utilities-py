@@ -21,16 +21,19 @@ def esc(interval=0.50):
 
 
 class Search:
+    @staticmethod
     def googlesearch():
         contents = "+".join(argv[1:])
         esc()
         open_new_tab(f"https://www.google.com/search?q={contents[1:]}")
 
+    @staticmethod
     def youtubesearch():
         contents = "+".join(argv[1:])
         esc()
         open_new_tab(f"https://www.youtube.com/results?search_query={contents[8:]}")
 
+    @staticmethod
     def imagesearch():
         contents = "+".join(argv[1:])
         esc()
@@ -40,6 +43,7 @@ class Search:
 
 
 class Translate:
+    @staticmethod
     def toenglish():
         contents = "%20".join(argv[3:])
         esc()
@@ -47,6 +51,7 @@ class Translate:
             f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
         )
 
+    @staticmethod
     def tofrench():
         contents = "%20".join(argv[3:])
         esc()
@@ -54,6 +59,7 @@ class Translate:
             f"https://translate.google.com/?sl=en&tl=fr&text={contents[0:]}&op=translate"
         )
 
+    @staticmethod
     def toarabic():
         contents = "%20".join(argv[3:])
         esc()
@@ -61,6 +67,7 @@ class Translate:
             f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
         )
 
+    @staticmethod
     def translate():
         languages = {
             "tofrench": Translate.tofrench,
@@ -202,6 +209,7 @@ namespace Code
 
 
 class Messaging:
+    @staticmethod
     def gld_goingidle():
         sleep(0.50)
         call(
@@ -211,6 +219,7 @@ class Messaging:
         sleep(21)
         hotkey("win", "m")
 
+    @staticmethod
     def gld_imback():
         sleep(0.50)
         call(
@@ -218,6 +227,7 @@ class Messaging:
             shell=True,
         )
 
+    @staticmethod
     def dsc_goingidle():
         sleep(0.50)
         call(
@@ -227,12 +237,14 @@ class Messaging:
         sleep(12.5)
         hotkey("win", "m")
 
+    @staticmethod
     def dsc_imback():
         call(
             R"start C:\Items\Code\utilities\supplementary-ahks\dscimback.ahk",
             shell=True,
         )
 
+    @staticmethod
     def double_goingidle():
         # fmt: off
         sleep(0.50)
@@ -253,6 +265,7 @@ class Messaging:
         )
         sleep(12.5); hotkey("win", "m")
 
+    @staticmethod
     def double_imback():
         sleep(0.50)
         hotkey("win"); sleep(0.25)
@@ -272,6 +285,7 @@ class Messaging:
         )
         # fmt: on
 
+    @staticmethod
     def messaging_help():
         esc()
         notification(
@@ -284,6 +298,7 @@ g = going idle, m = coming back""",
             10,
         )
 
+    @staticmethod
     def messaging():
         options = {
             "dscg": Messaging.dsc_goingidle,
@@ -340,6 +355,7 @@ def emojify():
 
 
 class LanguageModifier:
+    @staticmethod
     def encrypt():
         encrpytion_dict = {
             # fmt: off
@@ -362,6 +378,7 @@ class LanguageModifier:
         pypercopy("".join(converted))
         notification("Success!", "Message copied to clipboard.", 2)
 
+    @staticmethod
     def decrypt():
         failed_num = 0
         decrpytion_dict = {
@@ -498,6 +515,7 @@ def arrowmouse():
 
 
 class Fraction:
+    @staticmethod
     def fr_e():
         # invalid character error
         notification(
@@ -505,6 +523,7 @@ class Fraction:
         )
         exit()
 
+    @staticmethod
     def fraction():
         converted = []
         char = {
