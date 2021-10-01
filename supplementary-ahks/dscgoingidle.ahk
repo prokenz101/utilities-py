@@ -22,4 +22,7 @@ sleep 900
 Click 177 116
 sleep 750
 Click 1919 0
+Send, {LWinDown}
+Send, m
+Send, {LWinUp}
 ExitApp
