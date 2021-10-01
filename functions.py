@@ -133,20 +133,24 @@ def randnum():
 
 
 def reminder():
-    def remind_notif(singular=False):
-        if singular == True:
+    esc()
+    def remind_notif(message, singular):
+        if singular == True and message == None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]} and its time!"
-        elif singular == False:
+        elif singular == False and message == None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]}s and its time!"
+        elif not message == None:
+            sentence = f"Hey! Your reminder was: {message}"
 
-        notification(
-            "Reminder!",
-            sentence,
-            5,
-        )
+        notification("Reminder!", sentence, 5)
+
+    message = " ".join(argv[3:])
+    
+    if message == "":
+        message = None
 
     time_options = {"s": (1, "second"), "m": (60, "minute"), "h": (3600, "hour")}
-    esc()
+    
     if float(argv[2][:-1]) == 1:
         one = True
     else:
@@ -156,10 +160,7 @@ def reminder():
         if argv[2].endswith(i):
             waiting_time = float(argv[2][:-1]) * time_options[i][0]
             sleep(waiting_time)
-            if one == True:
-                remind_notif(singular=True)
-            else:
-                remind_notif()
+            remind_notif(message=message, singular=one)
 
 
 def copypaste():
@@ -200,30 +201,102 @@ namespace Code
     notification("Success!", "Message copied to clipboard.", 2)
 
 
-class Discord:
-    def goingidle():
+class Messaging:
+    def gld_goingidle():
         sleep(0.50)
         call(
-            "start C:\\Items\\Code\\utilities\\supplementary-ahks\\goingidle.ahk",
+            R"start C:\Items\Code\utilities\supplementary-ahks\guildedgoingidle.ahk",
+            shell=True,
+        )
+        sleep(21)
+        hotkey("win", "m")
+
+    def gld_imback():
+        sleep(0.50)
+        call(
+            R"start C:\Items\Code\utilities\supplementary-ahks\guildedimback.ahk",
+            shell=True,
+        )
+
+    def dsc_goingidle():
+        sleep(0.50)
+        call(
+            R"start C:\Items\Code\utilities\supplementary-ahks\dscgoingidle.ahk",
             shell=True,
         )
         sleep(12.5)
         hotkey("win", "m")
 
-    def imback():
+    def dsc_imback():
         call(
-            "start C:\\Items\\Code\\utilities\\supplementary-ahks\\imback.ahk",
+            R"start C:\Items\Code\utilities\supplementary-ahks\dscimback.ahk",
             shell=True,
         )
 
-    def discord():
+    def double_goingidle():
+        # fmt: off
+        sleep(0.50)
+        hotkey("win"); sleep(0.25)
+        typewrite("guilded"); sleep(1)
+        hotkey("enter"); sleep(3)
+        call(
+            R"start C:\Items\Code\utilities\supplementary-ahks\guildedgoingidle.ahk",
+            shell=True,
+        )
+        sleep(21)
+        hotkey("win"); sleep(0.25)
+        typewrite("discord"); sleep(1)
+        hotkey("enter"); sleep(4)
+        call(
+            R"start C:\Items\Code\utilities\supplementary-ahks\dscgoingidle.ahk",
+            shell=True,
+        )
+        sleep(12.5); hotkey("win", "m")
+
+    def double_imback():
+        sleep(0.50)
+        hotkey("win"); sleep(0.25)
+        typewrite("guilded"); sleep(1)
+        hotkey("enter"); sleep(3)
+        call(
+            R"start C:\Items\Code\utilities\supplementary-ahks\guildedimback.ahk",
+            shell=True,
+        )
+        sleep(19)
+        hotkey("win"); sleep(0.25)
+        typewrite("discord"); sleep(1)
+        hotkey("enter"); sleep(4)
+        call(
+            R"start C:\Items\Code\utilities\supplementary-ahks\dscimback.ahk",
+            shell=True,
+        )
+        # fmt: on
+
+    def messaging_help():
+        esc()
+        notification(
+            "Your Options Are:",
+            """
+Messaging Options:
+dsc/gld/dbl + g/m
+dsc = Discord, gld = Guilded, dbl = Double
+g = going idle, m = coming back""",
+            10,
+        )
+
+    def messaging():
         options = {
-            "going idle": Discord.goingidle,
-            "im back": Discord.imback,
+            "dscg": Messaging.dsc_goingidle,
+            "dscm": Messaging.dsc_imback,
+            "gldg": Messaging.gld_goingidle,
+            "gldm": Messaging.gld_imback,
+            "dblg": Messaging.double_goingidle,
+            "dblm": Messaging.double_imback,
+            "help": Messaging.messaging_help,
         }
 
         for i in options:
-            if " ".join(argv[2:]) in i:
+            if i == " ".join(argv[2:]):
                 esc()
                 options[i]()
 
@@ -421,6 +494,7 @@ def arrowmouse():
             "Arrow mouse has been disabled.",
             3,
         )
+    esc()
 
 
 class Fraction:
@@ -477,6 +551,7 @@ class Fraction:
 
 
 def spambot():
+    # fmt: off
     notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
     number = argv[2]
     interval_list = argv[::-1]
@@ -500,6 +575,7 @@ def spambot():
             "Spamming was cancelled.",
             10,
         )
+    # fmt: on
 
 
 def autoclick():
