@@ -27,6 +27,7 @@ instructions = {
     "decrypt": decrypt,
     "reverse" : reverse,
     "arrowmouse" : arrowmouse,
+    "alarm" : alarm,
 }
 try:
     for i in instructions:

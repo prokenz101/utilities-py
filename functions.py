@@ -6,6 +6,8 @@ from webbrowser import open_new_tab
 from pathlib import Path
 from subprocess import call
 from win10toast import ToastNotifier
+from datetime import datetime
+from playsound import playsound
 
 encryption_dict = {
         "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
@@ -471,3 +473,32 @@ def arrowmouse():
             "Arrow mouse has been disabled.",
             3,
         )
+
+def alarm():
+    hotkey("backspace")
+    hotkey("esc")
+
+    curr_hour = datetime.now().hour
+    curr_min = datetime.now().minute
+    curr_sec = datetime.now().second
+
+    if argv[4] == "pm":
+        if argv[2] != "12":
+            alarm_hour = int(argv[2]) + 12
+    else:
+        alarm_hour = int(argv[2])
+    alarm_min = int(argv[3])
+
+    waiting_hour = alarm_hour - curr_hour
+    waiting_min = alarm_min - curr_min
+
+    if waiting_min < 0:
+        waiting_min += 60
+
+    notification("Alarm", f"Your alarm has been set for {argv[2]}:{argv[3]} {argv[4]}", 6)
+
+    waiting_time = (waiting_hour * 60 * 60) + (waiting_min * 60) - curr_sec
+    sleep(waiting_time - 7)
+
+    playsound(r"./alarm_sound.mp3", block=False)
+    notification("Alarm", "Time's up kid", 3)
