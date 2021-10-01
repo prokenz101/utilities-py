@@ -21,7 +21,14 @@ If GetKeyState(A_ThisHotKey, "P")
 Else
 	Break
 }
+Return
 
+F5::
+Click, Left
+Return
+
+F6::
+Click, Right
 Return
 
 F13::ExitApp
