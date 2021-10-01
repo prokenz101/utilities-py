@@ -29,16 +29,16 @@ class Search:
 
     @staticmethod
     def youtubesearch():
-        contents = "+".join(argv[1:])
+        contents = "+".join(argv[2:])
         esc()
-        open_new_tab(f"https://www.youtube.com/results?search_query={contents[8:]}")
+        open_new_tab(f"https://www.youtube.com/results?search_query={contents[0:]}")
 
     @staticmethod
     def imagesearch():
-        contents = "+".join(argv[1:])
+        contents = "+".join(argv[2:])
         esc()
         open_new_tab(
-            f"https://www.google.com/search?q={contents[7:]}&safe=strict&tbm=isch&sxsrf=ALeKk029ouHDkHfq3RFVc8WpFzOvZZ8s4g%3A1624376552976&source=hp&biw=1536&bih=763&ei=6ATSYIOrOduJhbIPzda7yAs&oq=hello&gs_lcp=CgNpbWcQAzIFCAAQsQMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyBQgAELEDMgUIABCxAzICCAA6BwgjEOoCECc6BAgjECc6CAgAELEDEIMBUNIGWKcJYLELaABwAHgAgAGPAogByAqSAQUwLjEuNZgBAKABAaoBC2d3cy13aXotaW1nsAEK&sclient=img&ved=0ahUKEwiDv62byqvxAhXbREEAHU3rDrkQ4dUDCAc&uact=5"
+            f"https://www.google.com/search?q={contents[0:]}&safe=strict&tbm=isch&sxsrf=ALeKk029ouHDkHfq3RFVc8WpFzOvZZ8s4g%3A1624376552976&source=hp&biw=1536&bih=763&ei=6ATSYIOrOduJhbIPzda7yAs&oq=hello&gs_lcp=CgNpbWcQAzIFCAAQsQMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyBQgAELEDMgUIABCxAzICCAA6BwgjEOoCECc6BAgjECc6CAgAELEDEIMBUNIGWKcJYLELaABwAHgAgAGPAogByAqSAQUwLjEuNZgBAKABAaoBC2d3cy13aXotaW1nsAEK&sclient=img&ved=0ahUKEwiDv62byqvxAhXbREEAHU3rDrkQ4dUDCAc&uact=5"
         )
 
 
@@ -168,6 +168,27 @@ def reminder():
             waiting_time = float(argv[2][:-1]) * time_options[i][0]
             sleep(waiting_time)
             remind_notif(message=message, singular=one)
+
+
+def drinkwater(): # an alarm which reminds me to drink water every hour
+    drinkwaterstate = Path(R"drinkwateron")
+    if argv[2] == "enable": 
+        try: drinkwaterstate.touch()
+        except FileExistsError: notification("Hey!", "It seems that DrinkWater is already enabled.")
+        notification("Enabled.", "You will now be reminded to drink water every 2 hours.", 3)
+        while True:
+            sleep(7200)
+            if drinkwaterstate.exists():
+                notification("Drink Water!", "An hour is up, it's time to go and drink water again.", 5)
+            else: break
+    if argv[2].lower() == "disable":
+        try:
+            drinkwaterstate.unlink()
+        except FileNotFoundError:
+            notification("Hey!", "It seems that DrinkWater is already disabled.", 3)
+            exit()
+        
+        notification("Disabled.", "DrinkWater has been disabled.", 3)
 
 
 def copypaste():
@@ -600,7 +621,7 @@ def spambot():
 def autoclick():
     # fmt: off
     esc()
-    AHKPATH = Path(R"C:\Items\Code\utilities\supplementary-ahks\autoclicker.ahk")
+    AHKPATH = Path(R"supplementary-ahks\autoclicker.ahk")
     countindex = 4
     try: mousebutton = argv[3].title()
     except IndexError: pass
@@ -625,11 +646,9 @@ def autoclick():
     MouseClick, {mousebutton}
     Sleep, {interval}
 }}
-FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
 ExitApp
 
 F7::
-FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
 ExitApp
 Return
 """
@@ -637,6 +656,7 @@ Return
 
     notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
     call(f"{AHKPATH}", shell=True)
+    AHKPATH.unlink(missing_ok=True)
 
 
 def tapemouse():
