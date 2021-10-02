@@ -20,6 +20,16 @@ def esc(interval=0.50):
     sleep(interval)
 
 
+def no_notifcheck(notif, tonotify):
+    if notif: notification(tonotify[0], tonotify[1], tonotify[2])
+    elif notif == False: pass
+
+
+def no_copycheck(copy, tocopy):
+    if copy: pypercopy(tocopy)
+    elif copy == False: pass
+
+
 class Search:
     @staticmethod
     def googlesearch():
@@ -85,58 +95,63 @@ class Translate:
                 languages[i]()
 
 
-def sarcasm():
-    contents = " ".join(argv[2:])
+def sarcasm(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
     contents_list = []
     state = "upper"
-    for i in contents:
+    for i in words:
         if state == "upper":
             contents_list.append(i.lower())
             state = "lower"
         elif state == "lower":
             contents_list.append(i.upper())
             state = "upper"
-
-    pypercopy("".join(contents_list))
+    
+    no_copycheck(copy, "".join(contents_list))
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return "".join(contents_list)
 
 
-def reverse():
-    pypercopy(" ".join(argv[2:])[::-1])
+def reverse(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
+    no_copycheck(copy, words[::-1])
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
 
 
-def spacer():
-    contents = " ".join(argv[2:])
-    pypercopy(" ".join(contents))
+def spacer(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
+    contents = words
+    no_copycheck(copy, " ".join(contents))
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return " ".join(contents)
 
 
-def spoilerspam():
-    base_var = " ".join(argv[2:])
+def spoilerspam(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
     contents = []
-    for i in base_var:
+    for i in words:
         contents.append(f"||{i}")
-
-    pypercopy(f'{"||".join(contents)}||')
+    no_copycheck(copy, "".join(f'{"||".join(contents)}||'))
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return f'{"||".join(contents)}||'
 
 
-def randnum():
-    num1 = split(argv[2])
+def randnum(num=None, notif=True, copy=True):
+    num = num or list(argv[2])
     try:
-        random_num = randint(int("".join(num1[0:-1])), int(argv[3]))
+        random_num = randint(int("".join(num[0:-1])), int(argv[3]))
     except ValueError:
         notification(
             "Hey!", "It seems that the number you inputted was not a number.", 3
         )
-    pypercopy(random_num)
+    no_copycheck(copy, random_num)
     esc()
-    notification("Success!", f"The number was: {random_num}", 3)
+    no_notifcheck(notif, ["Success!", f"The number was: {random_num}", 3])
+    return random_num
 
 
 def reminder():
@@ -191,7 +206,8 @@ def drinkwater(): # an alarm which reminds me to drink water every hour
         notification("Disabled.", "DrinkWater has been disabled.", 3)
 
 
-def copypaste():
+def copypaste(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
     copypaste_dict = {
         # fmt: off
         "aigu e": "é", "aigu E": "É", "grave a": "à",
@@ -222,11 +238,13 @@ namespace Code
         # fmt: on
     }
     for i in copypaste_dict:
-        if " ".join(argv[2:]) in i:
-            pypercopy(copypaste_dict[i])
+        if words in i:
+            no_copycheck(copy, copypaste_dict[i])
+            break
 
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return copypaste_dict[i]
 
 
 class Messaging:
@@ -337,13 +355,16 @@ g = going idle, m = coming back""",
                 options[i]()
 
 
-def titlecase():
-    pypercopy(" ".join(argv[2:]).title())
+def titlecase(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
+    no_copycheck(copy, words.title())
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    return words.title()
 
 
-def emojify():
+def emojify(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
     converted = []
     special_char = {
         " ": ":black_large_square:",
@@ -360,7 +381,7 @@ def emojify():
         "9": ":nine:",
         "0": ":zero:",
     }
-    for i in " ".join(argv[2:]):
+    for i in words:
         if "a" <= i.lower() <= "z":
             converted.append(f":regional_indicator_{i.lower()}:")
 
@@ -370,14 +391,18 @@ def emojify():
         else:
             converted.append(i)
 
-    pypercopy(" ".join(converted))
-    esc()
+    pypercopy()
     notification("Success!", "Message copied to clipboard.", 2)
+    no_copycheck(copy, " ".join(converted))
+    esc()
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return " ".join(converted)
 
 
 class LanguageModifier:
     @staticmethod
-    def encrypt():
+    def encrypt(words=None, notif=True, copy=True):
+        words = words or " ".join(argv[2:])
         encrpytion_dict = {
             # fmt: off
             "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
@@ -390,17 +415,18 @@ class LanguageModifier:
             # fmt: on
         }
         converted = []
-        for i in " ".join(argv[2:]).lower():
+        for i in words.lower():
             if i in encrpytion_dict:
                 converted.append(encrpytion_dict[i])
             else:
                 converted.append(i)
 
-        pypercopy("".join(converted))
-        notification("Success!", "Message copied to clipboard.", 2)
+        no_copycheck(copy, "".join(converted))
+        no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+        return "".join(converted)
 
     @staticmethod
-    def decrypt():
+    def decrypt(words=None, notif=True, copy=True):
         failed_num = 0
         decrpytion_dict = {
             # fmt: off
@@ -414,22 +440,25 @@ class LanguageModifier:
             # fmt: on
         }
         converted = []
-        for i in " ".join(argv[2:]).lower():
+        for i in words.lower():
             if i in decrpytion_dict:
                 converted.append(decrpytion_dict[i])
             else:
                 failed_num += 1
 
-        pypercopy("".join(converted))
+        no_copycheck(copy, "".join(converted))
         if failed_num == len("".join(argv[2:])):
-            notification("Failed.", "Message could not be decrypted.", 3)
+            no_notifcheck(notif, ["Failed.", "Message could not be decrypted.", 3])
         else:
-            notification(
-                "Message Decrypted.", f" Your message was: {''.join(converted)}", 10
+            no_notifcheck(
+                notif,
+                ["Message Decrypted.", f" Your message was: {''.join(converted)}", 10],
             )
+        return "".join(converted)
 
 
-def flipped():
+def flipped(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
     converted = []
     flipped_char = {
         # fmt: off
@@ -445,19 +474,21 @@ def flipped():
         "U": "∩", "V": "Λ", "W": "M", "X": "X", "Y": "⅄", "Z": "Z"
         # fmt: on
     }
-    for i in " ".join(argv[2:]):
+    for i in words:
         if i in flipped_char:
             converted.append(flipped_char[i])
         else:
             converted.append(i)
 
     converted.reverse()
-    pypercopy("".join(converted))
+    no_copycheck(copy, "".join(converted))
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return "".join(converted)
 
 
-def exponent():
+def exponent(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
     converted = []
     superscript_char = {
         # fmt: off
@@ -473,22 +504,20 @@ def exponent():
         "(": "⁽", ")": "⁾"
         # fmt: on
     }
-    for i in " ".join(argv[2:]):
+    for i in words:
         if i in superscript_char:
             converted.append(superscript_char[i])
         else:
             converted.append(i)
 
-    pypercopy("".join(converted))
+    no_copycheck(copy, "".join(converted))
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return "".join(converted)
 
 
-def split(word):
-    return [char for char in word]
-
-
-def cursive():
+def cursive(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
     converted = []
     char = {
         # fmt: off
@@ -506,15 +535,16 @@ def cursive():
         # fmt: on
     }
     base_num = 0
-    for i in " ".join(argv[2:]):
+    for i in words:
         if i in char:
             converted.append(char[i])
         else:
             converted.append(i)
 
-    pypercopy("".join(converted))
+    no_copycheck(copy, "".join(converted))
     esc()
-    notification("Success!", "Message copied to clipboard.", 2)
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return "".join(converted)
 
 
 def arrowmouse():
@@ -545,7 +575,8 @@ class Fraction:
         exit()
 
     @staticmethod
-    def fraction():
+    def fraction(words=None, notif=True, copy=True):
+        words = words or " ".join(argv[2:])
         converted = []
         char = {
             # fmt: off
@@ -564,7 +595,7 @@ class Fraction:
             "x": ("ˣ", "ₓ"), "y": ("ʸ", Fraction.fr_e), "z": ("ᶻ", Fraction.fr_e),
             # fmt: on
         }
-        splitargv = split(argv[2])
+        splitargv = list(words)
         numerator = "".join(splitargv[: splitargv.index("/")])
         denominator = "".join(splitargv[splitargv.index("/") + 1 :])
 
@@ -581,13 +612,16 @@ class Fraction:
                     if i == x:
                         converted.append(char[i][1])
 
-            pypercopy("".join(converted))
+            no_copycheck(copy, "".join(converted))
 
         except TypeError:
             Fraction.fr_e()
 
         esc()
-        notification("Success!", "Message copied to clipboard.", 2)
+        errored = False
+        no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+        if errored == False:
+            return "".join(converted)
 
 
 def spambot():
@@ -681,17 +715,21 @@ def tapemouse():
         )
 
 
-def extend():
+def extend(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
     extendables = {
         "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
         "widepeeposad": ":widepeeposad1::widepeeposad2::widepeeposad3::widepeeposad4:",
     }
 
     for i in extendables:
-        if i in " ".join(argv[2:]).lower():
-            pypercopy(extendables[i])
-            esc()
-            notification("Success!", "Message copied to clipboard.", 2)
+        if i in words.lower():
+            no_copycheck(copy, extendables[i])
+            break
+    
+    esc()
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return extendables[i]
 
 
 def mcprofiles():
