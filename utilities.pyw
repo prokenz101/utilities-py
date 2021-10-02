@@ -50,4 +50,3 @@ try:
 
 except Exception as e:
     notification("An Error Has Occured.", str(e), 10)
-    print(e)
