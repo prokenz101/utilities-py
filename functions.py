@@ -5,9 +5,9 @@ from time import sleep
 from webbrowser import open_new_tab
 from pathlib import Path
 from subprocess import call
+from re import finditer
 from random import randint
 from win10toast import ToastNotifier
-
 
 def notification(title, subtitle, interval, icon=None, threaded=True):
     toaster = ToastNotifier()
@@ -21,13 +21,13 @@ def esc(interval=0.50):
 
 
 def no_notifcheck(notif, tonotify):
-    if notif: notification(tonotify[0], tonotify[1], tonotify[2])
-    elif notif == False: pass
+    if notif == False: return
+    elif notif: notification(tonotify[0], tonotify[1], tonotify[2])
 
 
 def no_copycheck(copy, tocopy):
-    if copy: pypercopy(tocopy)
-    elif copy == False: pass
+    if copy == False: return
+    elif copy: pypercopy(tocopy)
 
 
 class Search:
@@ -91,8 +91,7 @@ class Translate:
             "arabic": Translate.toarabic,
         }
         for i in languages:
-            if i == argv[2]:
-                languages[i]()
+            if i == argv[2]: languages[i]()
 
 
 def sarcasm(words=None, notif=True, copy=True):
@@ -132,8 +131,7 @@ def spacer(words=None, notif=True, copy=True):
 def spoilerspam(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
     contents = []
-    for i in words:
-        contents.append(f"||{i}")
+    for i in words: contents.append(f"||{i}")
     no_copycheck(copy, "".join(f'{"||".join(contents)}||'))
     esc()
     no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
@@ -142,12 +140,10 @@ def spoilerspam(words=None, notif=True, copy=True):
 
 def randnum(num=None, notif=True, copy=True):
     num = num or list(argv[2])
-    try:
-        random_num = randint(int("".join(num[0:-1])), int(argv[3]))
-    except ValueError:
-        notification(
-            "Hey!", "It seems that the number you inputted was not a number.", 3
-        )
+    try: random_num = randint(int("".join(num[0:-1])), int(argv[3]))
+    except ValueError: notification(
+                "Hey!", "It seems that the number you inputted was not a number.", 3
+            )
     no_copycheck(copy, random_num)
     esc()
     no_notifcheck(notif, ["Success!", f"The number was: {random_num}", 3])
@@ -161,22 +157,18 @@ def reminder():
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]} and its time!"
         elif singular == False and message == None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]}s and its time!"
-        elif not message == None:
-            sentence = f"Hey! Your reminder was: {message}"
+        elif not message == None: sentence = f"Hey! Your reminder was: {message}"
 
         notification("Reminder!", sentence, 5)
 
     message = " ".join(argv[3:])
     
-    if message == "":
-        message = None
+    if message == "": message = None
 
     time_options = {"s": (1, "second"), "m": (60, "minute"), "h": (3600, "hour")}
     
-    if float(argv[2][:-1]) == 1:
-        one = True
-    else:
-        one = False
+    if float(argv[2][:-1]) == 1: one = True
+    else: one = False
 
     for i in time_options:
         if argv[2].endswith(i):
@@ -193,12 +185,14 @@ def drinkwater(): # an alarm which reminds me to drink water every hour
         notification("Enabled.", "You will now be reminded to drink water every 2 hours.", 3)
         while True:
             sleep(7200)
-            if drinkwaterstate.exists():
-                notification("Drink Water!", "An hour is up, it's time to go and drink water again.", 5)
+            if drinkwaterstate.exists(): notification(
+                    "Drink Water!",
+                    "An hour is up, it's time to go and drink water again.",
+                    5
+                )
             else: break
     if argv[2].lower() == "disable":
-        try:
-            drinkwaterstate.unlink()
+        try: drinkwaterstate.unlink()
         except FileNotFoundError:
             notification("Hey!", "It seems that DrinkWater is already disabled.", 3)
             exit()
@@ -247,114 +241,6 @@ namespace Code
     return copypaste_dict[i]
 
 
-class Messaging:
-    @staticmethod
-    def gld_goingidle():
-        sleep(0.50)
-        call(
-            R"start C:\Items\Code\utilities\supplementary-ahks\guildedgoingidle.ahk",
-            shell=True,
-        )
-        sleep(21)
-        hotkey("win", "m")
-
-    @staticmethod
-    def gld_imback():
-        sleep(0.50)
-        call(
-            R"start C:\Items\Code\utilities\supplementary-ahks\guildedimback.ahk",
-            shell=True,
-        )
-
-    @staticmethod
-    def dsc_goingidle():
-        sleep(0.50)
-        call(
-            R"start C:\Items\Code\utilities\supplementary-ahks\dscgoingidle.ahk",
-            shell=True,
-        )
-        sleep(12.5)
-        hotkey("win", "m")
-
-    @staticmethod
-    def dsc_imback():
-        call(
-            R"start C:\Items\Code\utilities\supplementary-ahks\dscimback.ahk",
-            shell=True,
-        )
-
-    @staticmethod
-    def double_goingidle():
-        # fmt: off
-        sleep(0.50)
-        hotkey("win"); sleep(0.25)
-        typewrite("guilded"); sleep(1)
-        hotkey("enter"); sleep(3)
-        call(
-            R"start C:\Items\Code\utilities\supplementary-ahks\guildedgoingidle.ahk",
-            shell=True,
-        )
-        sleep(21)
-        hotkey("win"); sleep(0.25)
-        typewrite("discord"); sleep(1)
-        hotkey("enter"); sleep(4)
-        call(
-            R"start C:\Items\Code\utilities\supplementary-ahks\dscgoingidle.ahk",
-            shell=True,
-        )
-        sleep(12.5); hotkey("win", "m")
-
-    @staticmethod
-    def double_imback():
-        sleep(0.50)
-        hotkey("win"); sleep(0.25)
-        typewrite("guilded"); sleep(1)
-        hotkey("enter"); sleep(3)
-        call(
-            R"start C:\Items\Code\utilities\supplementary-ahks\guildedimback.ahk",
-            shell=True,
-        )
-        sleep(19)
-        hotkey("win"); sleep(0.25)
-        typewrite("discord"); sleep(1)
-        hotkey("enter"); sleep(4)
-        call(
-            R"start C:\Items\Code\utilities\supplementary-ahks\dscimback.ahk",
-            shell=True,
-        )
-        # fmt: on
-
-    @staticmethod
-    def messaging_help():
-        esc()
-        notification(
-            "Your Options Are:",
-            """
-Messaging Options:
-dsc/gld/dbl + g/m
-dsc = Discord, gld = Guilded, dbl = Double
-g = going idle, m = coming back""",
-            10,
-        )
-
-    @staticmethod
-    def messaging():
-        options = {
-            "dscg": Messaging.dsc_goingidle,
-            "dscm": Messaging.dsc_imback,
-            "gldg": Messaging.gld_goingidle,
-            "gldm": Messaging.gld_imback,
-            "dblg": Messaging.double_goingidle,
-            "dblm": Messaging.double_imback,
-            "help": Messaging.messaging_help,
-        }
-
-        for i in options:
-            if i == " ".join(argv[2:]):
-                esc()
-                options[i]()
-
-
 def titlecase(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
     no_copycheck(copy, words.title())
@@ -382,16 +268,11 @@ def emojify(words=None, notif=True, copy=True):
         "0": ":zero:",
     }
     for i in words:
-        if "a" <= i.lower() <= "z":
-            converted.append(f":regional_indicator_{i.lower()}:")
+        if "a" <= i.lower() <= "z": converted.append(f":regional_indicator_{i.lower()}:")
+        elif i in special_char: converted.append(special_char[i])
+        else: converted.append(i)
 
-        elif i in special_char:
-            converted.append(special_char[i])
-
-        else:
-            converted.append(i)
-
-    pypercopy()
+    pypercopy(" ".join(converted))
     notification("Success!", "Message copied to clipboard.", 2)
     no_copycheck(copy, " ".join(converted))
     esc()
@@ -416,10 +297,8 @@ class LanguageModifier:
         }
         converted = []
         for i in words.lower():
-            if i in encrpytion_dict:
-                converted.append(encrpytion_dict[i])
-            else:
-                converted.append(i)
+            if i in encrpytion_dict: converted.append(encrpytion_dict[i])
+            else: converted.append(i)
 
         no_copycheck(copy, "".join(converted))
         no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
@@ -427,6 +306,7 @@ class LanguageModifier:
 
     @staticmethod
     def decrypt(words=None, notif=True, copy=True):
+        words = words or " ".join(argv[2:])
         failed_num = 0
         decrpytion_dict = {
             # fmt: off
@@ -440,19 +320,26 @@ class LanguageModifier:
             # fmt: on
         }
         converted = []
-        for i in words.lower():
-            if i in decrpytion_dict:
-                converted.append(decrpytion_dict[i])
-            else:
-                failed_num += 1
+        for i in words:
+            if i in decrpytion_dict: converted.append(decrpytion_dict[i])
+            else: failed_num += 1
 
         no_copycheck(copy, "".join(converted))
-        if failed_num == len("".join(argv[2:])):
-            no_notifcheck(notif, ["Failed.", "Message could not be decrypted.", 3])
-        else:
-            no_notifcheck(
+        if failed_num == len("".join(argv[2:])): no_notifcheck(
                 notif,
-                ["Message Decrypted.", f" Your message was: {''.join(converted)}", 10],
+                [
+                    "Failed.",
+                    "Message could not be decrypted.",
+                    3,
+                ]
+            )
+        else: no_notifcheck(
+                    notif,
+                    [
+                        "Message Decrypted.",
+                        f" Your message was: {''.join(converted)}",
+                        10,
+                    ],
             )
         return "".join(converted)
 
@@ -475,10 +362,8 @@ def flipped(words=None, notif=True, copy=True):
         # fmt: on
     }
     for i in words:
-        if i in flipped_char:
-            converted.append(flipped_char[i])
-        else:
-            converted.append(i)
+        if i in flipped_char: converted.append(flipped_char[i])
+        else: converted.append(i)
 
     converted.reverse()
     no_copycheck(copy, "".join(converted))
@@ -505,10 +390,8 @@ def exponent(words=None, notif=True, copy=True):
         # fmt: on
     }
     for i in words:
-        if i in superscript_char:
-            converted.append(superscript_char[i])
-        else:
-            converted.append(i)
+        if i in superscript_char: converted.append(superscript_char[i])
+        else: converted.append(i)
 
     no_copycheck(copy, "".join(converted))
     esc()
@@ -536,10 +419,8 @@ def cursive(words=None, notif=True, copy=True):
     }
     base_num = 0
     for i in words:
-        if i in char:
-            converted.append(char[i])
-        else:
-            converted.append(i)
+        if i in char: converted.append(char[i])
+        else: converted.append(i)
 
     no_copycheck(copy, "".join(converted))
     esc()
@@ -591,7 +472,7 @@ class Fraction:
             "g": ("ᵍ", Fraction.fr_e), "h": ("ʰ", "ₕ"), "i": ("ⁱ", "ᵢ"), "j": ("ʲ", "ⱼ"), 
             "k": ("ᵏ", "ₖ"), "l": ("ˡ", "ₗ"), "m": ("ᵐ", "ₘ"), "n": ("ⁿ", "ₙ"),
             "o": ("ᵒ", "ₒ"), "p": ("ᵖ", "ₚ"), "r": ("ʳ", "ᵣ"), "s": ("ˢ", "ₛ"),
-            "t": ("ᵗ", "ₜ"), "u": ("ᵘ", "ᵤ"), "v": ("ᵛ", "ᵥ"), "w": ("ʷ", Fraction.fr_e), 
+            "t": ("ᵗ", "ₜ"), "u": ("ᵘ", "ᵤ"), "v": ("ᵛ", "ᵥ"), "w": ("ʷ", Fraction.fr_e),
             "x": ("ˣ", "ₓ"), "y": ("ʸ", Fraction.fr_e), "z": ("ᶻ", Fraction.fr_e),
             # fmt: on
         }
@@ -602,26 +483,22 @@ class Fraction:
         try:
             for i in char:
                 for x in numerator:
-                    if i == x:
-                        converted.append(char[i][0])
+                    if i == x: converted.append(char[i][0])
 
             converted.append("⁄")
 
             for i in char:
                 for x in denominator:
-                    if i == x:
-                        converted.append(char[i][1])
+                    if i == x: converted.append(char[i][1])
 
             no_copycheck(copy, "".join(converted))
 
-        except TypeError:
-            Fraction.fr_e()
+        except TypeError: Fraction.fr_e()
 
         esc()
         errored = False
         no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-        if errored == False:
-            return "".join(converted)
+        if errored == False: return "".join(converted)
 
 
 def spambot():
@@ -695,11 +572,10 @@ Return
 
 def tapemouse():
     esc()
+    # fmt: off
     try:
-        if argv[3].startswith("wait="):
-            sleep(int(argv[3][5:]))
-    except IndexError:
-        pass
+        if argv[3].startswith("wait="): sleep(int(argv[3][5:]))
+    except IndexError: pass
     try:
         mouseDown(button=argv[2].lower())
         notification(
@@ -707,12 +583,11 @@ def tapemouse():
             f"The {argv[2]} mouse button has been taped down.",
             3,
         )
-    except FailSafeException:
-        notification(
-            "Couldn't Start TapeMouse.",
-            "The tapemouse was stopped due to FailSafeException.",
-            3,
-        )
+    except FailSafeException: notification(
+                "Couldn't Start TapeMouse.",
+                "The tapemouse was stopped due to FailSafeException.",
+                3,
+            )
 
 
 def extend(words=None, notif=True, copy=True):
@@ -732,9 +607,35 @@ def extend(words=None, notif=True, copy=True):
     return extendables[i]
 
 
+def formatter():
+    argv2 = " ".join(argv[2:])
+    converted = ""
+    functions = {
+        # fmt: off
+        "sarcasm": sarcasm, "spacer": spacer, "spoilerspam": spoilerspam, "copypaste": copypaste,
+        "cp": copypaste, "emojify": emojify, "extend": extend, "reverse": reverse,
+        "exponent": exponent, "ep": exponent, "title": titlecase, "titlecase": titlecase,
+        "cursive": cursive, "fraction": Fraction.fraction, "fc": Fraction.fraction,
+        "randnum": randnum, "randint": randnum, "encyrpt": LanguageModifier.encrypt,
+        "ecr": LanguageModifier.encrypt, "flip": flipped, "decrypt": LanguageModifier.decrypt,
+        "dcr": LanguageModifier.decrypt, "upside-down": flipped, "superscript": exponent,
+        # fmt: on
+    }
+    formatdict = {}
+    formattables = finditer(r'\{([\w \d/]+)\}', argv2)
+    for i in formattables:
+        command = i.groups()[0]
+        splitcommand = command.split(" ")
+        output = functions[splitcommand[0]](" ".join(splitcommand[1:]), copy=False, notif=False)
+        formatdict[command] = output
+
+    converted = " ".join(argv[2:]).format(**formatdict)
+    print(converted)
+    return converted
+
+
 def mcprofiles():
     esc()
-
     if argv[2] == "done?":
         call(R"python C:\Items\Code\mc-profiles\ifexists.pyw", shell=True)
         sleep(1)
