@@ -1,6 +1,5 @@
 from sys import argv
 from pyautogui import FailSafeException, hotkey, mouseDown, typewrite
-from pyperclip import copy, paste
 from time import sleep
 from webbrowser import open_new_tab
 from pathlib import Path
@@ -8,6 +7,9 @@ from subprocess import call
 from win10toast import ToastNotifier
 from datetime import datetime
 from playsound import playsound
+from random import  choice
+from string import  ascii_letters
+from re import finditer
 
 encryption_dict = {
         "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
@@ -50,7 +52,7 @@ def toarabic():
     )
 
 
-def translate():
+def translate(contents):
     languages = {
         "tofrench": tofrench,
         "f": tofrench,
@@ -64,8 +66,7 @@ def translate():
             languages[i]()
 
 
-def sarcasm():
-    contents = " ".join(argv[2:])
+def sarcasm(contents):
     contents_list = []
     state = "upper"
     for i in contents:
@@ -76,30 +77,22 @@ def sarcasm():
             contents_list.append(i.upper())
             state = "upper"
 
-    copy("".join(contents_list))
-    hotkey("ctrl", "v")
-    notification("Success!", "Message Typed.", 2)
+    return "".join(contents_list)
 
 
-def spacer():
-    contents = " ".join(argv[2:])
-    copy(" ".join(contents))
-    hotkey("ctrl", "v")
-    notification("Success!", "Message Typed.", 2)
+def spacer(contents):
+    return " ".join(contents)
 
 
-def spoilerspam():
-    base_var = " ".join(argv[2:])
+def spoilerspam(base_var):
     contents = []
     for i in base_var:
         contents.append(f"||{i}")
 
-    copy(f'{"||".join(contents)}||')
-    hotkey("ctrl", "v")
-    notification("Success!", "Message Typed.", 2)
+    return f'{"||".join(contents)}||'
 
 
-def copypaste():
+def copypaste(contents):
     copypaste_dict = {
         # fmt: off
         "aigu e": "é", "aigu E": "É", "grave a": "à",
@@ -114,24 +107,19 @@ def copypaste():
         "hangul filler": "ㅤ", "divison": "÷", "multi": "×",
         "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
         ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
-        "shrug": "¯\_(ツ)_/¯",
+        "shrug": "¯\_(ツ)_/¯", "angle symbol" : "∠"
         # fmt: on
     }
     for i in copypaste_dict:
-        if " ".join(argv[2:]) in i:
-            copy(copypaste_dict[i])
-            hotkey("backspace")
-            sleep(0.1)
-            hotkey("ctrl", "v")
-    notification("Success!", "Message Typed.", 2)
+        if contents in i:
+            return copypaste_dict[i]
 
 
-def titlecase():
-    copy(" ".join(argv[2:]).title())
-    hotkey("ctrl", "v")
-    notification("Success!", "Message Typed.", 2)
+def titlecase(contents):
+    return contents.title()
 
-def emojify():
+
+def emojify(contents):
     converted = []
     special_char = {
         " ": ":black_large_square:",
@@ -148,7 +136,7 @@ def emojify():
         "9": ":nine:",
         "0": ":zero:",
     }
-    for i in " ".join(argv[2:]):
+    for i in contents:
         if "a" <= i.lower() <= "z":
             converted.append(f":regional_indicator_{i.lower()}:")
 
@@ -158,12 +146,10 @@ def emojify():
         else:
             converted.append(i)
 
-    copy(" ".join(converted))
-    hotkey("ctrl", "v")
-    notification("Success!", "Message Typed.", 2)
+    return " ".join(converted)
 
 
-def flipped():
+def flipped(contents):
     converted = []
     flipped_char = {
         # fmt: off
@@ -179,21 +165,17 @@ def flipped():
         "U": "∩", "V": "Λ", "W": "M", "X": "X", "Y": "⅄", "Z": "Z"
         # fmt: on
     }
-    for i in " ".join(argv[2:]):
+    for i in contents:
         if i in flipped_char:
             converted.append(flipped_char[i])
         else:
             converted.append(i)
 
     converted.reverse()
-    copy("".join(converted))
-    hotkey("backspace")
-    sleep(0.1)
-    hotkey("ctrl", "v")
-    notification("Success!", "Message Typed.", 2)
+    return "".join(converted)
 
 
-def exponent():
+def exponent(contents):
     converted = []
     superscript_char = {
         # fmt: off
@@ -209,17 +191,13 @@ def exponent():
         "(": "⁽", ")": "⁾"
         # fmt: on
     }
-    for i in " ".join(argv[2:]):
+    for i in contents:
         if i in superscript_char:
             converted.append(superscript_char[i])
         else:
             converted.append(i)
 
-    copy("".join(converted))
-    hotkey("backspace")
-    sleep(0.1)
-    hotkey("ctrl", "v")
-    notification("Success!", "Message Typed.", 2)
+    return "".join(converted)
 
 
 def fr_e():
@@ -234,7 +212,7 @@ def split(word):
     return [char for char in word]
 
 
-def cursive():
+def cursive(contents):
     converted = []
     char = {
         # fmt: off
@@ -251,20 +229,16 @@ def cursive():
         "Z": "𝓩", 'z': "𝔃", " ": " "
         # fmt: on
     }
-    for i in " ".join(argv[2:]):
+    for i in contents:
         if i in char:
             converted.append(char[i])
         else:
             converted.append(i)
 
-    copy("".join(converted))
-    hotkey("backspace")
-    sleep(0.1)
-    hotkey("ctrl", "v")
-    notification("Success!", "Message Typed", 2)
+    return "".join(converted)
 
 
-def fraction():
+def fraction(contents):
     converted = []
     char = {
         # fmt: off
@@ -284,7 +258,7 @@ def fraction():
         # fmt: on
     }
 
-    splitargv = split(argv[2])
+    splitargv = split(contents[0])
     numerator = "".join(splitargv[: splitargv.index("/")])
     denominator = "".join(splitargv[splitargv.index("/") + 1 :])
 
@@ -301,18 +275,13 @@ def fraction():
                 if i == x:
                     converted.append(char[i][1])
 
-        copy("".join(converted), 0.04)
-        hotkey("backspace")
-        sleep(0.1)
-        hotkey("ctrl", "v")
-        notification("Success!", "Message Typed.", 2)
+        return "".join(converted)
 
     except TypeError:
         fr_e()
 
 
-
-def spambot():
+def spambot(contents):
     notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
     number = argv[2]
     interval_list = argv[::-1]
@@ -338,7 +307,7 @@ def spambot():
         notification("Spamming Stopped.", "Spamming was cancelled.", 10)
 
 
-def autoclick(): 
+def autoclick(contents): 
     AHKPATH = Path(
         R"C:\Users\user\Downloads\PythonFiles\utilities\AutoClicker\autoclicker.ahk"
     )
@@ -386,7 +355,7 @@ Return
     notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
 
 
-def tapemouse():
+def tapemouse(contents):
     try:
         if argv[3].startswith("wait="):
             sleep(int(argv[3][5:]))
@@ -407,20 +376,19 @@ def tapemouse():
         )
 
 
-def extend():
+def extend(contents):
     extendables = {
         "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
         "widepeeposad": ":widepeeposad1::widepeeposad2::widepeeposad3::widepeeposad4:",
     }
 
     for i in extendables:
-        if i in " ".join(argv[2:]).lower():
-            copy(extendables[i], 0.04)
-            notification("Success!", "Message Typed.", 2)
+        if i in contents.lower():
+            return extendables[i]
 
 
-def encrypt():
-    msg = " ".join(argv[2:]).lower()
+def encrypt(contents):
+    msg = contents.lower()
     result = ""
     for ch in msg:
         try:
@@ -428,8 +396,7 @@ def encrypt():
         except KeyError:
             result += ch
 
-    copy(result)
-    hotkey("ctrl", "v")
+    return result
 
 
 def get_key(val):
@@ -440,8 +407,8 @@ def get_key(val):
     raise KeyError
 
 
-def decrypt():
-    msg = " ".join(argv[2:])
+def decrypt(contents):
+    msg = contents
     result = ""
     for ch in msg:
         try:
@@ -453,12 +420,11 @@ def decrypt():
     notification("Decrypted Message", result, 5)
 
 
-def reverse():
-    copy(" ".join(argv[2:])[::-1])
-    hotkey("ctrl", "v")
+def reverse(contents):
+    return contents[::-1]
 
 
-def arrowmouse():
+def arrowmouse(contents):
     if argv[2] == "enable":
         call(R"start supplementary-ahks\arrowmouse.ahk", shell=True)
         notification(
@@ -474,7 +440,7 @@ def arrowmouse():
             3,
         )
 
-def alarm():
+def alarm(contents):
     hotkey("backspace")
     hotkey("esc")
 
@@ -500,5 +466,33 @@ def alarm():
     waiting_time = (waiting_hour * 60 * 60) + (waiting_min * 60) - curr_sec
     sleep(waiting_time - 7)
 
-    playsound(r"./alarm_sound.mp3", block=False)
     notification("Alarm", "Time's up kid", 3)
+    playsound(r"./alarm_sound.mp3")
+
+
+def seizure(contents):
+    letters = ascii_letters
+    converted = ""
+    letters += " "
+    for _ in range(int(argv[2])):
+        converted += choice(letters)
+    return converted
+
+
+def formatter(contents : str):
+    functions = {
+        "sarcasm": sarcasm, "spacer": spacer, "spoilerspam": spoilerspam, "copypaste": copypaste,
+        "cp": copypaste, "emojify": emojify, "extend": extend, "reverse": reverse,
+        "exponent": exponent, "ep": exponent, "title": titlecase, "titlecase": titlecase,
+        "cursive": cursive, "fraction": fraction, "fc": fraction, "encrypt": encrypt, "flip": flipped,
+        "decrypt": decrypt, "exponent": exponent,
+    }
+    format_dict = {}
+    formattables = finditer(r'\{([\w \d/]+)\}', contents)
+    for i in formattables:
+        func = i.groups()[0].split()[0]
+        output = functions[func](" ".join(i.groups()[0].split()[1:]))
+        format_dict[i.groups()[0]] = output
+    
+    converted = contents.format(**format_dict)
+    return converted

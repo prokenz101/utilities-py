@@ -1,5 +1,6 @@
 from sys import argv
 from functions import *
+from pyperclip import copy, PyperclipException
 
 instructions = {
     "translate": translate,
@@ -28,11 +29,18 @@ instructions = {
     "reverse" : reverse,
     "arrowmouse" : arrowmouse,
     "alarm" : alarm,
+    "seizure" : seizure,
+    "format" : formatter
 }
 try:
     for i in instructions:
         if argv[1].lower().startswith(i):
-            instructions[i]()
+            try:    
+                copy(instructions[i](" ".join(argv[2:])))
+            except PyperclipException:
+                pass
+            hotkey("ctrl", "v")
+            notification("Success", "Message has been typed", 4)
 
 except Exception as e:
     notification("An Error Has Occured.", str(e), 10)
