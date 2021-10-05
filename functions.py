@@ -630,7 +630,9 @@ def formatter():
         formatdict[command] = output
 
     converted = " ".join(argv[2:]).format(**formatdict)
-    print(converted)
+    no_copycheck(True, converted)
+    esc()
+    no_notifcheck(True, ["Success!", "Message copied to clipboard.", 2])
     return converted
 
 
