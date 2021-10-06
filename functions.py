@@ -440,7 +440,7 @@ def arrowmouse(contents):
             3,
         )
 
-def alarm(contents):
+def alarmset(contents):
     hotkey("backspace")
     hotkey("esc")
 
@@ -466,8 +466,8 @@ def alarm(contents):
     waiting_time = (waiting_hour * 60 * 60) + (waiting_min * 60) - curr_sec
     sleep(waiting_time - 7)
 
+    playsound(r"./alarm_sound.mp3", block=False)
     notification("Alarm", "Time's up kid", 3)
-    playsound(r"./alarm_sound.mp3")
 
 
 def seizure(contents):
