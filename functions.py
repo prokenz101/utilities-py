@@ -213,7 +213,7 @@ def copypaste(words=None, notif=True, copy=True):
         "trema e": "ë", "trema i": "ï", "trema u": "ü",
         "trema E": "Ë", "trema I": "Ï", "trema U": "Ü",
         "cedille c": "ç", "cedille C": "Ç", "3164": "ㅤ",
-        "hangul filler": "ㅤ", "divison": "÷", "multi": "×",
+        "hangul filler": "ㅤ", "divison": "÷", "divide": "÷", "multi": "×",
         "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
         ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
         "shrug": "¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️",
@@ -232,7 +232,7 @@ namespace Code
         # fmt: on
     }
     for i in copypaste_dict:
-        if words in i:
+        if words == i:
             no_copycheck(copy, copypaste_dict[i])
             break
 
@@ -415,6 +415,65 @@ def cursive(words=None, notif=True, copy=True):
         "P": "𝓟", "Q": "𝓠", "R": "𝓡", "S": "𝓢", "T": "𝓣",
         "U": "𝓤", "V": "𝓥", "W": "𝓦", "Y": "𝓨", "X": "𝓧",
         "Z": "𝓩", 'z': "𝔃", " ": " "
+        # fmt: on
+    }
+    for i in words:
+        if i in char: converted.append(char[i])
+        else: converted.append(i)
+
+    no_copycheck(copy, "".join(converted))
+    esc()
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return "".join(converted)
+
+
+def doublestruck(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
+    converted = []
+    char = {
+        # fmt: off
+        "a": "𝕒", "b": "𝕓", "c": "𝕔", "d": "𝕕", "e": "𝕖",
+        "f": "𝕗", "g": "𝕘", "h": "𝕙", "i": "𝕚", "j": "𝕛",
+        "k": "𝕜", "l": "𝕝", "m": "𝕞", "n": "𝕟", "o" : "𝕠",
+        "p": "𝕡", "q": "𝕢", "r": "𝕣", "s": "𝕤", "t": "𝕥",
+        "u": "𝕦", "v": "𝕧", "w": "𝕨", "x": "𝕩", "y": "𝕪",
+        "z": "𝕫", "A": "𝔸", "B": "𝔹", "C": "ℂ", "D": "𝔻",
+        "E": "𝔼", "F": "𝔽", "H": "ℍ", "I": "𝕀", "J": "𝕁",
+        "K": "𝕂", "L": "𝕃", "M": "𝕄", "N": "ℕ", "O": "𝕆",
+        "P": "ℙ", "Q": "ℚ", "R": "ℝ", "S": "𝕊", "T": "𝕋",
+        "U": "𝕌", "V": "𝕍", "W": "𝕎", "X": "𝕏", "Y": "𝕐",
+        "Z": "ℤ", "1": "𝟙", "2": "𝟚", "3": "𝟛", "4": "𝟜",
+        "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡", "0": "𝟘"
+        # fmt: on
+    }
+    for i in words:
+        if i in char: converted.append(char[i])
+        else: converted.append(i)
+
+    no_copycheck(copy, "".join(converted))
+    esc()
+    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return "".join(converted)
+
+
+def bubbletext(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
+    converted = []
+    char = {
+        # fmt: off
+        "a": "ⓐ", "b": "ⓑ", "c": "ⓒ", "d": "ⓓ", "e": "ⓔ",
+        "f": "ⓕ", "g": "ⓖ", "h": "ⓗ", "i": "ⓘ", "j": "ⓙ",
+        "k": "ⓚ", "l": "ⓛ", "m": "ⓜ", "n": "ⓝ", "o": "ⓞ",
+        "p": "ⓟ", "q": "ⓠ", "r": "ⓡ", "s": "ⓢ", "t": "ⓣ",
+        "u": "ⓤ", "v": "ⓥ", "w": "ⓦ", "x": "ⓧ", "y": "ⓨ",
+        "z": "ⓩ", "A": "Ⓐ", "B": "Ⓑ", "C": "Ⓒ", "D": "Ⓓ",
+        "E": "Ⓔ", "F": "Ⓕ", "G": "Ⓖ", "H": "Ⓗ", "I": "Ⓘ",
+        "J": "Ⓙ", "K": "Ⓚ", "L": "Ⓛ", "M": "Ⓜ", "O": "Ⓞ",
+        "N": "Ⓝ", "P": "Ⓟ", "Q": "Ⓠ", "R": "Ⓡ", "S": "Ⓢ",
+        "T": "Ⓣ", "U": "Ⓤ", "V": "Ⓥ", "W": "Ⓦ", "X": "Ⓧ",
+        "Y": "Ⓨ", "Z": "Ⓩ", "1": "①", "2": "②", "3": "③",
+        "4": "④", "5": "⑤", "6": "⑥", "7": "⑦", "8": "⑧",
+        "9": "⑨", "0": "⓪"
         # fmt: on
     }
     base_num = 0
@@ -619,6 +678,7 @@ def formatter():
         "randnum": randnum, "randint": randnum, "encyrpt": LanguageModifier.encrypt,
         "ecr": LanguageModifier.encrypt, "flip": flipped, "decrypt": LanguageModifier.decrypt,
         "dcr": LanguageModifier.decrypt, "upside-down": flipped, "superscript": exponent,
+        "bubble": bubbletext, "bubbletext": bubbletext
         # fmt: on
     }
     formatdict = {}
@@ -629,7 +689,7 @@ def formatter():
         output = functions[splitcommand[0]](" ".join(splitcommand[1:]), copy=False, notif=False)
         formatdict[command] = output
 
-    converted = " ".join(argv[2:]).format(**formatdict)
+    converted = argv2.format(**formatdict)
     no_copycheck(True, converted)
     esc()
     no_notifcheck(True, ["Success!", "Message copied to clipboard.", 2])
