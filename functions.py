@@ -8,6 +8,8 @@ from subprocess import call
 from re import finditer
 from random import randint
 from win10toast import ToastNotifier
+from numpy import cbrt
+
 
 def notification(title, subtitle, interval, icon=None, threaded=True):
     toaster = ToastNotifier()
@@ -20,14 +22,12 @@ def esc(interval=0.50):
     sleep(interval)
 
 
-def no_notifcheck(notif, tonotify):
-    if notif == False: return
-    elif notif: notification(tonotify[0], tonotify[1], tonotify[2])
+def notifcheck(notif, tonotify):
+    if notif: notification(tonotify[0], tonotify[1], tonotify[2])
 
 
-def no_copycheck(copy, tocopy):
-    if copy == False: return
-    elif copy: pypercopy(tocopy)
+def copycheck(copy, tocopy):
+    if copy: pypercopy(tocopy)
 
 
 class Search:
@@ -106,25 +106,25 @@ def sarcasm(words=None, notif=True, copy=True):
             contents_list.append(i.upper())
             state = "upper"
     
-    no_copycheck(copy, "".join(contents_list))
+    copycheck(copy, "".join(contents_list))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(contents_list)
 
 
 def reverse(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
-    no_copycheck(copy, words[::-1])
+    copycheck(copy, words[::-1])
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
 
 
 def spacer(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
     contents = words
-    no_copycheck(copy, " ".join(contents))
+    copycheck(copy, " ".join(contents))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return " ".join(contents)
 
 
@@ -132,9 +132,9 @@ def spoilerspam(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
     contents = []
     for i in words: contents.append(f"||{i}")
-    no_copycheck(copy, "".join(f'{"||".join(contents)}||'))
+    copycheck(copy, "".join(f'{"||".join(contents)}||'))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return f'{"||".join(contents)}||'
 
 
@@ -144,9 +144,9 @@ def randnum(num=None, notif=True, copy=True):
     except ValueError: notification(
                 "Hey!", "It seems that the number you inputted was not a number.", 3
             )
-    no_copycheck(copy, random_num)
+    copycheck(copy, random_num)
     esc()
-    no_notifcheck(notif, ["Success!", f"The number was: {random_num}", 3])
+    notifcheck(notif, ["Success!", f"The number was: {random_num}", 3])
     return random_num
 
 
@@ -216,7 +216,7 @@ def copypaste(words=None, notif=True, copy=True):
         "hangul filler": "ㅤ", "divison": "÷", "divide": "÷", "multi": "×",
         "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
         ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
-        "shrug": "¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️",
+        "shrug": R"¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️",
         "csprint": """using System;
 
 namespace Code
@@ -231,20 +231,19 @@ namespace Code
 }"""
         # fmt: on
     }
-    for i in copypaste_dict:
-        if words == i:
-            no_copycheck(copy, copypaste_dict[i])
-            break
+    i = copypaste_dict.get(words)
+    if i:
+        copycheck(copy, i)
 
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return copypaste_dict[i]
 
 
 def titlecase(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
-    no_copycheck(copy, words.title())
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    copycheck(copy, words.title())
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     esc()
     return words.title()
 
@@ -254,18 +253,9 @@ def emojify(words=None, notif=True, copy=True):
     converted = []
     special_char = {
         " ": ":black_large_square:",
-        "?": ":question:",
-        "!": ":exclamation:",
-        "1": ":one:",
-        "2": ":two:",
-        "3": ":three:",
-        "4": ":four:",
-        "5": ":five:",
-        "6": ":six:",
-        "7": ":seven:",
-        "8": ":eight:",
-        "9": ":nine:",
-        "0": ":zero:",
+        "?": ":question:", "!": ":exclamation:", "1": ":one:",
+        "2": ":two:", "3": ":three:", "4": ":four:", "5": ":five:",
+        "6": ":six:", "7": ":seven:", "8": ":eight:", "9": ":nine:", "0": ":zero:",
     }
     for i in words:
         if "a" <= i.lower() <= "z": converted.append(f":regional_indicator_{i.lower()}:")
@@ -274,9 +264,9 @@ def emojify(words=None, notif=True, copy=True):
 
     pypercopy(" ".join(converted))
     notification("Success!", "Message copied to clipboard.", 2)
-    no_copycheck(copy, " ".join(converted))
+    copycheck(copy, " ".join(converted))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return " ".join(converted)
 
 
@@ -300,8 +290,8 @@ class LanguageModifier:
             if i in encrpytion_dict: converted.append(encrpytion_dict[i])
             else: converted.append(i)
 
-        no_copycheck(copy, "".join(converted))
-        no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+        copycheck(copy, "".join(converted))
+        notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
         return "".join(converted)
 
     @staticmethod
@@ -324,8 +314,8 @@ class LanguageModifier:
             if i in decrpytion_dict: converted.append(decrpytion_dict[i])
             else: failed_num += 1
 
-        no_copycheck(copy, "".join(converted))
-        if failed_num == len("".join(argv[2:])): no_notifcheck(
+        copycheck(copy, "".join(converted))
+        if failed_num == len("".join(argv[2:])): notifcheck(
                 notif,
                 [
                     "Failed.",
@@ -333,7 +323,7 @@ class LanguageModifier:
                     3,
                 ]
             )
-        else: no_notifcheck(
+        else: notifcheck(
                     notif,
                     [
                         "Message Decrypted.",
@@ -366,9 +356,9 @@ def flipped(words=None, notif=True, copy=True):
         else: converted.append(i)
 
     converted.reverse()
-    no_copycheck(copy, "".join(converted))
+    copycheck(copy, "".join(converted))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
 
@@ -386,16 +376,16 @@ def exponent(words=None, notif=True, copy=True):
         "k": "ᵏ", "l": "ˡ", 'm': "ᵐ", 'n': "ⁿ", 'o': "ᵒ",
         'p': "ᵖ", 'r': "ʳ", 's': "ˢ", 't': "ᵗ",'u': "ᵘ",
         'v': "ᵛ", 'w': "ʷ", 'x': "ˣ", 'y': "ʸ", 'z': "ᶻ",
-        "(": "⁽", ")": "⁾"
+        "(": "⁽", ")": "⁾", " ": " "
         # fmt: on
     }
     for i in words:
         if i in superscript_char: converted.append(superscript_char[i])
         else: converted.append(i)
 
-    no_copycheck(copy, "".join(converted))
+    copycheck(copy, "".join(converted))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
 
@@ -421,9 +411,9 @@ def cursive(words=None, notif=True, copy=True):
         if i in char: converted.append(char[i])
         else: converted.append(i)
 
-    no_copycheck(copy, "".join(converted))
+    copycheck(copy, "".join(converted))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
 
@@ -450,9 +440,9 @@ def doublestruck(words=None, notif=True, copy=True):
         if i in char: converted.append(char[i])
         else: converted.append(i)
 
-    no_copycheck(copy, "".join(converted))
+    copycheck(copy, "".join(converted))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
 
@@ -481,10 +471,26 @@ def bubbletext(words=None, notif=True, copy=True):
         if i in char: converted.append(char[i])
         else: converted.append(i)
 
-    no_copycheck(copy, "".join(converted))
+    copycheck(copy, "".join(converted))
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
+
+
+def extend(words=None, notif=True, copy=True):
+    words = words or " ".join(argv[2:])
+    extendables = {
+        "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
+        "widepeeposad": ":widepeeposad1::widepeeposad2::widepeeposad3::widepeeposad4:",
+    }
+
+    i = extendables.get(words)
+    if i:
+        copycheck(copy, i)
+    
+    esc()
+    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return extendables[i]
 
 
 def arrowmouse():
@@ -518,7 +524,7 @@ class Fraction:
     def fraction(words=None, notif=True, copy=True):
         words = words or " ".join(argv[2:])
         converted = []
-        char = {
+        char: dict[str, tuple[str, str]] = {
             # fmt: off
             "0": ("⁰", "₀"), "1": ("¹", "₁"), "2": ("²", "₂"), 
             "3": ("³", "₃"), "4": ("⁴", "₄"), "5": ("⁵", "₅"),
@@ -535,28 +541,31 @@ class Fraction:
             "x": ("ˣ", "ₓ"), "y": ("ʸ", Fraction.fr_e), "z": ("ᶻ", Fraction.fr_e),
             # fmt: on
         }
-        splitargv = list(words)
-        numerator = "".join(splitargv[: splitargv.index("/")])
-        denominator = "".join(splitargv[splitargv.index("/") + 1 :])
+        
+        slash_split = words.split('/')
+        numerator = slash_split[0]
+        denominator = slash_split[1]
+        print(numerator)
+        print(denominator)
 
         try:
-            for i in char:
-                for x in numerator:
-                    if i == x: converted.append(char[i][0])
+            for x in numerator:
+                i = char.get(x)
+                if i: converted.append(i[0])
 
             converted.append("⁄")
 
-            for i in char:
-                for x in denominator:
-                    if i == x: converted.append(char[i][1])
+            for x in denominator:
+                i = char.get(x)
+                if i: converted.append(i[1])
 
-            no_copycheck(copy, "".join(converted))
+            copycheck(copy, "".join(converted))
 
         except TypeError: Fraction.fr_e()
 
         esc()
         errored = False
-        no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+        notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
         if errored == False: return "".join(converted)
 
 
@@ -649,21 +658,18 @@ def tapemouse():
             )
 
 
-def extend(words=None, notif=True, copy=True):
-    words = words or " ".join(argv[2:])
-    extendables = {
-        "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
-        "widepeeposad": ":widepeeposad1::widepeeposad2::widepeeposad3::widepeeposad4:",
-    }
-
-    for i in extendables:
-        if i in words.lower():
-            no_copycheck(copy, extendables[i])
-            break
+def cuberoot(words=None, notif=True, copy=True):
+    words = words or argv[2]
+    try:
+        ans = float(cbrt(float(words)))
+    except ValueError:
+        notifcheck(notif, ["Huh.", "It seems that you did not input a number.", 3])
+        return
     
+    copycheck(copy, ans)
     esc()
-    no_notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-    return extendables[i]
+    notifcheck(notif, [str(ans), f"The cube root was {str(ans)}", 5])
+    return ans
 
 
 def formatter():
@@ -678,7 +684,7 @@ def formatter():
         "randnum": randnum, "randint": randnum, "encyrpt": LanguageModifier.encrypt,
         "ecr": LanguageModifier.encrypt, "flip": flipped, "decrypt": LanguageModifier.decrypt,
         "dcr": LanguageModifier.decrypt, "upside-down": flipped, "superscript": exponent,
-        "bubble": bubbletext, "bubbletext": bubbletext
+        "bubble": bubbletext, "bubbletext": bubbletext, "cbrt": cuberoot, "cuberoot": cuberoot,
         # fmt: on
     }
     formatdict = {}
@@ -690,9 +696,9 @@ def formatter():
         formatdict[command] = output
 
     converted = argv2.format(**formatdict)
-    no_copycheck(True, converted)
+    copycheck(True, converted)
     esc()
-    no_notifcheck(True, ["Success!", "Message copied to clipboard.", 2])
+    notifcheck(True, ["Success!", "Message copied to clipboard.", 2])
     return converted
 
 
