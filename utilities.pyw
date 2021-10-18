@@ -1,4 +1,3 @@
-from sys import argv
 from functions import *
 
 instructions = {
@@ -27,6 +26,8 @@ instructions = {
     "arrowmouse": arrowmouse,
     "format": formatter,
     "bubble": bubbletext,
+    "cbrt": cuberoot,
+    "cuberoot": cuberoot,
     "bubbletext": bubbletext,
     "dbs": doublestruck,
     "doublestruck": doublestruck,
