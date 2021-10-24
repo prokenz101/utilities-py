@@ -167,29 +167,6 @@ def reminder():
             remind_notif(message=message, singular=one)
 
 
-def drinkwater(): # an alarm which reminds me to drink water every hour
-    drinkwaterstate = Path(R"drinkwateron")
-    if argv[2] == "enable": 
-        try: drinkwaterstate.touch()
-        except FileExistsError: notification("Hey!", "It seems that DrinkWater is already enabled.")
-        notification("Enabled.", "You will now be reminded to drink water every 2 hours.", 3)
-        while True:
-            sleep(7200)
-            if drinkwaterstate.exists(): notification(
-                    "Drink Water!",
-                    "An hour is up, it's time to go and drink water again.",
-                    5
-                )
-            else: break
-    if argv[2].lower() == "disable":
-        try: drinkwaterstate.unlink()
-        except FileNotFoundError:
-            notification("Hey!", "It seems that DrinkWater is already disabled.", 3)
-            exit()
-        
-        notification("Disabled.", "DrinkWater has been disabled.", 3)
-
-
 def copypaste(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
     copypaste_dict = {
@@ -227,7 +204,7 @@ namespace Code
 
     esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-    return copypaste_dict[i]
+    return i
 
 
 def titlecase(words=None, notif=True, copy=True):
@@ -478,7 +455,7 @@ def extend(words=None, notif=True, copy=True):
     
     esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-    return extendables[i]
+    return i
 
 
 def arrowmouse():
@@ -699,3 +676,5 @@ def mcprofiles():
         f"python C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {''.join(argv[2:])}",
         shell=True,
     )
+
+copypaste()
