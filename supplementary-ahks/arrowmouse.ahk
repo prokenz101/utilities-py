@@ -31,4 +31,4 @@ F6::
 Click, Right
 Return
 
-F13::ExitApp
+F15::ExitApp
