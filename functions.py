@@ -80,15 +80,9 @@ class Translate:
     @staticmethod
     def translate():
         languages = {
-            "tofrench": Translate.tofrench,
-            "f": Translate.tofrench,
-            "french": Translate.tofrench,
-            "toenglish": Translate.toenglish,
-            "e": Translate.toenglish,
-            "english": Translate.toenglish,
-            "toarabic": Translate.toarabic,
-            "a": Translate.toarabic,
-            "arabic": Translate.toarabic,
+            "tofrench": Translate.tofrench,"f": Translate.tofrench, "french": Translate.tofrench,
+            "toenglish": Translate.toenglish, "e": Translate.toenglish, "english": Translate.toenglish, 
+            "toarabic": Translate.toarabic, "a": Translate.toarabic, "arabic": Translate.toarabic,
         }
         for i in languages:
             if i == argv[2]: languages[i]()
@@ -158,15 +152,11 @@ def reminder():
         elif singular == False and message == None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]}s and its time!"
         elif not message == None: sentence = f"Hey! Your reminder was: {message}"
-
         notification("Reminder!", sentence, 5)
 
     message = " ".join(argv[3:])
-    
-    if message == "": message = None
-
+    if message == "": message = None    
     time_options = {"s": (1, "second"), "m": (60, "minute"), "h": (3600, "hour")}
-    
     if float(argv[2][:-1]) == 1: one = True
     else: one = False
 
@@ -210,7 +200,7 @@ def copypaste(words=None, notif=True, copy=True):
         "chapeau e": "ê", "chapeau i": "î", "chapeau o": "ô",
         "chapeau u": "û", "chapeau A": "Â", "chapeau E": "Ê",
         "chapeau I": "Î", "chapeau O": "Ô", "chapeau U": "Û",
-        "trema e": "ë", "trema i": "ï", "trema u": "ü",
+        "trema e": "ë", "trema i": "ï", "trema u": "ü", "bullet": "•",
         "trema E": "Ë", "trema I": "Ï", "trema U": "Ü",
         "cedille c": "ç", "cedille C": "Ç", "3164": "ㅤ",
         "hangul filler": "ㅤ", "divison": "÷", "divide": "÷", "multi": "×",
@@ -262,8 +252,6 @@ def emojify(words=None, notif=True, copy=True):
         elif i in special_char: converted.append(special_char[i])
         else: converted.append(i)
 
-    pypercopy(" ".join(converted))
-    notification("Success!", "Message copied to clipboard.", 2)
     copycheck(copy, " ".join(converted))
     esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
@@ -502,7 +490,7 @@ def arrowmouse():
             3,
         )
     elif argv[2] == "disable":
-        hotkey("f13")
+        hotkey("f15")
         notification(
             "Disabled.",
             "Arrow mouse has been disabled.",
@@ -545,8 +533,6 @@ class Fraction:
         slash_split = words.split('/')
         numerator = slash_split[0]
         denominator = slash_split[1]
-        print(numerator)
-        print(denominator)
 
         try:
             for x in numerator:
