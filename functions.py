@@ -676,5 +676,3 @@ def mcprofiles():
         f"python C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {''.join(argv[2:])}",
         shell=True,
     )
-
-copypaste()
