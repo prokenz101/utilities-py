@@ -20,8 +20,6 @@ instructions = {
     "exponent": exponent,
     "ep": exponent,
     "remind": reminder,
-    "dw": drinkwater,
-    "drinkwater": drinkwater,
     "title": titlecase,
     "arrowmouse": arrowmouse,
     "format": formatter,
