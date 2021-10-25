@@ -1,4 +1,5 @@
 from sys import argv
+from math import gcd, lcm
 from pyautogui import FailSafeException, hotkey, typewrite, mouseDown
 from pyperclip import copy as pypercopy
 from time import sleep
@@ -9,7 +10,6 @@ from re import finditer
 from random import randint
 from win10toast import ToastNotifier
 from numpy import cbrt
-
 
 def notification(title, subtitle, interval, icon=None, threaded=True):
     toaster = ToastNotifier()
@@ -631,7 +631,50 @@ def cuberoot(words=None, notif=True, copy=True):
     
     copycheck(copy, ans)
     esc()
-    notifcheck(notif, [str(ans), f"The cube root was {str(ans)}", 5])
+    notifcheck(notif, [str(ans), f"The cube root is {str(ans)}", 5])
+    return ans
+
+
+def hcf(words=None, notif=True, copy=True):
+    words = words or argv[2:]
+    argv2 = []
+    for i in words:
+        try:
+            argv2.append(int(i))
+        except ValueError:
+            notifcheck(notif, [
+                "Huh.",
+                "Either the number you entered was not a number, or something has gone fatally wrong.",
+                3,
+            ]
+        )
+            return
+    ans = gcd(*argv2)
+    copycheck(copy, ans)
+    esc()
+    notifcheck(notif, [str(ans), f"The HCF is {str(ans)}", 5])
+    return ans
+
+
+def lcm_(words=None, notif=True, copy=True):
+    words = words or argv[2:]
+    argv2 = []
+    for i in words:
+        try:
+            argv2.append(int(i))
+        except ValueError:
+            esc()
+            notifcheck(notif, [
+                "Huh.",
+                "Either the number you entered was not a number, or something has gone fatally wrong.",
+                3,
+            ]
+        )
+            return
+    ans = lcm(*argv2)
+    copycheck(copy, ans)
+    esc()
+    notifcheck(notif, [str(ans), f"The LCM is {str(ans)}", 5])
     return ans
 
 
