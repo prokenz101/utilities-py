@@ -11,13 +11,15 @@ Python modules required: [pyperclip](https://pypi.org/project/pyperclip/), [pyau
 ## Installing
 To install the script, just download the `consumer-edition` branch as a ZIP file and extract it.
 
+Then, open `utilities.ahk` and double check your system tray to make sure the file is really open.
+
 ### Getting the modules required:
 Change directory to the extracted folder and run
 ```bash
 pip install -r requirements.txt
 ```
 
-Once the modules have downloaded, type any command 
+Once the modules have downloaded, type any command and press F8 to trigger the script.
 
 Open [powertoys](https://github.com/microsoft/PowerToys) and type 'help' to view the helpcenter. Or alternatively you could view the help center [here](https://github.com/prokenz101/utilities/blob/main/helpcenter.md).
 
