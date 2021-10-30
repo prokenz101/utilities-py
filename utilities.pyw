@@ -40,8 +40,6 @@ instructions = {
     "flip": flipped,
     "upside-down": flipped,
     "superscript": exponent,
-    "mcprofiles": mcprofiles,
-    "mp": mcprofiles,
 }
 
 try:
