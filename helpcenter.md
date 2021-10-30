@@ -90,15 +90,7 @@ Example: `translate french Hello.` which opens [that](https://translate.google.c
 
 List of languages:
 ```
-"tofrench" = french (english -> french)
-"f" = french 
-"french" = french
-"toenglish" = english (uses detect language)
-"e" = english
-"english" = english
-"toarabic" = arabic (english -> arabic)
-"a" = arabic
-"arabic" = arabic
+english, french, spanish, japanese, chinese, arabic
 ```
 
 There are no aliases for this utility.
