@@ -6,6 +6,19 @@ And if you were unaware, utilities is also dependent on 4 modules.
 
 They are: [pyperclip](https://pypi.org/project/pyperclip/), [pyautogui](https://pypi.org/project/PyAutoGUI/), [win10toast](https://pypi.org/project/win10toast/) and [numpy](https://pypi.org/project/numpy/)
 
+## Use:
+Type your command and press F8.
+
+**Alternatively**, you can use Shift + F8 if you don't want utilities to press Ctrl + A.
+
+The video might be able to explain a bit better:
+
+![shiftF8showcase](media\shiftF8showcase.gif)
+
+In the first one, we see that pressing F8 selects the entire thing, making it basically useless. But in the second one, we select the command for utilities to run and then press shift + F8.
+
+<br />
+
 ## Current Utilities:
 | Utility                              | Summary |
 ----------------------------------|-----|
@@ -108,6 +121,12 @@ This is mostly used in discord to "troll" or annoy your friends.
 
 Example: `spoilerspam hello world` returns ||h||||e||||l||||l||||o|||| ||||w||||o||||r||||l||||d||
 
+Or this image:
+
+![Spoilerspam example](media\spoilerspamexample.png)
+
+In this image, we can see that each induvidual letter is its own spoiler.
+
 There are no aliases for this utility.
 
 <br />
@@ -159,6 +178,10 @@ Example: `emojify hello world!` returns
 ```
 :regional_indicator_h: :regional_indicator_e: :regional_indicator_l: :regional_indicator_l: :regional_indicator_o: :black_large_square: :regional_indicator_w: :regional_indicator_o: :regional_indicator_r: :regional_indicator_l: :regional_indicator_d: :exclamation:
 ```
+
+Or this image:
+
+![Emojify hello world](media\emojifyexample.png)
 
 Copypasting that into discord will show all the letters as their own emoji.
 
