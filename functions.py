@@ -31,8 +31,29 @@ def copycheck(copy, tocopy):
 
 
 def helpcenter():
-    esc()
-    open_new_tab("https://github.com/prokenz101/utilities/blob/main/helpcenter.md")
+    try:
+        doubt = " ".join(argv[2:])
+    except IndexError:
+        open_new_tab("https://github.com/prokenz101/utilities/blob/main/helpcenter.md")
+        return
+    specialnames = {
+        "-": "google-search", "youtube": "youtube-search", "yt": "youtube-search",
+        "images": "image-search", "cp": "copypaste", "ep": "exponent",
+        "bubble": "bubbletext", "cbrt": "cube-root", "gcd": "hcf",
+        "dbs": "doublestruck", "fc": "fraction", "randint": "randnum",
+        "upside-down": "flip", "superscript": "exponent",
+    }
+    if doubt in specialnames:
+        open_new_tab(f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{specialnames[doubt]}")
+        return
+    else:
+        open_new_tab(f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{doubt}")
+        notification(
+            "Was that what you wanted?",
+            f"""Unfortunately, utilities couldn't understand what you meant by '{doubt}'.
+Make sure to search for the exact same command that you used normally, like 'help exponent'.""",
+            10,
+        )
 
 
 class Search:
@@ -352,7 +373,7 @@ def doublestruck(words=None, notif=True, copy=True):
     return "".join(converted)
 
 
-def bubbletext(words=None, notif=True, copy=True):
+def bubble(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
     converted = []
     char = {
@@ -613,7 +634,7 @@ def formatter():
         "exponent": exponent, "ep": exponent, "title": titlecase, "titlecase": titlecase,
         "cursive": cursive, "fraction": Fraction.fraction, "fc": Fraction.fraction,
         "randnum": randnum, "randint": randnum, "flip": flipped, "upside-down": flipped, "superscript": exponent,
-        "bubble": bubbletext, "bubbletext": bubbletext, "doublestruck": doublestruck, "dbs": doublestruck,
+        "bubble": bubble, "bubbletext": bubble, "doublestruck": doublestruck, "dbs": doublestruck,
         "cbrt": cuberoot, "cuberoot": cuberoot, "lcm": lcm_, "hcf": hcf, "gcd": hcf,
         # fmt: on
     }
