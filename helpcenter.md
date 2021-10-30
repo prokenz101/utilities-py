@@ -13,7 +13,7 @@ Type your command and press F8.
 
 The video might be able to explain a bit better:
 
-![shiftF8showcase](media\shiftF8showcase.gif)
+<img src="media\shiftF8showcase.gif"/>
 
 In the first one, we see that pressing F8 selects the entire thing, making it basically useless. But in the second one, we select the command for utilities to run and then press shift + F8.
 
@@ -123,7 +123,7 @@ Example: `spoilerspam hello world` returns ||h||||e||||l||||l||||o|||| ||||w||||
 
 Or this image:
 
-![Spoilerspam example](media\spoilerspamexample.png)
+<img src="media\spoilerspamexample.png"/>
 
 In this image, we can see that each induvidual letter is its own spoiler.
 
@@ -181,7 +181,7 @@ Example: `emojify hello world!` returns
 
 Or this image:
 
-![Emojify hello world](media\emojifyexample.png)
+<img src="media\emojifyexample.png"/>
 
 Copypasting that into discord will show all the letters as their own emoji.
 
