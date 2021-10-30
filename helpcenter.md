@@ -34,7 +34,7 @@ In the first one, we see that pressing F8 selects the entire thing, making it ba
 | [Autoclick](#autoclick) | An autoclicker. |
 | [TapeMouse](#tapemouse) | Holds down a specific mouse button. |
 | [Reverse](#reverse) | Reverses text, like this -> siht ekil |
-| [Bubbletext](#bubbletext) | Turns text into bubbletext -> ⓛⓘⓚⓔ ⓣⓗⓘⓢ |
+| [Bubble](#bubble) | Turns text into bubbletext -> ⓛⓘⓚⓔ ⓣⓗⓘⓢ |
 | [DoubleStruck](#doublestruck) | Converts letters into doublestruck -> 𝕙𝕖𝕝𝕝𝕠 |
 | [Cursive](#cursive) | Converts letters into cursive -> 𝓱𝓮𝓵𝓵𝓸 |
 | [Flip](#flip) | Flips text. hello -> ollǝɥ |
@@ -247,12 +247,12 @@ There are no aliases for this utility.
 
 <br />
 
-## Bubbletext
+## bubble
 Another simple utility which turns all letters and numbers into bubbles.
 
-Example: `bubbletext hello world 12345` returns ⓗⓔⓛⓛⓞ ⓦⓞⓡⓛⓓ ①②③④⑤.
+Example: `bubble hello world 12345` returns ⓗⓔⓛⓛⓞ ⓦⓞⓡⓛⓓ ①②③④⑤.
 
-Aliases: `bubble`
+There are no aliases for this utility.
 
 <br />
 
