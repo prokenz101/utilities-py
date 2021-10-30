@@ -345,6 +345,8 @@ Example: `format {cursive hello} {doublestruck world}`
 
 We can see in the example that two seperate commands are given in the same sentence, so utilities formats the sentence and turns it into "𝓱𝓮𝓵𝓵𝓸 𝕨𝕠𝕣𝕝𝕕".
 
+Format only reads commands that are inside curly braces, if you put something inside curly braces that IS NOT a utilities command, then the program will error.
+
 This is especially useful when typing out mathematical expressions with several exponents. Like `format x{ep 2} + y{ep 3} {cp divide} z{ep 4}` which returns x² + y³ ÷ z⁴.
 
 This utility takes a bit longer to run that the others, due to it having to run several other functions and overall just do a lot of things.
