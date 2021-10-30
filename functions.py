@@ -30,6 +30,11 @@ def copycheck(copy, tocopy):
     if copy: pypercopy(tocopy)
 
 
+def helpcenter():
+    esc()
+    open_new_tab("https://github.com/prokenz101/utilities/blob/main/helpcenter.md")
+
+
 class Search:
     @staticmethod
     def googlesearch():
@@ -235,70 +240,6 @@ def emojify(words=None, notif=True, copy=True):
     return " ".join(converted)
 
 
-class LanguageModifier:
-    @staticmethod
-    def encrypt(words=None, notif=True, copy=True):
-        words = words or " ".join(argv[2:])
-        encrpytion_dict = {
-            # fmt: off
-            "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
-            "e": "❡", "f": "ᄑ", "g": "ᢂ", "h": "ᠷ",
-            "i": "ង", "j": "ᕒ", "k": "ᔵ", "l": "ᥔ",
-            "m": "ቤ", "n": "ᔇ", "o": "፨", "p": "፱",
-            "q": "ᑴ", "r": "ን", "s": "᠉", "t": "ሤ",
-            "u": "ᡧ", "v": "ቕ", "w": "ሠ", "x": "ᒂ",
-            "y": "ᡆ", "z": "ᅆ"
-            # fmt: on
-        }
-        converted = []
-        for i in words.lower():
-            if i in encrpytion_dict: converted.append(encrpytion_dict[i])
-            else: converted.append(i)
-
-        copycheck(copy, "".join(converted))
-        notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-        return "".join(converted)
-
-    @staticmethod
-    def decrypt(words=None, notif=True, copy=True):
-        words = words or " ".join(argv[2:])
-        failed_num = 0
-        decrpytion_dict = {
-            # fmt: off
-            "ဂ": "a", "ဇ": "b", "⤓": "c", "⥳": "d",
-            "❡": "e", "ᄑ": "f", "ᢂ": "g", "ᠷ": "h",
-            "ង": "i", "ᕒ": "j", "ᔵ": "k", "ᥔ": "l",
-            "ቤ": "m", "ᔇ": "n", "፨": "o", "፱": "p",
-            "ᑴ": "q", "ን": "r", "᠉": "s", "ሤ": "t",
-            "ᡧ": "u", "ቕ": "v", "ሠ": "w", "ᒂ": "x",
-            "ᡆ": "y", "ᅆ": "z", " ": " "
-            # fmt: on
-        }
-        converted = []
-        for i in words:
-            if i in decrpytion_dict: converted.append(decrpytion_dict[i])
-            else: failed_num += 1
-
-        copycheck(copy, "".join(converted))
-        if failed_num == len("".join(argv[2:])): notifcheck(
-                notif,
-                [
-                    "Failed.",
-                    "Message could not be decrypted.",
-                    3,
-                ]
-            )
-        else: notifcheck(
-                    notif,
-                    [
-                        "Message Decrypted.",
-                        f" Your message was: {''.join(converted)}",
-                        10,
-                    ],
-            )
-        return "".join(converted)
-
-
 def flipped(words=None, notif=True, copy=True):
     words = words or " ".join(argv[2:])
     converted = []
@@ -440,22 +381,6 @@ def bubbletext(words=None, notif=True, copy=True):
     esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
-
-
-def extend(words=None, notif=True, copy=True):
-    words = words or " ".join(argv[2:])
-    extendables = {
-        "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
-        "widepeeposad": ":widepeeposad1::widepeeposad2::widepeeposad3::widepeeposad4:",
-    }
-
-    i = extendables.get(words)
-    if i:
-        copycheck(copy, i)
-    
-    esc()
-    notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-    return i
 
 
 def arrowmouse():
@@ -684,13 +609,12 @@ def formatter():
     functions = {
         # fmt: off
         "sarcasm": sarcasm, "spacer": spacer, "spoilerspam": spoilerspam, "copypaste": copypaste,
-        "cp": copypaste, "emojify": emojify, "extend": extend, "reverse": reverse,
+        "cp": copypaste, "emojify": emojify, "reverse": reverse,
         "exponent": exponent, "ep": exponent, "title": titlecase, "titlecase": titlecase,
         "cursive": cursive, "fraction": Fraction.fraction, "fc": Fraction.fraction,
-        "randnum": randnum, "randint": randnum, "encyrpt": LanguageModifier.encrypt,
-        "ecr": LanguageModifier.encrypt, "flip": flipped, "decrypt": LanguageModifier.decrypt,
-        "dcr": LanguageModifier.decrypt, "upside-down": flipped, "superscript": exponent,
-        "bubble": bubbletext, "bubbletext": bubbletext, "cbrt": cuberoot, "cuberoot": cuberoot,
+        "randnum": randnum, "randint": randnum, "flip": flipped, "upside-down": flipped, "superscript": exponent,
+        "bubble": bubbletext, "bubbletext": bubbletext, "doublestruck": doublestruck, "dbs": doublestruck,
+        "cbrt": cuberoot, "cuberoot": cuberoot, "lcm": lcm_, "hcf": hcf, "gcd": hcf,
         # fmt: on
     }
     formatdict = {}
