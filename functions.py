@@ -630,16 +630,4 @@ def formatter():
     esc()
     notifcheck(True, ["Success!", "Message copied to clipboard.", 2])
     return converted
-
-
-def mcprofiles():
-    esc()
-    if argv[2] == "done?":
-        call(R"python C:\Items\Code\mc-profiles\ifexists.pyw", shell=True)
-        sleep(1)
-        exit()
-
-    call(
-        f"python C:\\Items\\Code\\mc-profiles\\mc-profiles.pyw {''.join(argv[2:])}",
-        shell=True,
-    )
+    
