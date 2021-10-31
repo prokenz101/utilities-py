@@ -33,6 +33,7 @@ def copycheck(copy, tocopy):
 def helpcenter():
     try:
         doubt = " ".join(argv[2:])
+        test = argv[2]
     except IndexError:
         open_new_tab("https://github.com/prokenz101/utilities/blob/main/helpcenter.md")
         return
