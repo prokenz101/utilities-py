@@ -1,5 +1,6 @@
 from sys import argv
 from math import gcd, lcm
+from typing import Optional
 from pyautogui import FailSafeException, hotkey, typewrite, mouseDown
 from pyperclip import copy as pypercopy
 from time import sleep
@@ -22,36 +23,53 @@ def esc(interval=0.50):
     sleep(interval)
 
 
-def notifcheck(notif, tonotify):
-    if notif: notification(tonotify[0], tonotify[1], tonotify[2])
+def indextest(notiflist: list, argvindex=2) -> None:
+    try:
+        test = argv[argvindex]
+    except IndexError:
+        notification(*notiflist)
+        exit()
 
 
-def copycheck(copy, tocopy):
+def notifcheck(notif, tonotify: list) -> None:
+    if notif: notification(*tonotify)
+
+
+def copycheck(copy, tocopy) -> None:
     if copy: pypercopy(tocopy)
 
 
-def helpcenter():
+def helpcenter() -> None:
     try:
         doubt = " ".join(argv[2:])
         test = argv[2]
     except IndexError:
         open_new_tab("https://github.com/prokenz101/utilities/blob/main/helpcenter.md")
         return
-    specialnames = {
+    aliases = {
         "-": "google-search", "youtube": "youtube-search", "yt": "youtube-search",
         "images": "image-search", "cp": "copypaste", "ep": "exponent",
         "bubble": "bubbletext", "cbrt": "cube-root", "gcd": "hcf",
         "dbs": "doublestruck", "fc": "fraction", "randint": "randnum",
         "upside-down": "flip", "superscript": "exponent",
     }
-    if doubt in specialnames:
-        open_new_tab(f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{specialnames[doubt]}")
+    regularcmds = (
+        "help", "translate", "sarcasm", "spacer", "spoilerspam", "copypaste",
+        "emojify","spam", "autoclick", "tapemouse", "reverse", "exponent",
+        "remind", "title", "arrowmouse", "format", "bubble", "cuberoot", "hcf",
+        "lcm", "doublestruck", "cursive", "fraction", "randnum", "randint", "flip"
+    )
+    if doubt in aliases:
+        open_new_tab(f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{aliases[doubt]}")
         return
     else:
-        open_new_tab(f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{doubt}")
-        notification(
-            "Was that what you wanted?",
-            f"""Unfortunately, utilities couldn't understand what you meant by '{doubt}'.
+        if doubt in regularcmds:
+            open_new_tab(f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{doubt}")
+        else:
+            open_new_tab(f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md")
+            notification(
+                "Was that what you wanted?",
+                f"""Unfortunately, utilities couldn't understand what you meant by '{doubt}'.
 Make sure to search for the exact same command that you used normally, like 'help exponent'.""",
             10,
         )
@@ -59,19 +77,19 @@ Make sure to search for the exact same command that you used normally, like 'hel
 
 class Search:
     @staticmethod
-    def googlesearch():
+    def googlesearch() -> None:
         contents = "+".join(argv[1:])
         esc()
         open_new_tab(f"https://www.google.com/search?q={contents[1:]}")
 
     @staticmethod
-    def youtubesearch():
+    def youtubesearch() -> None:
         contents = "+".join(argv[2:])
         esc()
         open_new_tab(f"https://www.youtube.com/results?search_query={contents[0:]}")
 
     @staticmethod
-    def imagesearch():
+    def imagesearch() -> None:
         contents = "+".join(argv[2:])
         esc()
         open_new_tab(
@@ -81,7 +99,7 @@ class Search:
 
 class Translate:
     @staticmethod
-    def toenglish():
+    def toenglish() -> None:
         contents = "%20".join(argv[3:])
         esc()
         open_new_tab(
@@ -89,19 +107,23 @@ class Translate:
         )
 
     @staticmethod
-    def to_other_language(language):
+    def to_other_language(language) -> None:
         contents = "%20".join(argv[3:])
         esc()
         open_new_tab(f"https://translate.google.com/?sl=en&tl={language}&text={contents}&op=translate")
 
     @staticmethod
-    def translate():
+    def translate() -> None:
         languages = {
             ("tofrench", "french", "f"): "fr", ("toarabic", "arabic", "a"): "ar",
             ("tospanish", "spanish", "s"): "es", ("todutch", "dutch", "d"): "nl",
             ("tochinese", "chinese", "c"): "zh-TW", ("tojapanese", "japanese", "j"): "ja",
         }
-        english_dict = {"toenglish": Translate.toenglish, "e": Translate.toenglish, "english": Translate.toenglish}
+        english_dict = {
+            "toenglish": Translate.toenglish,
+            "e": Translate.toenglish,
+            "english": Translate.toenglish
+        }
         if argv[2] in english_dict:
             Translate.toenglish()
         else:
@@ -110,8 +132,10 @@ class Translate:
                     Translate.to_other_language(languages[i])
 
 
-def sarcasm(words=None, notif=True, copy=True):
+def sarcasm(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything to 'sarcasmize'.
+Try running 'help sarcasm' if you do not know what you are doing.""", 5])
     contents_list = []
     state = "upper"
     for i in words:
@@ -128,15 +152,20 @@ def sarcasm(words=None, notif=True, copy=True):
     return "".join(contents_list)
 
 
-def reverse(words=None, notif=True, copy=True):
+def reverse(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything to reverse.
+Try running 'help reverse' if you do not know what you are doing.""", 5])
     copycheck(copy, words[::-1])
     esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
+    return words[::-1]
 
 
-def spacer(words=None, notif=True, copy=True):
+def spacer(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything to space out.
+Try running 'help spacer' if you do not know what you are doing.""", 5])
     contents = words
     copycheck(copy, " ".join(contents))
     esc()
@@ -144,7 +173,7 @@ def spacer(words=None, notif=True, copy=True):
     return " ".join(contents)
 
 
-def spoilerspam(words=None, notif=True, copy=True):
+def spoilerspam(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
     contents = []
     for i in words: contents.append(f"||{i}")
@@ -154,19 +183,24 @@ def spoilerspam(words=None, notif=True, copy=True):
     return f'{"||".join(contents)}||'
 
 
-def randnum(num=None, notif=True, copy=True):
-    num = num or list(argv[2])
-    try: random_num = randint(int("".join(num[0:-1])), int(argv[3]))
-    except ValueError: notification(
+def randnum(words=None, notif=True, copy=True) -> Optional[int]:
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help randnum'.""", 5])
+    words = words or list(argv[2])
+    try: 
+        random_num = randint(int("".join(words[0:-1])), int(argv[3]))
+    except ValueError:
+        notification(
                 "Hey!", "It seems that the number you inputted was not a number.", 3
             )
+        return
     copycheck(copy, random_num)
     esc()
-    notifcheck(notif, ["Success!", f"The number was: {random_num}", 3])
+    notifcheck(notif, [str(random_num), f"The number was: {random_num}", 3])
     return random_num
 
 
-def reminder():
+def reminder() -> None:
     esc()
     def remind_notif(message, singular):
         if singular == True and message == None:
@@ -177,9 +211,14 @@ def reminder():
         notification("Reminder!", sentence, 5)
 
     message = " ".join(argv[3:])
+    indextest(["Huh.", """It seems that you have not inputted anything at all.
+If you don't know how to use the command, then run 'help remind'.""", 5])
     if message == "": message = None    
     time_options = {"s": (1, "second"), "m": (60, "minute"), "h": (3600, "hour")}
-    if float(argv[2][:-1]) == 1: one = True
+    try:
+        if float(argv[2][:-1]) == 1: one = True
+    except ValueError:
+        notification("Huh.", "It seems that you have not inputted a number.", 5)
     else: one = False
 
     for i in time_options:
@@ -189,8 +228,10 @@ def reminder():
             remind_notif(message=message, singular=one)
 
 
-def copypaste(words=None, notif=True, copy=True):
+def copypaste(words=None, notif=True, copy=True) -> Optional[str]:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input a valid key.
+If you do not know how to use this command, try running 'help cp'.""", 5])
     copypaste_dict = {
         # fmt: off
         "aigu e": "é", "aigu E": "É", "grave a": "à",
@@ -206,7 +247,7 @@ def copypaste(words=None, notif=True, copy=True):
         "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
         ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
         "shrug": R"¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️",
-        "csprint": """using System;
+        "music": "♩♪♫♬", "csprint": """using System;
 
 namespace Code
 {
@@ -223,22 +264,30 @@ namespace Code
     i = copypaste_dict.get(words)
     if i:
         copycheck(copy, i)
+    else:
+        esc()
+        notification("Welp.", "It seems that utilities could not understand what word you were trying to copypaste.", 3)
+        return
 
     esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return i
 
 
-def titlecase(words=None, notif=True, copy=True):
+def titlecase(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help title'.""", 5])
     copycheck(copy, words.title())
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     esc()
     return words.title()
 
 
-def emojify(words=None, notif=True, copy=True):
+def emojify(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help emojify'.""", 5])
     converted = []
     special_char = {
         " ": ":black_large_square:",
@@ -257,8 +306,10 @@ def emojify(words=None, notif=True, copy=True):
     return " ".join(converted)
 
 
-def flipped(words=None, notif=True, copy=True):
+def flipped(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help flip'.""", 5])
     converted = []
     flipped_char = {
         # fmt: off
@@ -285,8 +336,10 @@ def flipped(words=None, notif=True, copy=True):
     return "".join(converted)
 
 
-def exponent(words=None, notif=True, copy=True):
+def exponent(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help exponent'.""", 5])
     converted = []
     superscript_char = {
         # fmt: off
@@ -312,8 +365,10 @@ def exponent(words=None, notif=True, copy=True):
     return "".join(converted)
 
 
-def cursive(words=None, notif=True, copy=True):
+def cursive(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help cursive'.""", 5])
     converted = []
     char = {
         # fmt: off
@@ -340,8 +395,10 @@ def cursive(words=None, notif=True, copy=True):
     return "".join(converted)
 
 
-def doublestruck(words=None, notif=True, copy=True):
+def doublestruck(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help doublestruck'.""", 5])
     converted = []
     char = {
         # fmt: off
@@ -369,8 +426,10 @@ def doublestruck(words=None, notif=True, copy=True):
     return "".join(converted)
 
 
-def bubble(words=None, notif=True, copy=True):
+def bubble(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help bubble'.""", 5])
     converted = []
     char = {
         # fmt: off
@@ -400,7 +459,9 @@ def bubble(words=None, notif=True, copy=True):
     return "".join(converted)
 
 
-def arrowmouse():
+def arrowmouse() -> None:
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help arrowmouse'.""", 5])
     if argv[2] == "enable":
         call(R"start supplementary-ahks\arrowmouse.ahk", shell=True)
         notification(
@@ -423,13 +484,16 @@ class Fraction:
     def fr_e():
         # invalid character error
         notification(
-            "Hey!", "It seems you tried to input a character that we don't have.", 3
+            "Hey!", """It seems you tried to input a character that's not supported.
+For more information, please view our help center by typing 'help fc'.""", 3
         )
         exit()
 
     @staticmethod
-    def fraction(words=None, notif=True, copy=True):
+    def fraction(words=None, notif=True, copy=True) -> str:
         words = words or " ".join(argv[2:])
+        indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help fraction'.""", 5])
         converted = []
         char: dict[str, tuple[str, str]] = {
             # fmt: off
@@ -474,7 +538,7 @@ class Fraction:
         if errored == False: return "".join(converted)
 
 
-def spambot():
+def spambot() -> None:
     # fmt: off
     notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
     number = argv[2]
@@ -502,7 +566,7 @@ def spambot():
     # fmt: on
 
 
-def autoclick():
+def autoclick() -> None:
     # fmt: off
     esc()
     AHKPATH = Path(R"supplementary-ahks\autoclicker.ahk")
@@ -541,9 +605,10 @@ Return
     notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
     call(f"{AHKPATH}", shell=True)
     AHKPATH.unlink(missing_ok=True)
+    notification("Stopped Autoclicker.", "The autoclicker was stopped.", 3)
 
 
-def tapemouse():
+def tapemouse() -> None:
     esc()
     # fmt: off
     try:
@@ -563,8 +628,12 @@ def tapemouse():
             )
 
 
-def cuberoot(words=None, notif=True, copy=True):
-    words = words or argv[2]
+def cuberoot(words=None, notif=True, copy=True) -> Optional[float]:
+    try:
+        words = words or argv[2]
+    except IndexError:
+        notification("Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help cuberoot'.""", 5)
     try:
         ans = float(cbrt(float(words)))
     except ValueError:
@@ -577,8 +646,10 @@ def cuberoot(words=None, notif=True, copy=True):
     return ans
 
 
-def hcf(words=None, notif=True, copy=True):
+def hcf(words=None, notif=True, copy=True) -> Optional[int]:
     words = words or argv[2:]
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help hcf'.""", 5])
     argv2 = []
     for i in words:
         try:
@@ -598,8 +669,10 @@ def hcf(words=None, notif=True, copy=True):
     return ans
 
 
-def lcm_(words=None, notif=True, copy=True):
+def lcm_(words=None, notif=True, copy=True) -> Optional[int]:
     words = words or argv[2:]
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help lcm'.""", 5])
     argv2 = []
     for i in words:
         try:
@@ -620,8 +693,10 @@ def lcm_(words=None, notif=True, copy=True):
     return ans
 
 
-def formatter():
+def formatter() -> str:
     argv2 = " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help format'.""", 5])
     converted = ""
     functions = {
         # fmt: off
@@ -629,7 +704,7 @@ def formatter():
         "cp": copypaste, "emojify": emojify, "reverse": reverse,
         "exponent": exponent, "ep": exponent, "title": titlecase, "titlecase": titlecase,
         "cursive": cursive, "fraction": Fraction.fraction, "fc": Fraction.fraction,
-        "randnum": randnum, "randint": randnum, "flip": flipped, "upside-down": flipped, "superscript": exponent,
+        "flip": flipped, "upside-down": flipped, "superscript": exponent,
         "bubble": bubble, "bubbletext": bubble, "doublestruck": doublestruck, "dbs": doublestruck,
         "cbrt": cuberoot, "cuberoot": cuberoot, "lcm": lcm_, "hcf": hcf, "gcd": hcf,
         # fmt: on
@@ -647,4 +722,3 @@ def formatter():
     esc()
     notifcheck(True, ["Success!", "Message copied to clipboard.", 2])
     return converted
-    
