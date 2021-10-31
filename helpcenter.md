@@ -6,6 +6,17 @@ And if you were unaware, utilities is also dependent on 4 modules.
 
 They are: [pyperclip](https://pypi.org/project/pyperclip/), [pyautogui](https://pypi.org/project/PyAutoGUI/), [win10toast](https://pypi.org/project/win10toast/) and [numpy](https://pypi.org/project/numpy/)
 
+## Notes:
+Here are just some quick notes for you to read before you start playing around and going ham with utilities.
+
+1. **Avoid** playing around with file paths and renaming folders. A lot of utilities is hard-coded for specific file paths, like renaming the supplementary-ahks folder will stop `arrowmouse` from working at all, and potentially `autoclick` as well.
+
+2. Follow correct syntax. If you intentionally try and mess with the syntax of commands like `autoclick amogus` or something, you most likely will be greeted by an error message or in this case, autohotkey being completely bamboozled on why the hell you want to click on the mouse button "amogus". Most commands are able to handle running commands with no arguments like running just `copypaste` with no key, but some commands like autoclick aren't able to do that.
+
+3. Bugs. If you find a bug, you are very much requested to post it in the [issues](https://github.com/prokenz101/utilities/issues) page of the repository. I'll try and fix it as soon as possible, but no promises ¯\_(ツ)_/¯.
+
+<br />
+
 ## Use:
 Type your command and press F8.
 
@@ -146,7 +157,7 @@ List of all strings in copypaste: (I'm too lazy to type it all out so you can ju
 "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
 ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
 "shrug": R"¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️",
-"csprint": """using System;
+"music": "♩♪♫♬", "csprint": """using System;
 
 namespace Code
 {
@@ -339,9 +350,13 @@ We can see in the example that two seperate commands are given in the same sente
 
 Format only reads commands that are inside curly braces, if you put something inside curly braces that IS NOT a utilities command, then the program will error.
 
-This is especially useful when typing out mathematical expressions with several exponents. Like `format x{ep 2} + y{ep 3} {cp divide} z{ep 4}` which returns x² + y³ ÷ z⁴.
+This is especially useful when typing out mathematical expressions with several exponents. Like
+```bash
+format x{ep 2} + y{ep 3} {cp divide} z{ep 4}
+```
+will turn into: x² + y³ ÷ z⁴.
 
-This utility takes a bit longer to run that the others, due to it having to run several other functions and overall just do a lot of things.
+This utility takes a bit longer to run that the others, due to it having to run several other functions and overall just do a lot of things, so you will have to be patient while running it.
 
 There are no aliases for this utility.
 
