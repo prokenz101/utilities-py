@@ -239,7 +239,7 @@ There are no aliases for this utility.
 
 <br />
 
-## bubble
+## Bubble
 Another simple utility which turns all letters and numbers into bubbles.
 
 Example: `bubble hello world 12345` returns ⓗⓔⓛⓛⓞ ⓦⓞⓡⓛⓓ ①②③④⑤.
