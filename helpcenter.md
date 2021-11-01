@@ -13,7 +13,7 @@ Here are just some quick notes for you to read before you start playing around a
 
 2. Follow correct syntax. If you intentionally try and mess with the syntax of commands like `autoclick amogus` or something, you most likely will be greeted by an error message or in this case, autohotkey being completely bamboozled on why the hell you want to click on the mouse button "amogus". Most commands are able to handle running commands with no arguments like running just `copypaste` with no key, but some commands like autoclick aren't able to do that.
 
-3. Bugs. If you find a bug, you are very much requested to post it in the [issues](https://github.com/prokenz101/utilities/issues) page of the repository. I'll try and fix it as soon as possible, but no promises ¯\_(ツ)_/¯.
+3. Bugs. If you find a bug, you are very much requested to post it in the [issues](https://github.com/prokenz101/utilities/issues) page of the repository. I'll try and fix it as soon as possible, but no promises.
 
 <br />
 
