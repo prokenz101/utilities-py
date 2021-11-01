@@ -175,6 +175,8 @@ Try running 'help spacer' if you do not know what you are doing.""", 5])
 
 def spoilerspam(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    indextest(["Huh.", """It seems that you did not input anything to spam with spoilers.
+Try running 'help spoilerspam' if you do not know what you are doing.""", 5])
     contents = []
     for i in words: contents.append(f"||{i}")
     copycheck(copy, "".join(f'{"||".join(contents)}||'))
@@ -202,7 +204,7 @@ If you do not know how to use this command, try running 'help randnum'.""", 5])
 
 def reminder() -> None:
     esc()
-    def remind_notif(message, singular):
+    def remind_notif(message, singular) -> None:
         if singular and message == None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]} and its time!"
         elif not singular and message == None:
