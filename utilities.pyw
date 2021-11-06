@@ -1,60 +1,31 @@
-from sys import argv
-from pyautogui import hotkey
-from pyperclip import copy, PyperclipException
+from pynput.keyboard import Key, Controller
+from pyperclip3 import copy, paste
+from subprocess import call
 
-"""Keeping this for fallback"""
-# instructions = {
-#     "translate": translate,
-#     "sarcasm": sarcasm,
-#     "spacer": spacer,
-#     "spoilerspam": spoilerspam,
-#     "copypaste": copypaste,
-#     "cp": copypaste,
-#     "emojify": emojify,
-#     "spam": spambot,
-#     "extend": extend,
-#     "autoclick": autoclick,
-#     "tapemouse": tapemouse,
-#     "exponent": exponent,
-#     "ep": exponent,
-#     "title": titlecase,
-#     "titlecase": titlecase,
-#     "cursive": cursive,
-#     "fraction": fraction,
-#     "fc": fraction,
-#     "flip": flipped,
-#     "upside-down": flipped,
-#     "superscript": exponent,
-#     "encrypt": encrypt,
-#     "decrypt": decrypt,
-#     "reverse" : reverse,
-#     "arrowmouse" : arrowmouse,
-#     "alarm" : alarm,
-#     "seizure" : seizure,
-#     "format" : formatter
-# }
-# try:
-#     for i in instructions:
-#         if argv[1].lower().startswith(i):
-#             try:    
-#                 copy(instructions[i](" ".join(argv[2:])))
-#             except PyperclipException:
-#                 pass
-#             hotkey("ctrl", "v")
+keyboard = Controller()
 
-# except Exception as e:
-#     notification("An Error Has Occured.", str(e), 10)
-#     print(e)
+with keyboard.pressed(Key.ctrl):
+    keyboard.press("a")
+    keyboard.release("a")
+    keyboard.press("c")
+    keyboard.release("c")
+
 
 mod = __import__("functions")
-instructions = argv[1]
-try:
-    copy(getattr(mod, instructions)(" ".join(argv[2:])))
-    hotkey("ctrl", "v")
+contents = paste().decode("utf-8").split()
 
+instruction = contents[0]
+try:
+    output = getattr(mod, instruction)(" ".join(contents[1:]))
+    copy(output)
+    with keyboard.pressed(Key.ctrl):
+        keyboard.press("v")
+        keyboard.release("v")
+
+except TypeError:
+    pass
 except Exception as e:
-    if e == PyperclipException:
+    with keyboard.pressed(Key.backspace):
         pass
-    else:
-        hotkey("backspace")
-        getattr(mod, "notification")("An Error has Occurred.", f"{e}", 10)
+    getattr(mod, "notification")("An Error has Occurred.", f"{e}")
+    copy(f"{e}")

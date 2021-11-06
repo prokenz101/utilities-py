@@ -1,15 +1,16 @@
-from sys import argv
-from pyautogui import FailSafeException, hotkey, mouseDown, typewrite
+from pynput.keyboard import Key, Controller
 from time import sleep
 from webbrowser import open_new_tab
 from pathlib import Path
 from subprocess import call
-from win10toast import ToastNotifier
+from notify2 import init, Notification
 from datetime import datetime
 from playsound import playsound
-from random import  choice
-from string import  ascii_letters
+from random import choice
+from string import ascii_letters
 from re import finditer
+
+keyboard = Controller()
 
 encryption_dict = {
         "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
@@ -21,49 +22,11 @@ encryption_dict = {
         "y": "ᡆ", "z": "ᅆ"
     }
 
-def notification(title, subtitle, interval, icon=None, threaded=True):
-    toaster = ToastNotifier()
-    toaster.show_toast(title, subtitle, icon_path=icon, duration=interval)
 
-
-def esc(interval=0.50):
-    sleep(interval)
-    hotkey("esc")
-    sleep(interval)
-
-def toenglish():
-    contents = "%20".join(argv[3:])
-    open_new_tab(
-        f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
-    )
-
-
-def tofrench():
-    contents = "%20".join(argv[3:])
-    open_new_tab(
-        f"https://translate.google.com/?sl=en&tl=fr&text={contents[0:]}&op=translate"
-    )
-
-
-def toarabic():
-    contents = "%20".join(argv[3:])    
-    open_new_tab(
-        f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
-    )
-
-
-def translate(contents):
-    languages = {
-        "tofrench": tofrench,
-        "f": tofrench,
-        "toenglish": toenglish,
-        "e": toenglish,
-        "toarabic": toarabic,
-        "a": toarabic,
-    }
-    for i in languages:
-        if i == argv[2]:
-            languages[i]()
+def notification(title, message):
+    init("Utilities")
+    notifier = Notification(title, message)
+    notifier.show()
 
 
 def sarcasm(contents):
@@ -203,7 +166,7 @@ def exponent(contents):
 def fr_e():
     # invalid character error
     notification(
-        "Hey!", "It seems you tried to input a character that we don't have.", 3
+        "Hey!", "It seems you tried to input a character that we don't have."
     )
     exit()
 
@@ -281,101 +244,6 @@ def fraction(contents):
         fr_e()
 
 
-def spambot(contents):
-    notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
-    number = argv[2]
-    interval_list = argv[::-1]
-    word = argv[3:]
-    last_of_spam = " ".join(word[::-1])
-
-    if "--interval=" in last_of_spam:
-        word = argv[3:-1]
-
-    if argv[2] == "infinite":
-        number = 100000
-
-    interval = 0
-    if "--interval=" in interval_list[0]:
-        interval = int(interval_list[0][11:])
-
-    try:
-        for i in range(int(number)):
-            typewrite(" ".join(word), 0.04)
-            hotkey("enter")
-            sleep(interval)
-    except FailSafeException:
-        notification("Spamming Stopped.", "Spamming was cancelled.", 10)
-
-
-def autoclick(contents): 
-    AHKPATH = Path(
-        R"C:\Users\user\Downloads\PythonFiles\utilities\AutoClicker\autoclicker.ahk"
-    )
-    countindex = 4
-    try:
-        mousebutton = argv[3].title()
-    except IndexError:
-        pass
-
-    try:
-        AHKPATH.touch()
-    except FileExistsError:
-        AHKPATH.unlink(missing_ok=True)
-        sleep(0.04)
-        autoclick()
-
-    try:
-        interval = int(argv[2])
-    except ValueError:
-        mousebutton = argv[2].title()
-        countindex -= 1
-        interval = 0
-
-    try:
-        count = f", {argv[countindex]}"
-    except IndexError:
-        count = ""
-
-    AHKPATH.typewrite_text(
-        f"""loop{count} {{
-    MouseClick, {mousebutton}
-    Sleep, {interval}
-}}
-FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
-ExitApp
-
-F7::
-FileDelete C:\\Items\\Code\\utilities\\supplementary-ahks\\autoclicker.ahk
-ExitApp
-Return
-"""
-    )
-
-    call(f"{AHKPATH}", shell=True)
-    notification("Autoclicking.", "Starting autoclicker. Press F7 to close.", 3)
-
-
-def tapemouse(contents):
-    try:
-        if argv[3].startswith("wait="):
-            sleep(int(argv[3][5:]))
-    except IndexError:
-        pass
-    try:
-        mouseDown(button=argv[2].lower())
-        notification(
-            f"Taping {argv[2].title()} Mouse Button.",
-            f"The {argv[2]} mouse button has been taped down.",
-            3,
-        )
-    except FailSafeException:
-        notification(
-            "Couldn't Start TapeMouse.",
-            "The tapemouse was stopped due to FailSafeException.",
-            3,
-        )
-
-
 def extend(contents):
     extendables = {
         "widepeepohappy": ":widepeepohappy1::widepeepohappy2::widepeepohappy3::widepeepohappy4:",
@@ -416,44 +284,31 @@ def decrypt(contents):
         except KeyError:
             result += ch
 
-    hotkey("backspace")
-    notification("Decrypted Message", result, 5)
+    with keyboard.pressed(Key.backspace):
+        pass
+    notification("Decrypted Message", result)
 
 
 def reverse(contents):
     return contents[::-1]
 
 
-def arrowmouse(contents):
-    if argv[2] == "enable":
-        call(R"start supplementary-ahks\arrowmouse.ahk", shell=True)
-        notification(
-            "Enabled.",
-            "Arrow mouse has been enabled. Use 'arrowmouse disable' to disable.",
-            3,
-        )
-    elif argv[2] == "disable":
-        hotkey("f13")
-        notification(
-            "Disabled.",
-            "Arrow mouse has been disabled.",
-            3,
-        )
-
 def alarmset(contents):
-    hotkey("backspace")
-    hotkey("esc")
+    with keyboard.pressed(Key.backspace):
+        pass
+    with keyboard.pressed(Key.esc):
+        pass
 
     curr_hour = datetime.now().hour
     curr_min = datetime.now().minute
     curr_sec = datetime.now().second
 
-    if argv[4] == "pm":
-        if argv[2] != "12":
-            alarm_hour = int(argv[2]) + 12
+    if contents[3] == "pm":
+        if contents[1] != "12":
+            alarm_hour = int(contents[1]) + 12
     else:
-        alarm_hour = int(argv[2])
-    alarm_min = int(argv[3])
+        alarm_hour = int(contents[1])
+    alarm_min = int(contents[2])
 
     waiting_hour = alarm_hour - curr_hour
     waiting_min = alarm_min - curr_min
@@ -461,20 +316,20 @@ def alarmset(contents):
     if waiting_min < 0:
         waiting_min += 60
 
-    notification("Alarm", f"Your alarm has been set for {argv[2]}:{argv[3]} {argv[4]}", 6)
+    notification("Alarm", f"Your alarm has been set for {contents[1]}:{contents[2]} {contents[3]}")
 
     waiting_time = (waiting_hour * 60 * 60) + (waiting_min * 60) - curr_sec
     sleep(waiting_time - 7)
 
-    playsound(r"./alarm_sound.mp3", block=False)
-    notification("Alarm", "Time's up kid", 3)
+    playsound(r"alarm_sound.mp3", block=False)
+    notification("Alarm", "Time's up kid")
 
 
 def seizure(contents):
     letters = ascii_letters
     converted = ""
     letters += " "
-    for _ in range(int(argv[2])):
+    for _ in range(int(contents[1])):
         converted += choice(letters)
     return converted
 
