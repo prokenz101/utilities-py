@@ -1,6 +1,5 @@
 from pynput.keyboard import Key, Controller
 from pyperclip3 import copy, paste
-from subprocess import call
 
 keyboard = Controller()
 

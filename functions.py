@@ -1,8 +1,5 @@
 from pynput.keyboard import Key, Controller
 from time import sleep
-from webbrowser import open_new_tab
-from pathlib import Path
-from subprocess import call
 from notify2 import init, Notification
 from datetime import datetime
 from playsound import playsound
