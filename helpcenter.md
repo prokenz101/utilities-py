@@ -59,6 +59,7 @@ In the first one, we see that pressing F8 selects the entire thing, making it ba
 | [LCM](#lcm) | Finds LCM of numbers. |
 | [Fraction](#fraction) | Generates a fraction. 1/2 -> ¹⁄₂ |
 | [Randnum](#randnum) | Generates a random number from two start and end points. |
+| [Factorial](#factorial)| Finds the factorial of a number. | 
 
 <br />
 
@@ -425,6 +426,17 @@ This utility makes use of the `randint()` function in `random`.
 Aliases: `randint`
 
 <br />
+
+## Factorial
+A utility that finds the factorial of a number. If you don't know what a factorial is, then read [this](https://en.wikipedia.org/wiki/Factorial).
+
+Syntax: `factorial <number>`
+
+Example: `factorial 15` returns 1307674368000.
+
+This utility makes use of the `factorial()` function in the `math` module.
+
+There are no aliases for this utility.
 
 ## Got any Doubts?
 Feel free to contact me on discord.
