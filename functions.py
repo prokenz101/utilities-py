@@ -1,5 +1,5 @@
 from sys import argv
-from math import gcd, lcm
+from math import gcd, lcm, factorial
 from typing import Optional
 from pyautogui import FailSafeException, hotkey, typewrite, mouseDown
 from pyperclip import copy as pypercopy
@@ -12,12 +12,12 @@ from random import randint
 from win10toast import ToastNotifier
 from numpy import cbrt
 
-def notification(title, subtitle, interval, icon=None, threaded=True):
+def notification(title, subtitle, interval, icon=None, threaded=True) -> None:
     toaster = ToastNotifier()
     toaster.show_toast(title, subtitle, icon_path=icon, duration=interval)
 
 
-def esc(interval=0.50):
+def esc(interval=0.50) -> None:
     sleep(interval)
     hotkey("esc")
     sleep(interval)
@@ -107,7 +107,7 @@ class Translate:
         )
 
     @staticmethod
-    def to_other_language(language) -> None:
+    def to_other_language(language: str) -> None:
         contents = "%20".join(argv[3:])
         esc()
         open_new_tab(f"https://translate.google.com/?sl=en&tl={language}&text={contents}&op=translate")
@@ -452,7 +452,6 @@ If you do not know how to use this command, try running 'help bubble'.""", 5])
         "9": "⑨", "0": "⓪"
         # fmt: on
     }
-    base_num = 0
     for i in words:
         if i in char: converted.append(char[i])
         else: converted.append(i)
@@ -697,6 +696,30 @@ If you do not know how to use this command, try running 'help lcm'.""", 5])
     return ans
 
 
+def factorial_(words=None, notif=True, copy=True) -> Optional[int]:
+    try:
+        words = words or argv[2]
+    except IndexError:
+        notifcheck(notif, ["Huh.", """It seems that you did not input anything at all.
+If you do not know how to use this command, try running 'help lcm'.""", 5])
+        return
+    for i in words:
+        try:
+            ans = factorial(int(words))
+        except ValueError:
+            esc()
+            notifcheck(notif, [
+                "Huh",
+                "Either the number you entered was invalid, or something has gone fatally wrong.",
+                3,
+            ]
+        )
+            return
+        copycheck(copy, ans)
+        esc()
+        notifcheck(notif, [str(ans), f"The Answer is {str(ans)}", 5])
+        return ans
+
 def formatter() -> str:
     argv2 = " ".join(argv[2:])
     indextest(["Huh.", """It seems that you did not input anything at all.
@@ -711,6 +734,7 @@ If you do not know how to use this command, try running 'help format'.""", 5])
         "flip": flipped, "upside-down": flipped, "superscript": exponent,
         "bubble": bubble, "bubbletext": bubble, "doublestruck": doublestruck, "dbs": doublestruck,
         "cbrt": cuberoot, "cuberoot": cuberoot, "lcm": lcm_, "hcf": hcf, "gcd": hcf,
+        "factorial": factorial_
         # fmt: on
     }
     formatdict = {}

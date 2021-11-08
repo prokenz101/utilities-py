@@ -13,6 +13,7 @@ instructions = {
     "dbs": doublestruck, "doublestruck": doublestruck, "cursive": cursive,
     "fraction": Fraction.fraction, "fc": Fraction.fraction, "randnum": randnum,
     "randint": randnum, "flip": flipped, "upside-down": flipped, "superscript": exponent,
+    "factorial": factorial_, 
 }
 
 try:
