@@ -12,7 +12,7 @@ from random import randint
 from win10toast import ToastNotifier
 from numpy import cbrt
 
-def notification(title, subtitle, interval, icon=None, threaded=True) -> None:
+def notification(title: str, subtitle: str, interval: int, icon=None, threaded=True) -> None:
     toaster = ToastNotifier()
     toaster.show_toast(title, subtitle, icon_path=icon, duration=interval)
 
@@ -31,11 +31,11 @@ def indextest(notiflist: list, argvindex=2) -> None:
         exit()
 
 
-def notifcheck(notif, tonotify: list) -> None:
+def notifcheck(notif: bool, tonotify: list) -> None:
     if notif: notification(*tonotify)
 
 
-def copycheck(copy, tocopy) -> None:
+def copycheck(copy: bool, tocopy) -> None:
     if copy: pypercopy(tocopy)
 
 
@@ -57,7 +57,8 @@ def helpcenter() -> None:
         "help", "translate", "sarcasm", "spacer", "spoilerspam", "copypaste",
         "emojify","spam", "autoclick", "tapemouse", "reverse", "exponent",
         "remind", "title", "arrowmouse", "format", "bubble", "cuberoot", "hcf",
-        "lcm", "doublestruck", "cursive", "fraction", "randnum", "randint", "flip"
+        "lcm", "doublestruck", "cursive", "fraction", "randnum", "randint", "flip",
+        "factorial"
     )
     if doubt in aliases:
         open_new_tab(f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{aliases[doubt]}")
@@ -701,7 +702,7 @@ def factorial_(words=None, notif=True, copy=True) -> Optional[int]:
         words = words or argv[2]
     except IndexError:
         notifcheck(notif, ["Huh.", """It seems that you did not input anything at all.
-If you do not know how to use this command, try running 'help lcm'.""", 5])
+If you do not know how to use this command, try running 'help factorial'.""", 5])
         return
     for i in words:
         try:
