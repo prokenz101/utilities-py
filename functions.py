@@ -17,12 +17,6 @@ def notification(title: str, subtitle: str, interval: int, icon=None, threaded=T
     toaster.show_toast(title, subtitle, icon_path=icon, duration=interval)
 
 
-def esc(interval=0.50) -> None:
-    sleep(interval)
-    hotkey("esc")
-    sleep(interval)
-
-
 def indextest(notiflist: list, argvindex=2) -> None:
     try:
         test = argv[argvindex]
@@ -82,19 +76,16 @@ class Search:
     @staticmethod
     def googlesearch() -> None:
         contents = "+".join(argv[1:])
-        esc()
         open_new_tab(f"https://www.google.com/search?q={contents[1:]}")
 
     @staticmethod
     def youtubesearch() -> None:
         contents = "+".join(argv[2:])
-        esc()
         open_new_tab(f"https://www.youtube.com/results?search_query={contents[0:]}")
 
     @staticmethod
     def imagesearch() -> None:
         contents = "+".join(argv[2:])
-        esc()
         open_new_tab(
             f"https://www.google.com/search?q={contents[0:]}&safe=strict&tbm=isch&sxsrf=ALeKk029ouHDkHfq3RFVc8WpFzOvZZ8s4g%3A1624376552976&source=hp&biw=1536&bih=763&ei=6ATSYIOrOduJhbIPzda7yAs&oq=hello&gs_lcp=CgNpbWcQAzIFCAAQsQMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyBQgAELEDMgUIABCxAzICCAA6BwgjEOoCECc6BAgjECc6CAgAELEDEIMBUNIGWKcJYLELaABwAHgAgAGPAogByAqSAQUwLjEuNZgBAKABAaoBC2d3cy13aXotaW1nsAEK&sclient=img&ved=0ahUKEwiDv62byqvxAhXbREEAHU3rDrkQ4dUDCAc&uact=5"
         )
@@ -104,7 +95,6 @@ class Translate:
     @staticmethod
     def toenglish() -> None:
         contents = "%20".join(argv[3:])
-        esc()
         open_new_tab(
             f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
         )
@@ -112,7 +102,6 @@ class Translate:
     @staticmethod
     def to_other_language(language: str) -> None:
         contents = "%20".join(argv[3:])
-        esc()
         open_new_tab(f"https://translate.google.com/?sl=en&tl={language}&text={contents}&op=translate")
 
     @staticmethod
@@ -150,7 +139,6 @@ Try running 'help sarcasm' if you do not know what you are doing.""", 5])
             state = "upper"
     
     copycheck(copy, "".join(contents_list))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(contents_list)
 
@@ -160,7 +148,6 @@ def reverse(words=None, notif=True, copy=True) -> str:
     indextest(["Huh.", """It seems that you did not input anything to reverse.
 Try running 'help reverse' if you do not know what you are doing.""", 5])
     copycheck(copy, words[::-1])
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return words[::-1]
 
@@ -174,7 +161,6 @@ Try running 'help spacer' if you do not know what you are doing.""", 5])
         converted.append(i)
         converted.append(" ")
     copycheck(copy, "".join(converted))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
@@ -186,7 +172,6 @@ Try running 'help spoilerspam' if you do not know what you are doing.""", 5])
     contents = []
     for i in words: contents.append(f"||{i}")
     copycheck(copy, "".join(f'{"||".join(contents)}||'))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return f'{"||".join(contents)}||'
 
@@ -203,13 +188,11 @@ If you do not know how to use this command, try running 'help randnum'.""", 5])
             )
         return
     copycheck(copy, random_num)
-    esc()
     notifcheck(notif, [str(random_num), f"The number was: {random_num}", 3])
     return random_num
 
 
 def reminder() -> None:
-    esc()
     def remind_notif(message, singular) -> None:
         if singular and message == None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]} and its time!"
@@ -276,11 +259,9 @@ namespace Code
     if i:
         copycheck(copy, i)
     else:
-        esc()
         notification("Welp.", "It seems that utilities could not understand what word you were trying to copypaste.", 3)
         return
 
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return i
 
@@ -291,7 +272,6 @@ def titlecase(words=None, notif=True, copy=True) -> str:
 If you do not know how to use this command, try running 'help title'.""", 5])
     copycheck(copy, words.title())
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-    esc()
     return words.title()
 
 
@@ -307,12 +287,14 @@ If you do not know how to use this command, try running 'help emojify'.""", 5])
         "6": ":six:", "7": ":seven:", "8": ":eight:", "9": ":nine:", "0": ":zero:",
     }
     for i in words:
-        if "a" <= i.lower() <= "z": converted.append(f":regional_indicator_{i.lower()}:")
-        elif i in special_char: converted.append(special_char[i])
-        else: converted.append(i)
+        if "a" <= i.lower() <= "z":
+            converted.append(f":regional_indicator_{i.lower()}:")
+        elif i in special_char:
+            converted.append(special_char[i])
+        else:
+            converted.append(i)
 
     copycheck(copy, " ".join(converted))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return " ".join(converted)
 
@@ -344,7 +326,6 @@ If you do not know how to use this command, try running 'help flip'.""", 5])
 
     converted.reverse()
     copycheck(copy, "".join(converted))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
@@ -375,7 +356,6 @@ If you do not know how to use this command, try running 'help exponent'.""", 5])
             converted.append(i)
 
     copycheck(copy, "".join(converted))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
@@ -407,7 +387,6 @@ If you do not know how to use this command, try running 'help cursive'.""", 5])
             converted.append(i)
 
     copycheck(copy, "".join(converted))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
@@ -440,7 +419,6 @@ If you do not know how to use this command, try running 'help doublestruck'.""",
             converted.append(i)
 
     copycheck(copy, "".join(converted))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
@@ -474,7 +452,6 @@ If you do not know how to use this command, try running 'help bubble'.""", 5])
             converted.append(i)
 
     copycheck(copy, "".join(converted))
-    esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return "".join(converted)
 
@@ -496,7 +473,6 @@ If you do not know how to use this command, try running 'help arrowmouse'.""", 5
             "Arrow mouse has been disabled.",
             3,
         )
-    esc()
 
 
 class Fraction:
@@ -554,7 +530,6 @@ If you do not know how to use this command, try running 'help fraction'.""", 5])
 
         except TypeError: Fraction.fr_e()
 
-        esc()
         errored = False
         notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
         if errored == False:
@@ -577,8 +552,6 @@ def spambot() -> None:
     if "--interval=" in interval_list[0]:
         interval = int(interval_list[0][11:])
 
-    esc()
-
     try:
         for i in range(int(number)):
             typewrite(" ".join(word))
@@ -594,7 +567,6 @@ def spambot() -> None:
 
 def autoclick() -> None:
     # fmt: off
-    esc()
     AHKPATH = Path(R"supplementary-ahks\autoclicker.ahk")
     countindex = 4
     try:
@@ -641,7 +613,6 @@ Return
 
 
 def tapemouse() -> None:
-    esc()
     # fmt: off
     try:
         if argv[3].startswith("wait="):
@@ -676,7 +647,6 @@ If you do not know how to use this command, try running 'help cuberoot'.""", 5)
         return
     
     copycheck(copy, ans)
-    esc()
     notifcheck(notif, [str(ans), f"The cube root is {str(ans)}", 5])
     return ans
 
@@ -699,7 +669,6 @@ If you do not know how to use this command, try running 'help hcf'.""", 5])
             return
     ans = gcd(*argv2)
     copycheck(copy, ans)
-    esc()
     notifcheck(notif, [str(ans), f"The HCF is {str(ans)}", 5])
     return ans
 
@@ -713,7 +682,6 @@ If you do not know how to use this command, try running 'help lcm'.""", 5])
         try:
             argv2.append(int(i))
         except ValueError:
-            esc()
             notifcheck(notif, [
                 "Huh.",
                 "Either the number you entered was not a number, or something has gone fatally wrong.",
@@ -723,7 +691,6 @@ If you do not know how to use this command, try running 'help lcm'.""", 5])
             return
     ans = lcm(*argv2)
     copycheck(copy, ans)
-    esc()
     notifcheck(notif, [str(ans), f"The LCM is {str(ans)}", 5])
     return ans
 
@@ -739,7 +706,6 @@ If you do not know how to use this command, try running 'help factorial'.""", 5]
         try:
             ans = factorial(int(words))
         except ValueError:
-            esc()
             notifcheck(notif, [
                 "Huh",
                 "Either the number you entered was invalid, or something has gone fatally wrong.",
@@ -748,7 +714,6 @@ If you do not know how to use this command, try running 'help factorial'.""", 5]
         )
             return
         copycheck(copy, ans)
-        esc()
         notifcheck(notif, [str(ans), f"The Answer is {str(ans)}", 5])
         return ans
 
@@ -779,6 +744,5 @@ If you do not know how to use this command, try running 'help format'.""", 5])
 
     converted = argv2.format(**formatdict)
     copycheck(True, converted)
-    esc()
     notifcheck(True, ["Success!", "Message copied to clipboard.", 2])
     return converted
