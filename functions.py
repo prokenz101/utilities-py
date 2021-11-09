@@ -32,11 +32,13 @@ def indextest(notiflist: list, argvindex=2) -> None:
 
 
 def notifcheck(notif: bool, tonotify: list) -> None:
-    if notif: notification(*tonotify)
+    if notif:
+        notification(*tonotify)
 
 
-def copycheck(copy: bool, tocopy) -> None:
-    if copy: pypercopy(tocopy)
+def copycheck(copy: bool, tocopy: str) -> None:
+    if copy:
+        pypercopy(tocopy)
 
 
 def helpcenter() -> None:
@@ -165,13 +167,16 @@ Try running 'help reverse' if you do not know what you are doing.""", 5])
 
 def spacer(words=None, notif=True, copy=True) -> str:
     words = words or " ".join(argv[2:])
+    converted = []
     indextest(["Huh.", """It seems that you did not input anything to space out.
 Try running 'help spacer' if you do not know what you are doing.""", 5])
-    contents = words
-    copycheck(copy, " ".join(contents))
+    for i in words:
+        converted.append(i)
+        converted.append(" ")
+    copycheck(copy, "".join(converted))
     esc()
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-    return " ".join(contents)
+    return "".join(converted)
 
 
 def spoilerspam(words=None, notif=True, copy=True) -> str:
@@ -210,7 +215,8 @@ def reminder() -> None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]} and its time!"
         elif not singular and message == None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]}s and its time!"
-        elif not message == None: sentence = f"Hey! Your reminder was: {message}"
+        elif not message == None:
+            sentence = f"Hey! Your reminder was: {message}"
         notification("Reminder!", sentence, 5)
 
     message = " ".join(argv[3:])
@@ -331,8 +337,10 @@ If you do not know how to use this command, try running 'help flip'.""", 5])
         # fmt: on
     }
     for i in words:
-        if i in flipped_char: converted.append(flipped_char[i])
-        else: converted.append(i)
+        if i in flipped_char:
+            converted.append(flipped_char[i])
+        else:
+            converted.append(i)
 
     converted.reverse()
     copycheck(copy, "".join(converted))
@@ -361,8 +369,10 @@ If you do not know how to use this command, try running 'help exponent'.""", 5])
         # fmt: on
     }
     for i in words:
-        if i in superscript_char: converted.append(superscript_char[i])
-        else: converted.append(i)
+        if i in superscript_char:
+            converted.append(superscript_char[i])
+        else:
+            converted.append(i)
 
     copycheck(copy, "".join(converted))
     esc()
@@ -391,8 +401,10 @@ If you do not know how to use this command, try running 'help cursive'.""", 5])
         # fmt: on
     }
     for i in words:
-        if i in char: converted.append(char[i])
-        else: converted.append(i)
+        if i in char:
+            converted.append(char[i])
+        else:
+            converted.append(i)
 
     copycheck(copy, "".join(converted))
     esc()
@@ -422,8 +434,10 @@ If you do not know how to use this command, try running 'help doublestruck'.""",
         # fmt: on
     }
     for i in words:
-        if i in char: converted.append(char[i])
-        else: converted.append(i)
+        if i in char:
+            converted.append(char[i])
+        else:
+            converted.append(i)
 
     copycheck(copy, "".join(converted))
     esc()
@@ -454,8 +468,10 @@ If you do not know how to use this command, try running 'help bubble'.""", 5])
         # fmt: on
     }
     for i in words:
-        if i in char: converted.append(char[i])
-        else: converted.append(i)
+        if i in char:
+            converted.append(char[i])
+        else:
+            converted.append(i)
 
     copycheck(copy, "".join(converted))
     esc()
@@ -524,13 +540,15 @@ If you do not know how to use this command, try running 'help fraction'.""", 5])
         try:
             for x in numerator:
                 i = char.get(x)
-                if i: converted.append(i[0])
+                if i:
+                    converted.append(i[0])
 
             converted.append("⁄")
 
             for x in denominator:
                 i = char.get(x)
-                if i: converted.append(i[1])
+                if i:
+                    converted.append(i[1])
 
             copycheck(copy, "".join(converted))
 
@@ -539,7 +557,8 @@ If you do not know how to use this command, try running 'help fraction'.""", 5])
         esc()
         errored = False
         notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
-        if errored == False: return "".join(converted)
+        if errored == False:
+            return "".join(converted)
 
 
 def spambot() -> None:
@@ -550,10 +569,13 @@ def spambot() -> None:
     word = argv[3:]
     last_of_spam = " ".join(word[::-1])
 
-    if "--interval=" in last_of_spam: word = argv[3:-1]
-    if argv[2] == "infinite": number = 100000
+    if "--interval=" in last_of_spam:
+        word = argv[3:-1]
+    if argv[2] == "infinite":
+        number = 100000
     interval = 0
-    if "--interval=" in interval_list[0]: interval = int(interval_list[0][11:])
+    if "--interval=" in interval_list[0]:
+        interval = int(interval_list[0][11:])
 
     esc()
 
@@ -575,23 +597,29 @@ def autoclick() -> None:
     esc()
     AHKPATH = Path(R"supplementary-ahks\autoclicker.ahk")
     countindex = 4
-    try: mousebutton = argv[3].title()
-    except IndexError: pass
+    try:
+        mousebutton = argv[3].title()
+    except IndexError:
+        pass
 
-    try: AHKPATH.touch()
+    try:
+        AHKPATH.touch()
     except FileExistsError:
         AHKPATH.unlink(missing_ok=True)
         sleep(0.25)
         autoclick()
 
-    try: interval = int(argv[2])
+    try:
+        interval = int(argv[2])
     except ValueError:
         mousebutton = argv[2].title()
         countindex -= 1
         interval = 0
 
-    try: count = f", {argv[countindex]}"
-    except IndexError: count = ""
+    try:
+        count = f", {argv[countindex]}"
+    except IndexError:
+        count = ""
     # fmt: on
     AHKPATH.write_text(
         f"""loop{count} {{
@@ -616,8 +644,10 @@ def tapemouse() -> None:
     esc()
     # fmt: off
     try:
-        if argv[3].startswith("wait="): sleep(int(argv[3][5:]))
-    except IndexError: pass
+        if argv[3].startswith("wait="):
+            sleep(int(argv[3][5:]))
+    except IndexError:
+        pass
     try:
         mouseDown(button=argv[2].lower())
         notification(
@@ -625,11 +655,12 @@ def tapemouse() -> None:
             f"The {argv[2]} mouse button has been taped down.",
             3,
         )
-    except FailSafeException: notification(
-                "Couldn't Start TapeMouse.",
-                "The tapemouse was stopped due to FailSafeException.",
-                3,
-            )
+    except FailSafeException:
+        notification(
+            "Couldn't Start TapeMouse.",
+            "The tapemouse was stopped due to FailSafeException.",
+            3,
+        )
 
 
 def cuberoot(words=None, notif=True, copy=True) -> Optional[float]:
