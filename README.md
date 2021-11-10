@@ -2,7 +2,7 @@
 
 simple utilities that I mostly made for myself
 
-Please note: This is a project used by very few people, and I won't be adding features that I don't want or don't need.
+This is a project used by very few people, and I won't be adding features that I don't want or don't need.
 
 **Note:** This is a python script but also requires [Autohotkey](https://autohotkey.com) so make sure you have both of those.
 
@@ -34,6 +34,8 @@ Open [powertoys](https://github.com/microsoft/PowerToys) and type any command to
 
 Although you could use anything which allows you to type. Powertoys is not necessary.
 
-This is made **for windows only.** But a linux version might be on the way ;)
+**This branch is designed for windows only.** If you want a linux version of it, click [here](https://github.com/prokenz101/utilities/tree/linux-edition).
+
+MacOS will most likely never be supported, as i have no plans for it, and dislike it altogether.
 
 (Also, for some commands that open a browser, if it opens a browser that you don't want it to, then try adding your main browser to PATH in system environment variables.)
