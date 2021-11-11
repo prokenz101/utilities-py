@@ -144,7 +144,6 @@ Copypaste is most useful for getting french letters without a french keyboard.
 
 List of all strings in copypaste: (I'm too lazy to type it all out so you can just have the dictionary.)
 ```
-
 "aigu e": "é", "aigu E": "É", "grave a": "à",
 "grave e": "è", "grave u": "ù", "grave A": "À",
 "grave E": "È", "grave U": "Ù", "chapeau a": "â",

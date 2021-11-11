@@ -1,19 +1,32 @@
-from functions import *
+from sys import argv
+from functions import (
+    helpcenter, search, translate,
+    sarcasm, spacer, spoilerspam,
+    copypaste, emojify, spambot,
+    autoclick, tapemouse, reverse,
+    exponent, reminder, titlecase,
+    arrowmouse, bubble, factorial,
+    cuberoot, hcf, lcm, doublestruck,
+    cursive, fraction, randnum,
+    flip, format
+)
+
 
 instructions = {
-    "help": helpcenter, "-": Search.googlesearch,
-    "youtube": Search.youtubesearch, "yt": Search.youtubesearch,
-    "images": Search.imagesearch, "translate": Translate.translate,
-    "sarcasm": sarcasm, "spacer": spacer, "spoilerspam": spoilerspam,
-    "copypaste": copypaste, "cp": copypaste, "emojify": emojify, "spam": spambot,
-    "autoclick": autoclick, "tapemouse": tapemouse, "reverse": reverse,
-    "exponent": exponent, "ep": exponent, "remind": reminder, "title": titlecase,
-    "arrowmouse": arrowmouse, "format": formatter, "bubble": bubble,
-    "cbrt": cuberoot, "cuberoot": cuberoot, "hcf": hcf, "gcd": hcf, "lcm": lcm_,
-    "dbs": doublestruck, "doublestruck": doublestruck, "cursive": cursive,
-    "fraction": Fraction.fraction, "fc": Fraction.fraction, "randnum": randnum,
-    "randint": randnum, "flip": flipped, "upside-down": flipped, "superscript": exponent,
-    "factorial": factorial_, 
+    "help": helpcenter.helpcenter, "-": search.Search.googlesearch,
+    "youtube": search.Search.youtubesearch, "yt": search.Search.youtubesearch,
+    "images": search.Search.imagesearch, "translate": translate.Translate.translate,
+    "sarcasm": sarcasm.sarcasm, "spacer": spacer.spacer, "spoilerspam": spoilerspam.spoilerspam,
+    "copypaste": copypaste.copypaste, "cp": copypaste.copypaste, "emojify": emojify.emojify,
+    "spam": spambot.spambot, "autoclick": autoclick.autoclick, "tapemouse": tapemouse.tapemouse,
+    "reverse": reverse.reverse, "exponent": exponent.exponent, "ep": exponent.exponent,
+    "remind": reminder.reminder, "title": titlecase.titlecase, "arrowmouse": arrowmouse.arrowmouse,
+    "bubble": bubble.bubble, "factorial": factorial.factorial_, "cbrt": cuberoot.cuberoot,
+    "cuberoot": cuberoot.cuberoot, "hcf": hcf.hcf, "gcd": hcf.hcf, "lcm": lcm.lcm_,
+    "dbs": doublestruck.doublestruck, "doublestruck": doublestruck.doublestruck, "cursive": cursive.cursive,
+    "fraction": fraction.fraction, "fc": fraction.fraction, "randnum": randnum.randnum,
+    "randint": randnum.randnum, "flip": flip.flipped, "upside-down": flip.flipped,
+    "superscript": exponent.exponent, "format": format.formatter
 }
 
 try:
@@ -22,4 +35,7 @@ try:
             instructions[i]()
 
 except Exception as e:
-    notification("An Error Has Occured.", str(e), 10)
+    from win10toast import ToastNotifier
+
+    toaster = ToastNotifier()
+    toaster.show_toast("An Error Has Occured.", str(e), duration=10)
