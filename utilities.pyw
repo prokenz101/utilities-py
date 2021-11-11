@@ -1,5 +1,6 @@
 from sys import argv
 from functions import (
+    # fmt: off
     helpcenter, search, translate,
     sarcasm, spacer, spoilerspam,
     copypaste, emojify, spambot,
@@ -8,11 +9,13 @@ from functions import (
     arrowmouse, bubble, factorial,
     cuberoot, hcf, lcm, doublestruck,
     cursive, fraction, randnum,
-    flip, format
+    flip, creepy, format 
+    # fmt: on
 )
 
 
 instructions = {
+    # fmt: off
     "help": helpcenter.helpcenter, "-": search.Search.googlesearch,
     "youtube": search.Search.youtubesearch, "yt": search.Search.youtubesearch,
     "images": search.Search.imagesearch, "translate": translate.Translate.translate,
@@ -26,7 +29,8 @@ instructions = {
     "dbs": doublestruck.doublestruck, "doublestruck": doublestruck.doublestruck, "cursive": cursive.cursive,
     "fraction": fraction.fraction, "fc": fraction.fraction, "randnum": randnum.randnum,
     "randint": randnum.randnum, "flip": flip.flipped, "upside-down": flip.flipped,
-    "superscript": exponent.exponent, "format": format.formatter
+    "superscript": exponent.exponent, "format": format.formatter, "creepy": creepy.creepy
+    # fmt: on
 }
 
 try:

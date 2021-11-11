@@ -48,6 +48,7 @@ In the first one, we see that pressing F8 selects the entire thing, making it ba
 | [Bubble](#bubble) | Turns text into bubbletext -> ⓛⓘⓚⓔ ⓣⓗⓘⓢ |
 | [DoubleStruck](#doublestruck) | Converts letters into doublestruck -> 𝕙𝕖𝕝𝕝𝕠 |
 | [Cursive](#cursive) | Converts letters into cursive -> 𝓱𝓮𝓵𝓵𝓸 |
+| [Creepy](#creepy) | Converts letters into creepy text -> h̴̜̕ḗ̸̫̽l̸͔̠̝̪̯͇͐̓͆l̸͔̠̝̪̯͇͐̓͆o̵̧̜̖͈̲͔͂͋́͝ |
 | [Flip](#flip) | Flips text. hello -> ollǝɥ |
 | [Exponent](#exponent) | Turns numbers and letters into exponents. |
 | [Remind](#remind) | A basic reminder. |
@@ -272,6 +273,15 @@ Aliases: `dbs`
 Another utility similar to bubbletext and doublestruck. This one turns all letters into cursive letters.
 
 Example: `cursive hello world!` returns 𝓱𝓮𝓵𝓵𝓸 𝔀𝓸𝓻𝓵𝓭!
+
+There are no aliases for this utility.
+
+<br />
+
+## Creepy
+Another utility similar to cursive, doublestruck etc. This one turns all letters into creepy letters..?
+
+Example: `creepy hello world!` returns h̴̜̕ḗ̸̫̽l̸͔̠̝̪̯͇͐̓͆l̸͔̠̝̪̯͇͐̓͆o̵̧̜̖͈̲͔͂͋́͝ w̸͉͂̈́̅̌̊o̵̧̜̖͈̲͔͂͋́͝r̶͍̎l̸͔̠̝̪̯͇͐̓͆d̸͉͛̈́̊̍͘!
 
 There are no aliases for this utility.
 

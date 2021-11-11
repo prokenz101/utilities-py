@@ -6,6 +6,7 @@ from functions import (
     flip, fraction, hcf, lcm,
     randnum, reverse, sarcasm,
     spacer, spoilerspam, titlecase,
+    creepy
 )
 
 
@@ -30,6 +31,7 @@ If you do not know how to use this command, try running 'help format'.""",
         "dbs": doublestruck.doublestruck, "doublestruck": doublestruck.doublestruck, "cursive": cursive.cursive,
         "fraction": fraction.fraction, "fc": fraction.fraction, "randnum": randnum.randnum,
         "randint": randnum.randnum, "flip": flip.flipped, "upside-down": flip.flipped, "superscript": exponent.exponent,
+        "creepy": creepy.creepy
         # fmt: on
     }
     formatdict = {}
