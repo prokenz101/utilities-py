@@ -11,7 +11,7 @@ If you do not know how to use this command, try running 'help arrowmouse'.""",
         ]
     )
     if argv[2] == "enable":
-        call(R"start ..\supplementary-ahks\arrowmouse.ahk", shell=True)
+        call(R"start functions\arrowmouse.ahk", shell=True)
         notification(
             "Enabled.",
             "Arrow mouse has been enabled. Use 'arrowmouse disable' to disable.",
