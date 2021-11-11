@@ -6,7 +6,7 @@ def helpcenter() -> None:
         doubt = " ".join(argv[2:])
         test = argv[2]
     except IndexError:
-        open_new_tab("https://github.com/prokenz101/utilities/blob/main/helpcenter.md")
+        open_new_tab("https://github.com/prokenz101/utilities/wiki/Help-Center")
         return
     aliases = {
         # fmt: off
@@ -28,18 +28,16 @@ def helpcenter() -> None:
     )
     if doubt in aliases:
         open_new_tab(
-            f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{aliases[doubt]}"
+            f"https://github.com/prokenz101/utilities/wiki/Help-Center#{aliases[doubt]}"
         )
         return
     else:
         if doubt in regularcmds:
             open_new_tab(
-                f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md#{doubt}"
+                f"https://github.com/prokenz101/utilities/wiki/Help-Center#{doubt}"
             )
         else:
-            open_new_tab(
-                f"https://github.com/prokenz101/utilities/blob/main/helpcenter.md"
-            )
+            open_new_tab(f"https://github.com/prokenz101/utilities/wiki/Help-Center")
             notification(
                 "Was that what you wanted?",
                 f"""Unfortunately, utilities couldn't understand what you meant by '{doubt}'.
