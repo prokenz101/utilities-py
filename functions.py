@@ -14,7 +14,7 @@ from numpy import cbrt
 
 def notification(title: str, subtitle: str, interval: int, icon=None, threaded=True) -> None:
     toaster = ToastNotifier()
-    toaster.show_toast(title, subtitle, icon_path=icon, duration=interval)
+    toaster.show_toast(title, subtitle, icon_path=icon, duration=interval, threaded=threaded)
 
 
 def indextest(notiflist: list, argvindex=2) -> None:
