@@ -28,7 +28,7 @@ pip install -r requirements.txt
 
 Once the modules have downloaded, type any command and press F8 to trigger the script.
 
-Pressing F8 presses Ctrl + A, however, if you do not want it to select all (like if you want utilities to only read a part of the message), then you can use shift F8. So you select the text that you want utilities to read, and then press shift + f8 to trigger utilties on that specific text. You can view the [help center](https://github.com/prokenz101/utilities/blob/main/helpcenter.md) if you still do not understand.
+Pressing F8 presses Ctrl + A, however, if you do not want it to select all (like if you want utilities to only read a part of the message), then you can use shift F8. So you select the text that you want utilities to read, and then press shift + f8 to trigger utilties on that specific text. You can view the [help center](https://github.com/prokenz101/utilities/wiki/Help-Center) if you still do not understand.
 
 Open [powertoys](https://github.com/microsoft/PowerToys) and type any command to see if it works. If you do not know any commands, then visit the help center above.
 
