@@ -2,6 +2,10 @@
 
 simple utilities that I mostly made for myself
 
+Utilities is a program with many different uses, some may be more useful than others but its mostly for altering text when talking on social platforms.
+
+Commands like `cursive` can change letters into cursive, `autoclick` can autoclick (who could have guessed), `lcm` and `hcf` find the LCM and HCF of numbers and there are many others that I can't fit in here. If you installed utilities but have no clue how to use commands, then the [help center](https://github.com/prokenz101/utilities/wiki/Help-Center) could give you an idea.
+
 This is a project used by very few people, and I won't be adding features that I don't want or don't need.
 
 **Note:** This is a python script but also requires [Autohotkey](https://autohotkey.com) so make sure you have both of those.
