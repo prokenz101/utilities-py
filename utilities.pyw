@@ -1,5 +1,6 @@
 from pynput.keyboard import Key, Controller
 from pyperclip3 import copy, paste
+from time import sleep
 
 keyboard = Controller()
 
@@ -9,6 +10,7 @@ with keyboard.pressed(Key.ctrl):
     keyboard.press("c")
     keyboard.release("c")
 
+sleep(0.000000000001)
 
 mod = __import__("functions")
 contents = paste().decode("utf-8").split()
@@ -27,4 +29,3 @@ except Exception as e:
     with keyboard.pressed(Key.backspace):
         pass
     getattr(mod, "notification")("An Error has Occurred.", f"{e}")
-    copy(f"{e}")

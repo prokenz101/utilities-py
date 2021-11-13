@@ -6,6 +6,7 @@ from playsound import playsound
 from random import choice
 from string import ascii_letters
 from re import finditer
+from mouse import move
 
 keyboard = Controller()
 
@@ -67,7 +68,7 @@ def copypaste(contents):
         "hangul filler": "ㅤ", "divison": "÷", "multi": "×",
         "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
         ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
-        "shrug": "¯\_(ツ)_/¯", "angle symbol" : "∠"
+        "shrug": "¯\_(ツ)_/¯", "angle symbol": "∠", "sus": "ඞ"
         # fmt: on
     }
     for i in copypaste_dict:
@@ -254,14 +255,14 @@ def extend(contents):
 
 def encrypt(contents):
     msg = contents.lower()
-    result = ""
+    converted = ""
     for ch in msg:
         try:
-            result += encryption_dict[ch]
+            converted += encryption_dict[ch]
         except KeyError:
-            result += ch
+            converted += ch
 
-    return result
+    return converted
 
 
 def get_key(val):
@@ -274,16 +275,16 @@ def get_key(val):
 
 def decrypt(contents):
     msg = contents
-    result = ""
+    converted = ""
     for ch in msg:
         try:
-            result += get_key(ch)
+            converted += get_key(ch)
         except KeyError:
-            result += ch
+            converted += ch
 
     with keyboard.pressed(Key.backspace):
         pass
-    notification("Decrypted Message", result)
+    notification("Decrypted Message", converted)
 
 
 def reverse(contents):
@@ -337,7 +338,7 @@ def formatter(contents : str):
         "cp": copypaste, "emojify": emojify, "extend": extend, "reverse": reverse,
         "exponent": exponent, "ep": exponent, "title": titlecase, "titlecase": titlecase,
         "cursive": cursive, "fraction": fraction, "fc": fraction, "encrypt": encrypt, "flip": flipped,
-        "decrypt": decrypt, "exponent": exponent,
+        "decrypt": decrypt, "exponent": exponent, "doublestruck" : doublestruck, "bubble": bubble,
     }
     format_dict = {}
     formattables = finditer(r'\{([\w \d/]+)\}', contents)
@@ -348,3 +349,94 @@ def formatter(contents : str):
     
     converted = contents.format(**format_dict)
     return converted
+
+def doublestruck(contents):
+    chars = {
+        # fmt: off
+        "a": "𝕒", "b": "𝕓", "c": "𝕔", "d": "𝕕", "e": "𝕖",
+        "f": "𝕗", "g": "𝕘", "h": "𝕙", "i": "𝕚", "j": "𝕛",
+        "k": "𝕜", "l": "𝕝", "m": "𝕞", "n": "𝕟", "o" : "𝕠",
+        "p": "𝕡", "q": "𝕢", "r": "𝕣", "s": "𝕤", "t": "𝕥",
+        "u": "𝕦", "v": "𝕧", "w": "𝕨", "x": "𝕩", "y": "𝕪",
+        "z": "𝕫", "A": "𝔸", "B": "𝔹", "C": "ℂ", "D": "𝔻",
+        "E": "𝔼", "F": "𝔽", "H": "ℍ", "I": "𝕀", "J": "𝕁",
+        "K": "𝕂", "L": "𝕃", "M": "𝕄", "N": "ℕ", "O": "𝕆",
+        "P": "ℙ", "Q": "ℚ", "R": "ℝ", "S": "𝕊", "T": "𝕋",
+        "U": "𝕌", "V": "𝕍", "W": "𝕎", "X": "𝕏", "Y": "𝕐",
+        "Z": "ℤ", "1": "𝟙", "2": "𝟚", "3": "𝟛", "4": "𝟜",
+        "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡", "0": "𝟘"
+        # fmt: on
+    }
+
+    converted = ""
+    for i in contents:
+        if i in chars:
+            converted += chars[i]
+    
+    return converted
+
+def bubble(contents):
+    chars = {
+        # fmt: off
+        "a": "ⓐ", "b": "ⓑ", "c": "ⓒ", "d": "ⓓ", "e": "ⓔ",
+        "f": "ⓕ", "g": "ⓖ", "h": "ⓗ", "i": "ⓘ", "j": "ⓙ",
+        "k": "ⓚ", "l": "ⓛ", "m": "ⓜ", "n": "ⓝ", "o": "ⓞ",
+        "p": "ⓟ", "q": "ⓠ", "r": "ⓡ", "s": "ⓢ", "t": "ⓣ",
+        "u": "ⓤ", "v": "ⓥ", "w": "ⓦ", "x": "ⓧ", "y": "ⓨ",
+        "z": "ⓩ", "A": "Ⓐ", "B": "Ⓑ", "C": "Ⓒ", "D": "Ⓓ",
+        "E": "Ⓔ", "F": "Ⓕ", "G": "Ⓖ", "H": "Ⓗ", "I": "Ⓘ",
+        "J": "Ⓙ", "K": "Ⓚ", "L": "Ⓛ", "M": "Ⓜ", "O": "Ⓞ",
+        "N": "Ⓝ", "P": "Ⓟ", "Q": "Ⓠ", "R": "Ⓡ", "S": "Ⓢ",
+        "T": "Ⓣ", "U": "Ⓤ", "V": "Ⓥ", "W": "Ⓦ", "X": "Ⓧ",
+        "Y": "Ⓨ", "Z": "Ⓩ", "1": "①", "2": "②", "3": "③",
+        "4": "④", "5": "⑤", "6": "⑥", "7": "⑦", "8": "⑧",
+        "9": "⑨", "0": "⓪"
+        # fmt: on
+    }
+
+    converted = ""
+    for i in contents:
+        if i in chars:
+            converted += chars[i]
+    
+    return converted
+
+def creepy(contents):
+    char = {
+        "a": "á̷͍̖̐̐͘", "b": "ḃ̶̢̹̖", "c": "c̸̢̧̰̙͔̲̿̈́͌̉̀͘", "d": "d̸͉͛̈́̊̍͘", "e": "ḗ̸̫̽",
+        "f": "f̸̡̹̱̹̺͋͒͋", "g": "g̴̼̙̜͒̄̈́̚͝", "h": "h̴̜̕", "i": "í̸͓̬͚̘̆", "j": "j̶̯͋̋͋",
+        "k": "k̴̛̰̻͈͘͘͜", "l": "l̸͔̠̝̪̯͇͐̓͆", "m": "m̴̲̗͗̽̂͌", "n": "n̸͈͇̳̈̾̿̄ͅ", "o": "o̵̧̜̖͈̲͔͂͋́͝",
+        "p": "p̶̡̯̳͓̣͂̈́́͘", "q": "q̴̡͓̭̠̂͋̈́̔", "r": "r̶͍̎", "s": "s̴͈͎̙̘̱̋ͅ", "t": "ţ̶̠̜̙͚̎͗",
+        "u": "ų̸̙̭͋ͅ", "v": "v̶̗͂̑̕̚", "w": "w̸͉͂̈́̅̌̊", "x": "x̴͕̞̙̮͐͐͒", "y": "ÿ̵̠͍̪̠̩́",
+        "z": "z̶̞͖̓̚", "A": "A̷̡͍̩͉̱̹͑̒̀̑͝", "B": "B̵̯̭̄̀̾̑", "C": "C̷̗̽͛", "D": "D̴͖͈̯̜̭̊̓̏͆̆͘",
+        "E": "Ḙ̷̦̠̍", "F": "F̶̛̮̤̈́̿̈́͂̂", "G": "Ĝ̶̨̢̺̻̹̦̅͆̈́͗", "H": "H̸̼͖̦̗͛͗͐̿̀̀ͅ", "I": "Į̶̛̩͙̭͕́̌̏̚",
+        "J": "J̷̜̀͆̄͛̆", "K": "Ḵ̴̨̧̨͔̾", "L": "Ḻ̶̰̱̹͎͈̔", "M": "M̵̠̲̞̿̋̐̕̕͝", "N": "Ṅ̷̻",
+        "O": "O̸̞̍̐", "P": "P̵͈͊͋͂͗͝", "Q": "Q̸̡͉̥̱͕̩̄̈́", "R": "R̵̻̺̯͗̇͜", "S": "S̴͖̬̀̇̃͋̈",
+        "T": "T̵͓̫̠̈́̂̀̓́̍ͅ", "U": "Ụ̷̡͚̻͇͆͑̉͋͝", "V": "V̴̟̪͓͓̩̳̄̀͌̾̕", "W": "W̵̞̯͛̿", "X": "X̷͈͍̬́",
+        "Y": "Ỳ̶̖̣͌͜", "Z": "Z̴̗͈̬̱̩̆̊͗", " ": " "
+    }
+
+    converted = ""
+    for i in contents:
+        if i in char:
+            converted += char[i]
+        else:
+            converted += i
+
+    return converted
+
+def arrowmouse(contents):
+    def on_press(key):
+        if key == Key.up:
+            move(0, -10, absolute=False, duration=0.0000000001)
+        if key == Key.right:
+            move(10, 0, absolute=False, duration=0.0000000001)
+        if key == Key.down:
+            move(0, 10, absolute=False, duration=0.0000000001)
+        if key == Key.left:
+            move(-10, 0, absolute=False, duration=0.0000000001)
+        if key == Key.f5:
+            keyboard.Listener.stop()
+    
+    with keyboard.Listener(on_press=on_press) as listener:
+        listener.join()
