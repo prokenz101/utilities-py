@@ -15,7 +15,7 @@ This method is slightly better but involves installing [Git](https://git-scm.com
 git clone --branch linux-edition https://github.com/prokenz101/utilities
 ```
 ### Modules:
-Open a terminal once again and change directory to your installation spot.There, run this command:
+Open a terminal once again and change directory to your installation spot. There, run this command:
 ```bash
 pip3 install -r requirements.txt
 ```
