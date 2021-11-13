@@ -1,7 +1,6 @@
-from .basicfunctions import notification, indextest, argv, copycheck, notifcheck
-
-
 def fr_e():
+    from .basicfunctions import notification
+
     # invalid character error
     notification(
         "Hey!",
@@ -11,7 +10,10 @@ For more information, please view our help center by typing 'help fc'.""",
     )
     exit()
 
+
 def fraction(words=None, notif=True, copy=True) -> str:
+    from .basicfunctions import indextest, argv, copycheck, notifcheck
+
     words = words or " ".join(argv[2:])
     indextest(
         [

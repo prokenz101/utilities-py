@@ -1,7 +1,6 @@
-from .basicfunctions import argv, sleep, mouseDown, notification, FailSafeException
-
-
 def tapemouse() -> None:
+    from .basicfunctions import argv, sleep, mouseDown, notification, FailSafeException
+
     try:
         if argv[3].startswith("wait="):
             sleep(int(argv[3][5:]))

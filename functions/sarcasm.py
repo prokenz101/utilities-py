@@ -1,7 +1,6 @@
-from .basicfunctions import indextest, argv, copycheck, notifcheck
-
-
 def sarcasm(words=None, notif=True, copy=True) -> str:
+    from .basicfunctions import indextest, argv, copycheck, notifcheck
+
     words = words or " ".join(argv[2:])
     indextest(
         [

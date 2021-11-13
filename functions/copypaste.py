@@ -1,13 +1,12 @@
-from .basicfunctions import (
-    argv,
-    indextest,
-    copycheck,
-    notification,
-    notifcheck,
-)
-
-
 def copypaste(words=None, notif=True, copy=True):
+    from .basicfunctions import (
+        argv,
+        indextest,
+        copycheck,
+        notification,
+        notifcheck,
+    )
+
     words = words or " ".join(argv[2:])
     indextest(
         [

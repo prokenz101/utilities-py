@@ -1,7 +1,6 @@
-from .basicfunctions import argv, indextest, notifcheck, hcf_, copycheck
-
-
 def hcf(words=None, notif=True, copy=True):
+    from .basicfunctions import argv, indextest, notifcheck, hcf_, copycheck
+
     words = words or argv[2:]
     indextest(
         [

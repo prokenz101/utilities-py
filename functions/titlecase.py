@@ -1,7 +1,6 @@
-from .basicfunctions import argv, indextest, copycheck, notifcheck
-
-
 def titlecase(words=None, notif=True, copy=True) -> str:
+    from .basicfunctions import argv, indextest, copycheck, notifcheck
+
     words = words or " ".join(argv[2:])
     indextest(
         [

@@ -1,7 +1,6 @@
-from .basicfunctions import argv, notification, cbrt, notifcheck, copycheck
-
-
 def cuberoot(words=None, notif=True, copy=True):
+    from .basicfunctions import argv, notification, cbrt, notifcheck, copycheck
+
     try:
         words = words or argv[2]
     except IndexError:

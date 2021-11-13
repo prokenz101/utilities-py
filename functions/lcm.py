@@ -1,7 +1,6 @@
-from .basicfunctions import argv, indextest, notifcheck, lcm, copycheck
-
-
 def lcm_(words=None, notif=True, copy=True):
+    from .basicfunctions import argv, indextest, notifcheck, lcm, copycheck
+
     words = words or argv[2:]
     indextest(
         [

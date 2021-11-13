@@ -1,9 +1,8 @@
-from .basicfunctions import argv, open_new_tab
-
-
 class Translate:
     @staticmethod
     def toenglish() -> None:
+        from .basicfunctions import argv, open_new_tab
+
         contents = "%20".join(argv[3:])
         open_new_tab(
             f"https://translate.google.com/?sl=auto&tl=en&text={contents}&op=translate"
@@ -11,6 +10,8 @@ class Translate:
 
     @staticmethod
     def to_other_language(language: str) -> None:
+        from .basicfunctions import argv, open_new_tab
+
         contents = "%20".join(argv[3:])
         open_new_tab(
             f"https://translate.google.com/?sl=en&tl={language}&text={contents}&op=translate"
@@ -18,6 +19,8 @@ class Translate:
 
     @staticmethod
     def translate() -> None:
+        from .basicfunctions import argv, open_new_tab
+
         languages = {
             ("tofrench", "french", "f"): "fr",
             ("toarabic", "arabic", "a"): "ar",

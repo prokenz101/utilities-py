@@ -1,6 +1,6 @@
-from sys import argv
 from importlib import import_module
 
+argv = import_module("sys").argv
 
 def notification(
     title: str, subtitle: str, interval: int, icon=None, threaded=True
@@ -48,10 +48,6 @@ def call(cmd: str, shell=False):
 
 def typewrite(text: str, interval=0.0):
     import_module("pyautogui").typewrite(text, interval=interval)
-
-
-def FailSafeException():
-    return import_module("pyautogui").FailSafeException
 
 
 def hotkey(*args, **kwargs):

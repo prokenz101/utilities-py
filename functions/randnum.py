@@ -1,14 +1,13 @@
-from .basicfunctions import (
-    argv,
-    indextest,
-    copycheck,
-    notifcheck,
-    randint,
-    notification,
-)
-
-
 def randnum(words=None, notif=True, copy=True):
+    from .basicfunctions import (
+        argv,
+        indextest,
+        copycheck,
+        notifcheck,
+        randint,
+        notification,
+    )
+
     indextest(
         [
             "Huh.",

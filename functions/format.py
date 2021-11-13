@@ -1,16 +1,17 @@
-from .basicfunctions import argv, indextest, finditer, copycheck, notifcheck
-from functions import (
-    bubble, copypaste,
-    cuberoot, cursive, doublestruck,
-    emojify, exponent, factorial,
-    flip, fraction, hcf, lcm,
-    randnum, reverse, sarcasm,
-    spacer, spoilerspam, titlecase,
-    creepy
-)
-
-
 def formatter() -> str:
+    from .basicfunctions import argv, indextest, finditer, copycheck, notifcheck
+    from functions import (
+        # fmt: off
+        bubble, copypaste,
+        cuberoot, cursive, doublestruck,
+        emojify, exponent, factorial,
+        flip, fraction, hcf, lcm,
+        randnum, reverse, sarcasm,
+        spacer, spoilerspam, titlecase,
+        creepy
+        # fmt: on
+    )
+
     argv2 = " ".join(argv[2:])
     indextest(
         [

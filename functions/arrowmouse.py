@@ -1,7 +1,6 @@
-from .basicfunctions import argv, indextest, call, notification, hotkey
-
-
 def arrowmouse() -> None:
+    from .basicfunctions import argv, indextest, call, notification, hotkey
+
     indextest(
         [
             "Huh.",

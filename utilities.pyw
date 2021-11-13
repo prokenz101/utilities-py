@@ -9,7 +9,7 @@ from functions import (
     arrowmouse, bubble, factorial,
     cuberoot, hcf, lcm, doublestruck,
     cursive, fraction, randnum,
-    flip, creepy, format 
+    flip, creepy, format
     # fmt: on
 )
 
@@ -43,3 +43,4 @@ except Exception as e:
 
     toaster = ToastNotifier()
     toaster.show_toast("An Error Has Occured.", str(e), duration=10)
+    print(e)

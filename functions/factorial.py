@@ -1,7 +1,6 @@
-from .basicfunctions import argv, notifcheck, factorial, copycheck
-
-
 def factorial_(words=None, notif=True, copy=True):
+    from .basicfunctions import argv, notifcheck, factorial, copycheck
+
     try:
         words = words or argv[2]
     except IndexError:

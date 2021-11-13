@@ -1,7 +1,6 @@
-from .basicfunctions import Path, argv, sleep, notification, call
-
-
 def autoclick() -> None:
+    from .basicfunctions import Path, argv, sleep, notification, call
+
     AHKPATH = Path()(R"supplementary-ahks\autoclicker.ahk")
     print(AHKPATH)
     countindex = 4

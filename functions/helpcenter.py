@@ -1,7 +1,6 @@
-from .basicfunctions import argv, notification, open_new_tab
-
-
 def helpcenter() -> None:
+    from .basicfunctions import argv, notification, open_new_tab
+
     try:
         doubt = " ".join(argv[2:])
         test = argv[2]
@@ -23,7 +22,7 @@ def helpcenter() -> None:
         "emojify","spam", "autoclick", "tapemouse", "reverse", "exponent",
         "remind", "title", "arrowmouse", "format", "bubble", "cuberoot", "hcf",
         "lcm", "doublestruck", "cursive", "fraction", "randnum", "randint", "flip",
-        "factorial", "creepy"
+        "factorial", "creepy", "morse"
         # fmt: on
     )
     if doubt in aliases:

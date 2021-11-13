@@ -1,14 +1,13 @@
-from .basicfunctions import (
-    notification,
-    argv,
-    typewrite,
-    hotkey,
-    sleep,
-    FailSafeException,
-)
-
-
 def spambot() -> None:
+    from .basicfunctions import (
+        notification,
+        argv,
+        typewrite,
+        hotkey,
+        sleep,
+    )
+    from pyautogui import FailSafeException
+
     notification("Spamming.", "Move mouse to corner of screen to stop.", 3)
     number = argv[2]
     interval_list = argv[::-1]

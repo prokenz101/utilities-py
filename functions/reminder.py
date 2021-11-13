@@ -1,7 +1,6 @@
-from .basicfunctions import notification, indextest, argv, sleep
-
-
 def reminder() -> None:
+    from .basicfunctions import notification, indextest, argv, sleep
+
     def remind_notif(message, singular) -> None:
         if singular and message == None:
             sentence = f"Hey! You set a reminder for {argv[2][:-1]} {time_options[i][1]} and its time!"
