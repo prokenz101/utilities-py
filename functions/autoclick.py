@@ -1,7 +1,7 @@
 def autoclick() -> None:
     from .basicfunctions import Path, argv, sleep, notification, call
 
-    AHKPATH = Path()(R"supplementary-ahks\autoclicker.ahk")
+    AHKPATH = Path()(R"autoclicker.ahk")
     print(AHKPATH)
     countindex = 4
     try:
