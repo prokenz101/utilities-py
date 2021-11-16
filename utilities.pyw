@@ -47,13 +47,13 @@ from pyperclip import copy, PyperclipException
 #     print(e)
 
 mod = __import__("functions")
-instructions = argv[1]
+instruction = argv[1]
 try:
-    copy(getattr(mod, instructions)(" ".join(argv[2:])))
+    copy(getattr(mod, instruction)(" ".join(argv[2:])))
     hotkey("ctrl", "v")
 
 except Exception as e:
-    if e == PyperclipException:
+    if type(e) == PyperclipException:
         pass
     else:
         hotkey("backspace")

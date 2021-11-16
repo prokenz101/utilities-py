@@ -7,19 +7,38 @@ from subprocess import call
 from win10toast import ToastNotifier
 from datetime import datetime
 from playsound import playsound
-from random import  choice
-from string import  ascii_letters
+from random import choice
+from string import ascii_letters
 from re import finditer
 
 encryption_dict = {
-        "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
-        "e": "❡", "f": "ᄑ", "g": "ᢂ", "h": "ᠷ",
-        "i": "ង", "j": "ᕒ", "k": "ᔵ", "l": "ᥔ",
-        "m": "ቤ", "n": "ᔇ", "o": "፨", "p": "፱",
-        "q": "ᑴ", "r": "ን", "s": "᠉", "t": "ሤ",
-        "u": "ᡧ", "v": "ቕ", "w": "ሠ", "x": "ᒂ",
-        "y": "ᡆ", "z": "ᅆ"
-    }
+    "a": "♋︎",
+    "b": "♌︎",
+    "c": "♍︎",
+    "d": "♎︎",
+    "e": "♏︎",
+    "f": "♐︎",
+    "g": "♑︎",
+    "h": "♒︎",
+    "i": "♓︎",
+    "j": "🙰",
+    "k": "🙵",
+    "l": "●",
+    "m": "❍",
+    "n": "■",
+    "o": "□",
+    "p": "◻",
+    "q": "❑",
+    "r": "❒",
+    "s": "⬧",
+    "t": "⧫",
+    "u": "◆",
+    "v": "❖",
+    "w": "⬥",
+    "x": "⌧",
+    "y": "⍓",
+    "z": "⌘",
+}
 
 def notification(title, subtitle, interval, icon=None, threaded=True):
     toaster = ToastNotifier()
@@ -46,7 +65,7 @@ def tofrench():
 
 
 def toarabic():
-    contents = "%20".join(argv[3:])    
+    contents = "%20".join(argv[3:])
     open_new_tab(
         f"https://translate.google.com/?sl=en&tl=ar&text={contents[0:]}&op=translate"
     )
@@ -307,7 +326,7 @@ def spambot(contents):
         notification("Spamming Stopped.", "Spamming was cancelled.", 10)
 
 
-def autoclick(contents): 
+def autoclick(contents):
     AHKPATH = Path(
         R"C:\Users\user\Downloads\PythonFiles\utilities\AutoClicker\autoclicker.ahk"
     )
@@ -440,6 +459,7 @@ def arrowmouse(contents):
             3,
         )
 
+
 def alarmset(contents):
     hotkey("backspace")
     hotkey("esc")
@@ -461,7 +481,9 @@ def alarmset(contents):
     if waiting_min < 0:
         waiting_min += 60
 
-    notification("Alarm", f"Your alarm has been set for {argv[2]}:{argv[3]} {argv[4]}", 6)
+    notification(
+        "Alarm", f"Your alarm has been set for {argv[2]}:{argv[3]} {argv[4]}", 6
+    )
 
     waiting_time = (waiting_hour * 60 * 60) + (waiting_min * 60) - curr_sec
     sleep(waiting_time - 7)
@@ -479,20 +501,57 @@ def seizure(contents):
     return converted
 
 
-def formatter(contents : str):
+def format(contents: str):
     functions = {
-        "sarcasm": sarcasm, "spacer": spacer, "spoilerspam": spoilerspam, "copypaste": copypaste,
-        "cp": copypaste, "emojify": emojify, "extend": extend, "reverse": reverse,
-        "exponent": exponent, "ep": exponent, "title": titlecase, "titlecase": titlecase,
-        "cursive": cursive, "fraction": fraction, "fc": fraction, "encrypt": encrypt, "flip": flipped,
-        "decrypt": decrypt, "exponent": exponent,
+        "sarcasm": sarcasm,
+        "spacer": spacer,
+        "spoilerspam": spoilerspam,
+        "copypaste": copypaste,
+        "cp": copypaste,
+        "emojify": emojify,
+        "extend": extend,
+        "reverse": reverse,
+        "exponent": exponent,
+        "ep": exponent,
+        "title": titlecase,
+        "titlecase": titlecase,
+        "cursive": cursive,
+        "fraction": fraction,
+        "fc": fraction,
+        "encrypt": encrypt,
+        "flip": flipped,
+        "decrypt": decrypt,
+        "exponent": exponent,
     }
     format_dict = {}
-    formattables = finditer(r'\{([\w \d/]+)\}', contents)
+    formattables = finditer(r"\{([\w \d/]+)\}", contents)
     for i in formattables:
         func = i.groups()[0].split()[0]
         output = functions[func](" ".join(i.groups()[0].split()[1:]))
         format_dict[i.groups()[0]] = output
-    
+
     converted = contents.format(**format_dict)
     return converted
+
+def binary(contents):
+    converted = []
+    for i in contents:
+        if i != " ":
+            unicode_val = ord(i)
+            converted.append(bin(unicode_val)[2:])
+        else:
+            converted.append(" ")
+
+    return "|".join(converted)
+
+def text(contents : str):
+    converted = []
+    contents = contents.split("|")
+    for i in contents:
+        if i != " ":    
+            unicode_val = int(i, 2)
+            converted.append(chr(unicode_val))
+        else:
+            converted.append(" ")
+    
+    return "".join(converted)
