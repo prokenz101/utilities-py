@@ -533,25 +533,20 @@ def format(contents: str):
     converted = contents.format(**format_dict)
     return converted
 
-def binary(contents):
+def binary(contents : str):
     converted = []
     for i in contents:
-        if i != " ":
-            unicode_val = ord(i)
-            converted.append(bin(unicode_val)[2:])
-        else:
-            converted.append(" ")
+        unicode_val = ord(i)
+        converted.append(bin(unicode_val)[2:])
 
-    return "|".join(converted)
+    return " ".join(converted)
 
 def text(contents : str):
     converted = []
-    contents = contents.split("|")
+    contents = contents.split()
     for i in contents:
-        if i != " ":    
-            unicode_val = int(i, 2)
-            converted.append(chr(unicode_val))
-        else:
-            converted.append(" ")
+        unicode_val = int(i, 2)
+        converted.append(chr(unicode_val))
     
-    return "".join(converted)
+    hotkey("backspace")
+    notification("Utilities", str("".join(converted)), 3)
