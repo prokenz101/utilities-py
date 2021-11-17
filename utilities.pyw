@@ -9,7 +9,7 @@ from functions import (
     arrowmouse, bubble, factorial,
     cuberoot, hcf, lcm, doublestruck,
     cursive, fraction, randnum,
-    flip, creepy, format
+    flip, creepy, binary, format
     # fmt: on
 )
 
@@ -29,7 +29,7 @@ instructions = {
     "dbs": doublestruck.doublestruck, "doublestruck": doublestruck.doublestruck, "cursive": cursive.cursive,
     "fraction": fraction.fraction, "fc": fraction.fraction, "randnum": randnum.randnum,
     "randint": randnum.randnum, "flip": flip.flipped, "upside-down": flip.flipped,
-    "superscript": exponent.exponent, "format": format.formatter, "creepy": creepy.creepy
+    "superscript": exponent.exponent, "format": format.formatter, "creepy": creepy.creepy, "binary": binary.binary
     # fmt: on
 }
 
