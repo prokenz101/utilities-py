@@ -1,4 +1,5 @@
-from pynput.keyboard import Key, Controller
+from pynput import keyboard
+from pynput.keyboard import Key, Controller, Listener
 from time import sleep
 from notify2 import init, Notification
 from datetime import datetime
@@ -8,7 +9,7 @@ from string import ascii_letters
 from re import finditer
 from mouse import move
 
-keyboard = Controller()
+kb = Controller()
 
 encryption_dict = {
         "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
@@ -282,7 +283,7 @@ def decrypt(contents):
         except KeyError:
             converted += ch
 
-    with keyboard.pressed(Key.backspace):
+    with kb.pressed(Key.backspace):
         pass
     notification("Decrypted Message", converted)
 
@@ -292,11 +293,10 @@ def reverse(contents):
 
 
 def alarmset(contents):
-    with keyboard.pressed(Key.backspace):
-        pass
-    with keyboard.pressed(Key.esc):
-        pass
-
+    kb.press(Key.backspace)
+    kb.release(Key.backspace)
+    kb.press(Key.esc)
+    kb.release(Key.esc)
     curr_hour = datetime.now().hour
     curr_min = datetime.now().minute
     curr_sec = datetime.now().second
@@ -425,6 +425,7 @@ def creepy(contents):
 
     return converted
 
+
 def arrowmouse(contents):
     def on_press(key):
         if key == Key.up:
@@ -438,5 +439,27 @@ def arrowmouse(contents):
         if key == Key.f5:
             keyboard.Listener.stop()
     
+    notification("Arrowmouse", 
+            "Arrowmouse has successfully been enabled. Click F5 to diable it")
+
     with keyboard.Listener(on_press=on_press) as listener:
         listener.join()
+
+def binary(contents : str):
+    converted = []
+    for i in contents:
+        unicode_val = ord(i)
+        converted.append(bin(unicode_val)[2:])
+
+    return " ".join(converted)
+
+def text(contents : str):
+    converted = []
+    contents = contents.split()
+    for i in contents:
+        unicode_val = int(i, 2)
+        converted.append(chr(unicode_val))
+    
+    kb.press(Key.backspace)
+    kb.release(Key.backspace)
+    notification("Utilities", str("".join(converted)))
