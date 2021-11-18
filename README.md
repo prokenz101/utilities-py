@@ -2,6 +2,8 @@
 
 A simple program made using python that allows you to do lots of cool things.
 
+This is the linux edition, not the windows one and you may find that many features that were in the windows version are missing here. If you don't want the linux edition, then just get the [windows one](https://github.com/prokenz101/utilities/tree/main).
+
 **Note**: This branch is independent of main and is maintained by another person altogether and works on linux(Possibly Windows as well, haven't tested). Also, you need to be able to set custom keyboard shortcuts.
 
 ## Installation
@@ -15,7 +17,7 @@ This method is slightly better but involves installing [Git](https://git-scm.com
 git clone --branch linux-edition https://github.com/prokenz101/utilities
 ```
 ### Modules:
-Open a terminal once again and change directory to your installation spot.There, run this command:
+Open a terminal once again and change directory to your installation spot. There, run this command:
 ```bash
 pip3 install -r requirements.txt
 ```
