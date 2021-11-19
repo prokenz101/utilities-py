@@ -456,7 +456,7 @@ def binary(contents : str):
 def text(contents : str):
     converted = []
     contents = contents.split()
-    for i in contents:
+    for i in contents[1:]:
         if contents[0] == "b":
             unicode_val = int(i, 2)
         elif contents[0] == "h":
