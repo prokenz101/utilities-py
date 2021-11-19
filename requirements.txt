@@ -2,3 +2,4 @@ pynput
 notify2
 playsound
 pyperclip3
+mouse
