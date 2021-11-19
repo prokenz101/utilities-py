@@ -293,6 +293,7 @@ def reverse(contents):
 
 
 def alarmset(contents):
+    contents = contents.split()
     kb.press(Key.backspace)
     kb.release(Key.backspace)
     kb.press(Key.esc)
@@ -301,12 +302,12 @@ def alarmset(contents):
     curr_min = datetime.now().minute
     curr_sec = datetime.now().second
 
-    if contents[3] == "pm":
-        if contents[1] != "12":
-            alarm_hour = int(contents[1]) + 12
+    if contents[2] == "pm":
+        if contents[0] != "12":
+            alarm_hour = int(contents[0]) + 12
     else:
-        alarm_hour = int(contents[1])
-    alarm_min = int(contents[2])
+        alarm_hour = int(contents[0])
+    alarm_min = int(contents[1])
 
     waiting_hour = alarm_hour - curr_hour
     waiting_min = alarm_min - curr_min
@@ -314,7 +315,7 @@ def alarmset(contents):
     if waiting_min < 0:
         waiting_min += 60
 
-    notification("Alarm", f"Your alarm has been set for {contents[1]}:{contents[2]} {contents[3]}")
+    notification("Alarm", f"Your alarm has been set for {contents[0]}:{contents[1]} {contents[2]}")
 
     waiting_time = (waiting_hour * 60 * 60) + (waiting_min * 60) - curr_sec
     sleep(waiting_time - 7)
@@ -465,7 +466,7 @@ def text(contents : str):
     
     kb.press(Key.backspace)
     kb.release(Key.backspace)
-    notification("Utilities", str("".join(converted)))
+    notification("Utilities", "".join(converted))
 
 def hexa(contents):
     converted = []
