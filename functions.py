@@ -320,7 +320,7 @@ def alarmset(contents):
     waiting_time = (waiting_hour * 60 * 60) + (waiting_min * 60) - curr_sec
     sleep(waiting_time - 7)
 
-    playsound(r"alarm_sound.mp3", block=False)
+    playsound(r"./media/alarm_sound.mp3", block=False)
     notification("Alarm", "Time's up kid")
 
 
