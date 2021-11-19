@@ -2,6 +2,7 @@ from importlib import import_module
 
 argv = import_module("sys").argv
 
+
 def notification(
     title: str, subtitle: str, interval: int, icon=None, threaded=True
 ) -> None:
@@ -21,6 +22,12 @@ def indextest(notiflist: list, argvindex=2) -> None:
 
 
 def notifcheck(notif: bool, tonotify: list) -> None:
+    if len(tonotify[0]) > 54 or len(tonotify[1]) > 108:
+        notification(
+            "This notification was too long.",
+            "The thing that you are looking for has probably been copied to your clipboard.",
+            10,
+        )
     if notif:
         notification(*tonotify)
 
