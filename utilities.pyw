@@ -9,7 +9,8 @@ from functions import (
     arrowmouse, bubble, factorial,
     cuberoot, hcf, lcm, doublestruck,
     cursive, fraction, randnum,
-    flip, creepy, binary, format
+    flip, creepy, binary, format,
+    hexa
     # fmt: on
 )
 
@@ -29,14 +30,23 @@ instructions = {
     "dbs": doublestruck.doublestruck, "doublestruck": doublestruck.doublestruck, "cursive": cursive.cursive,
     "fraction": fraction.fraction, "fc": fraction.fraction, "randnum": randnum.randnum,
     "randint": randnum.randnum, "flip": flip.flipped, "upside-down": flip.flipped,
-    "superscript": exponent.exponent, "format": format.formatter, "creepy": creepy.creepy, "binary": binary.binary
+    "superscript": exponent.exponent, "format": format.formatter, "creepy": creepy.creepy, "binary": binary.binary,
+    "hexa": hexa.hexadecimal, "hexadecimal": hexa.hexadecimal
     # fmt: on
 }
 
 try:
-    for i in instructions:
-        if argv[1].lower().startswith(i):
-            instructions[i]()
+    from functions.basicfunctions import notification
+    
+    i = instructions.get(argv[1])
+    if i:
+        i()
+    else:
+        notification(
+            "Welp.",
+            "It seems that utilities could not understand your command.",
+            3,
+        )
 
 except Exception as e:
     from win10toast import ToastNotifier
