@@ -32,7 +32,7 @@ def totext(words, copy=True, notif=True) -> str:
     return "".join(converted)
 
 
-def binary(words=None, copy=True, notif=True) -> None:
+def binary(words=None, copy=True, notif=True) -> str:
     from .basicfunctions import argv, indextest
 
     indextest(
@@ -45,6 +45,8 @@ Try 'help binary' if you do not know what you are doing.""",
     )
     words = words or " ".join(argv[2:])
     if all(i in ("0", "1", " ") for i in words):
-        totext(words)
+        var = totext(words, copy, notif)
+        return var
     else:
-        tobinary(words)
+        var = tobinary(words, copy, notif)
+        return var
