@@ -457,9 +457,21 @@ def text(contents : str):
     converted = []
     contents = contents.split()
     for i in contents:
-        unicode_val = int(i, 2)
+        if contents[0] == "b":
+            unicode_val = int(i, 2)
+        elif contents[0] == "h":
+            unicode_val = int(i,16)
         converted.append(chr(unicode_val))
     
     kb.press(Key.backspace)
     kb.release(Key.backspace)
     notification("Utilities", str("".join(converted)))
+
+def hexa(contents):
+    converted = []
+    contents.split()
+    for i in contents:
+        unicode_val = ord(i)
+        converted.append(hex(unicode_val)[2:])
+    
+    return " ".join(converted)
