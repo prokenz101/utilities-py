@@ -13,7 +13,7 @@ def helpcenter() -> None:
         "images": "image-search", "cp": "copypaste", "ep": "exponent",
         "bubble": "bubbletext", "cbrt": "cube-root", "gcd": "hcf",
         "dbs": "doublestruck", "fc": "fraction", "randint": "randnum",
-        "upside-down": "flip", "superscript": "exponent",
+        "upside-down": "flip", "superscript": "exponent", "hexa": "hexadecimal"
         # fmt: on
     }
     regularcmds = (
@@ -22,7 +22,7 @@ def helpcenter() -> None:
         "emojify","spam", "autoclick", "tapemouse", "reverse", "exponent",
         "remind", "title", "arrowmouse", "format", "bubble", "cuberoot", "hcf",
         "lcm", "doublestruck", "cursive", "fraction", "randnum", "randint", "flip",
-        "factorial", "creepy", "binary"
+        "factorial", "creepy", "binary", "hexadecimal"
         # fmt: on
     )
     if doubt in aliases:
