@@ -22,7 +22,7 @@ def helpcenter() -> None:
         "emojify","spam", "autoclick", "tapemouse", "reverse", "exponent",
         "remind", "title", "arrowmouse", "format", "bubble", "cuberoot", "hcf",
         "lcm", "doublestruck", "cursive", "fraction", "randnum", "randint", "flip",
-        "factorial", "creepy", "binary", "hexadecimal"
+        "factorial", "creepy", "binary", "hexadecimal", "randchar"
         # fmt: on
     )
     if doubt in aliases:
