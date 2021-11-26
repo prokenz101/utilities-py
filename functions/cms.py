@@ -20,3 +20,4 @@ Try 'help cms' if you don't know what you are doing.""",
     ans = f"{words:,}"
     copycheck(copy, ans)
     notifcheck(notif, ["Success!", "Number copied to clipboard.", 2])
+    return ans
