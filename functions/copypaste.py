@@ -31,7 +31,7 @@ If you do not know how to use this command, try running 'help cp'.""",
         "!=": "≠", "congruence": "≅", "greater than or equal to": "≥",
         ">=": "≥", "lesser than or equal to": "≤", "<=": "≤",
         "shrug": R"¯\_(ツ)_/¯", "trademark": "™️", "copyright": "©️",
-        "music": "♩♪♫♬", "csprint": """using System;
+        "music": "♩♪♫♬", "therefore": "∴", "x": "𝑥", "y": "𝑦", "csprint": """using System;
 
 namespace Code
 {
