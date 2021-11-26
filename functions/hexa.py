@@ -33,8 +33,16 @@ Try 'help hexa' if you do not know what you are doing.""",
         ]
     )
     words = words or " ".join(argv[2:])
+
+    def is_hex(text) -> bool:
+        try:
+            int(text, 16)
+            return True
+        except ValueError:
+            return False
+
     for i in argv[2:]:
-        if len(i) == 2  and i[0].isnumeric() and not i[1] >= "g":
+        if is_hex(i):
             totext(words, copy, notif)
         else:
             tohexa(words, copy, notif)
