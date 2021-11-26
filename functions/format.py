@@ -8,7 +8,8 @@ def formatter() -> str:
         flip, fraction, hcf, lcm,
         randnum, reverse, sarcasm,
         spacer, spoilerspam, titlecase,
-        creepy, binary, cms
+        creepy, binary, cms, uppercase,
+        lowercase
         # fmt: on
     )
 
@@ -32,7 +33,9 @@ If you do not know how to use this command, try running 'help format'.""",
         "dbs": doublestruck.doublestruck, "doublestruck": doublestruck.doublestruck, "cursive": cursive.cursive,
         "fraction": fraction.fraction, "fc": fraction.fraction, "randnum": randnum.randnum,
         "randint": randnum.randnum, "flip": flip.flipped, "upside-down": flip.flipped, "superscript": exponent.exponent,
-        "creepy": creepy.creepy, "binary": binary.binary, "commaseperator": cms.cms, "cms": cms.cms
+        "creepy": creepy.creepy, "binary": binary.binary, "commaseperator": cms.cms, "cms": cms.cms,
+        "upper": uppercase.uppercase, "uppercase": uppercase.uppercase, "lower": lowercase.lowercase,
+        "lowercase": lowercase.lowercase
         # fmt: on
     }
     formatdict = {}

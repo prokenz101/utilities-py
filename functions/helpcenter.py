@@ -5,7 +5,9 @@ def helpcenter() -> None:
         doubt = " ".join(argv[2:])
         test = argv[2]
     except IndexError:
-        open_new_tab("https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)")
+        open_new_tab(
+            "https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)"
+        )
         return
     aliases = {
         # fmt: off
@@ -14,7 +16,7 @@ def helpcenter() -> None:
         "bubble": "bubbletext", "cbrt": "cube-root", "gcd": "hcf",
         "dbs": "doublestruck", "fc": "fraction", "randint": "randnum",
         "upside-down": "flip", "superscript": "exponent", "hexa": "hexadecimal",
-        "cms": "commaseperator"
+        "cms": "commaseperator", "upper": "uppercase", "lower": "lowercase"
         # fmt: on
     }
     regularcmds = (
@@ -23,7 +25,8 @@ def helpcenter() -> None:
         "emojify","spam", "autoclick", "tapemouse", "reverse", "exponent",
         "remind", "title", "arrowmouse", "format", "bubble", "cuberoot", "hcf",
         "lcm", "doublestruck", "cursive", "fraction", "randnum", "randint", "flip",
-        "factorial", "creepy", "binary", "hexadecimal", "randchar", "commaseperator"
+        "factorial", "creepy", "binary", "hexadecimal", "randchar", "commaseperator",
+        "uppercase", "lowercase"
         # fmt: on
     )
     if doubt in aliases:
@@ -37,7 +40,9 @@ def helpcenter() -> None:
                 f"https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)#{doubt}"
             )
         else:
-            open_new_tab("https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)")
+            open_new_tab(
+                "https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)"
+            )
             notification(
                 "Was that what you wanted?",
                 f"""Unfortunately, utilities couldn't understand what you meant by '{doubt}'.

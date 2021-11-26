@@ -10,7 +10,8 @@ from functions import (
     cuberoot, hcf, lcm, doublestruck,
     cursive, fraction, randnum,
     flip, creepy, binary, format,
-    hexa, randchar, cms
+    hexa, randchar, cms, uppercase,
+    lowercase
     # fmt: on
 )
 
@@ -32,7 +33,8 @@ instructions = {
     "randint": randnum.randnum, "flip": flip.flipped, "upside-down": flip.flipped,
     "superscript": exponent.exponent, "format": format.formatter, "creepy": creepy.creepy, "binary": binary.binary,
     "hexa": hexa.hexadecimal, "hexadecimal": hexa.hexadecimal, "randchar": randchar.randchar,
-    "commaseperator": cms.cms, "cms": cms.cms
+    "commaseperator": cms.cms, "cms": cms.cms, "upper": uppercase.uppercase, "uppercase": uppercase.uppercase,
+    "lower": lowercase.lowercase, "lowercase": lowercase.lowercase
     # fmt: on
 }
 
