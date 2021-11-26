@@ -6,7 +6,7 @@ def fr_e():
         "Hey!",
         """It seems you tried to input a character that's not supported.
 For more information, please view our help center by typing 'help fc'.""",
-        3,
+        7,
     )
     exit()
 
