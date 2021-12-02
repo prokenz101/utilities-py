@@ -2,6 +2,8 @@
 
 simple utilities that I mostly made for myself
 
+This is the stable version written in **Python**, however I have started a project that is written entirely in C#. You can see that [here](https://github.com/prokenz101/utilities-cs), but its very new and has so very few features.
+
 Utilities is a program with many different uses, some may be more useful than others but its mostly for altering text when talking on social platforms.
 
 Commands like `cursive` can change letters into cursive, `autoclick` can autoclick (who could have guessed), `lcm` and `hcf` find the LCM and HCF of numbers and there are many others that I can't fit in here. If you installed utilities but have no clue how to use commands, then the [help center](https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)) could give you an idea.
