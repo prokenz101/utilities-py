@@ -1,7 +1,8 @@
 from pynput import keyboard
-from pynput.keyboard import Key, Controller, Listener
-from time import sleep
+from pynput.keyboard import Key, Controller
+import os
 from notify2 import init, Notification
+from time import sleep
 from datetime import datetime
 from playsound import playsound
 from random import choice
@@ -11,20 +12,10 @@ from mouse import move
 
 kb = Controller()
 
-encryption_dict = {
-        "a": "ဂ", "b": "ဇ", "c": "⤓", "d": "⥳",
-        "e": "❡", "f": "ᄑ", "g": "ᢂ", "h": "ᠷ",
-        "i": "ង", "j": "ᕒ", "k": "ᔵ", "l": "ᥔ",
-        "m": "ቤ", "n": "ᔇ", "o": "፨", "p": "፱",
-        "q": "ᑴ", "r": "ን", "s": "᠉", "t": "ሤ",
-        "u": "ᡧ", "v": "ቕ", "w": "ሠ", "x": "ᒂ",
-        "y": "ᡆ", "z": "ᅆ"
-    }
-
-
 def notification(title, message):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
     init("Utilities")
-    notifier = Notification(title, message)
+    notifier = Notification(title, message, f"{dir_path}/media/python.svg")
     notifier.show()
 
 
@@ -254,40 +245,6 @@ def extend(contents):
             return extendables[i]
 
 
-def encrypt(contents):
-    msg = contents.lower()
-    converted = ""
-    for ch in msg:
-        try:
-            converted += encryption_dict[ch]
-        except KeyError:
-            converted += ch
-
-    return converted
-
-
-def get_key(val):
-    for key_, value in encryption_dict.items():
-        if val == value:
-            return key_
-
-    raise KeyError
-
-
-def decrypt(contents):
-    msg = contents
-    converted = ""
-    for ch in msg:
-        try:
-            converted += get_key(ch)
-        except KeyError:
-            converted += ch
-
-    with kb.pressed(Key.backspace):
-        pass
-    notification("Decrypted Message", converted)
-
-
 def reverse(contents):
     return contents[::-1]
 
@@ -319,8 +276,9 @@ def alarmset(contents):
 
     waiting_time = (waiting_hour * 60 * 60) + (waiting_min * 60) - curr_sec
     sleep(waiting_time - 7)
-
-    playsound(r"./media/alarm_sound.mp3", block=False)
+    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    playsound(f"{dir_path}/media/alarm_sound.mp3", block=False)
     notification("Alarm", "Time's up kid")
 
 
@@ -338,8 +296,9 @@ def formatter(contents : str):
         "sarcasm": sarcasm, "spacer": spacer, "spoilerspam": spoilerspam, "copypaste": copypaste,
         "cp": copypaste, "emojify": emojify, "extend": extend, "reverse": reverse,
         "exponent": exponent, "ep": exponent, "title": titlecase, "titlecase": titlecase,
-        "cursive": cursive, "fraction": fraction, "fc": fraction, "encrypt": encrypt, "flip": flipped,
-        "decrypt": decrypt, "exponent": exponent, "doublestruck" : doublestruck, "bubble": bubble,
+        "cursive": cursive, "fraction": fraction, "fc": fraction, "flip": flipped,
+        "exponent": exponent, "doublestruck" : doublestruck, "bubble": bubble, "creepy": creepy,
+        "binary": binary, "hexa": hexa
     }
     format_dict = {}
     formattables = finditer(r'\{([\w \d/]+)\}', contents)
@@ -457,11 +416,11 @@ def binary(contents : str):
 def text(contents : str):
     converted = []
     contents = contents.split()
-    for i in contents[1:]:
-        if contents[0] == "b":
+    for i in contents:
+        try:
             unicode_val = int(i, 2)
-        elif contents[0] == "h":
-            unicode_val = int(i,16)
+        except ValueError:
+            unicode_val = int(i, 16)
         converted.append(chr(unicode_val))
     
     kb.press(Key.backspace)
@@ -470,7 +429,6 @@ def text(contents : str):
 
 def hexa(contents):
     converted = []
-    contents.split()
     for i in contents:
         unicode_val = ord(i)
         converted.append(hex(unicode_val)[2:])

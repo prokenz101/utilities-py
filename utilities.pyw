@@ -28,4 +28,5 @@ except TypeError:
 except Exception as e:
     with keyboard.pressed(Key.backspace):
         pass
+    copy(f"{e}")
     getattr(mod, "notification")("An Error has Occurred.", f"{e}")
