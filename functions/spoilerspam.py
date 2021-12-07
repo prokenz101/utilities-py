@@ -13,6 +13,6 @@ Try running 'help spoilerspam' if you do not know what you are doing.""",
     contents = []
     for i in words:
         contents.append(f"||{i}")
-    copycheck(copy, "".join(f'{"||".join(contents)}||'))
+    copycheck(copy, f'{"||".join(contents)}||')
     notifcheck(notif, ["Success!", "Message copied to clipboard.", 2])
     return f'{"||".join(contents)}||'
