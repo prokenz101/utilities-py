@@ -19,7 +19,7 @@ class Translate:
 
     @staticmethod
     def translate() -> None:
-        from .basicfunctions import argv, open_new_tab
+        from .basicfunctions import argv
 
         languages = {
             ("tofrench", "french", "f"): "fr",
@@ -40,3 +40,4 @@ class Translate:
             for i in languages:
                 if argv[2] in i:
                     Translate.to_other_language(languages[i])
+                    break
