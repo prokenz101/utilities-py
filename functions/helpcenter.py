@@ -6,7 +6,7 @@ def helpcenter() -> None:
         test = argv[2]
     except IndexError:
         open_new_tab(
-            "https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)"
+            "https://github.com/prokenz101/utilities-py/wiki/Help-Center-(Windows)"
         )
         return
     aliases = {
@@ -31,17 +31,17 @@ def helpcenter() -> None:
     )
     if doubt in aliases:
         open_new_tab(
-            f"https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)#{aliases[doubt]}"
+            f"https://github.com/prokenz101/utilities-py/wiki/Help-Center-(Windows)#{aliases[doubt]}"
         )
         return
     else:
         if doubt in regularcmds:
             open_new_tab(
-                f"https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)#{doubt}"
+                f"https://github.com/prokenz101/utilities-py/wiki/Help-Center-(Windows)#{doubt}"
             )
         else:
             open_new_tab(
-                "https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)"
+                "https://github.com/prokenz101/utilities-py/wiki/Help-Center-(Windows)"
             )
             notification(
                 "Was that what you wanted?",

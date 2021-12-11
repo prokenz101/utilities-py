@@ -40,7 +40,7 @@ instructions = {
 
 try:
     from functions.basicfunctions import notification
-    
+
     i = instructions.get(argv[1])
     if i:
         i()
