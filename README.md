@@ -6,7 +6,7 @@ This is a version of utilities written in **Python**, however I have started a p
 
 Utilities is a program with many different uses, some may be more useful than others but its mostly for altering text when talking on social platforms.
 
-Commands like `cursive` can change letters into cursive, `autoclick` can autoclick (who could have guessed), `lcm` and `hcf` find the LCM and HCF of numbers and there are many others that I can't fit in here. If you installed utilities but have no clue how to use commands, then the [help center](https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)) could give you an idea.
+Commands like `cursive` can change letters into cursive, `autoclick` can autoclick (who could have guessed), `lcm` and `hcf` find the LCM and HCF of numbers and there are many others that I can't fit in here. If you installed utilities but have no clue how to use commands, then the [help center](https://github.com/prokenz101/utilities-py/wiki/Help-Center-(Windows)) could give you an idea.
 
 This is a project used by very few people, and I won't be adding features that I don't want or don't need.
 
@@ -34,13 +34,13 @@ pip install -r requirements.txt
 
 Once the modules have downloaded, type any command and press F8 to trigger the script.
 
-Pressing F8 presses Ctrl + A, however, if you do not want it to select all (like if you want utilities to only read a part of the message), then you can use shift F8. So you select the text that you want utilities to read, and then press shift + f8 to trigger utilties on that specific text. You can view the [help center](https://github.com/prokenz101/utilities/wiki/Help-Center-(Windows)) if you still do not understand.
+Pressing F8 presses Ctrl + A, however, if you do not want it to select all (like if you want utilities to only read a part of the message), then you can use shift F8. So you select the text that you want utilities to read, and then press shift + f8 to trigger utilties on that specific text. You can view the [help center](https://github.com/prokenz101/utilities-py/wiki/Help-Center-(Windows)) if you still do not understand.
 
 Open [powertoys](https://github.com/microsoft/PowerToys) and type any command to see if it works. If you do not know any commands, then visit the help center above.
 
 Although you could use anything which allows you to type. Powertoys is not necessary.
 
-**This branch is designed for windows only.** If you want a linux version of it, click [here](https://github.com/prokenz101/utilities/tree/linux-edition).
+**This branch is designed for windows only.** If you want a linux version of it, click [here](https://github.com/prokenz101/utilities-py/tree/linux-edition).
 
 MacOS will most likely never be supported, as i have no plans for it, and dislike it altogether.
 
