@@ -2,7 +2,7 @@
 
 simple utilities that I mostly made for myself
 
-This is a version of utilities written in **Python**, however I have started a project that is written entirely in C#. You can see that [here](https://github.com/prokenz101/utilities-cs). It does not have as many features as the Python version does, but it is considerably faster and generally better due to it being just one .exe file instead of having a billion different python files. The install is much more straight-forward for the C# version and there are no "getting requirements" or opening cmd to go to a file path and then run some command. Unforutnately the C# version does lack a few features like `spam` and `format`, but I'm working on adding those.
+No longer maintained or updated. Try the C# version [here](https://github.com/prokenz101/utilities-cs).
 
 Utilities is a program with many different uses, some may be more useful than others but its mostly for altering text when talking on social platforms.
 
