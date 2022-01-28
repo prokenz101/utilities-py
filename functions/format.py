@@ -13,7 +13,7 @@ def formatter() -> str:
         # fmt: on
     )
 
-    argv2 = " ".join(argv[2:])
+    text = " ".join(argv[2:])
     indextest(
         [
             "Huh.",
@@ -22,7 +22,6 @@ If you do not know how to use this command, try running 'help format'.""",
             5,
         ]
     )
-    converted = ""
     functions = {
         # fmt: off
         "sarcasm": sarcasm.sarcasm, "spacer": spacer.spacer, "spoilerspam": spoilerspam.spoilerspam,
@@ -39,7 +38,7 @@ If you do not know how to use this command, try running 'help format'.""",
         # fmt: on
     }
     formatdict = {}
-    formattables = finditer(r"\{([\w \d/]+)\}", argv2)
+    formattables = finditer(r"{([^}]+)}", text)
     for i in formattables:
         command = i.groups()[0]
         splitcommand = command.split(" ")
@@ -48,7 +47,7 @@ If you do not know how to use this command, try running 'help format'.""",
         )
         formatdict[command] = output
 
-    converted = argv2.format(**formatdict)
+    converted = text.format(**formatdict)
     copycheck(True, converted)
     notifcheck(True, ["Success!", "Message copied to clipboard.", 2])
     return converted
