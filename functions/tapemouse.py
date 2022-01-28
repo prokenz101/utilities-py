@@ -1,5 +1,6 @@
 def tapemouse() -> None:
-    from .basicfunctions import argv, sleep, mouseDown, notification, FailSafeException
+    from .basicfunctions import argv, sleep, mouseDown, notification
+    from pyautogui import FailSafeException
 
     try:
         if argv[3].startswith("wait="):
