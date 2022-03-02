@@ -81,10 +81,6 @@ def hcf_(*args, **kwargs):
     return import_module("math").gcd(*args, **kwargs)
 
 
-def factorial(num: int):
-    return import_module("math").factorial(num)
-
-
 def Path():
     from pathlib import Path
 

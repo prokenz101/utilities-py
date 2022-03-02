@@ -1,5 +1,5 @@
 def factorial_(words=None, notif=True, copy=True):
-    from .basicfunctions import argv, notifcheck, factorial, copycheck
+    from .basicfunctions import argv, notifcheck, copycheck
 
     try:
         words = words or argv[2]
@@ -16,7 +16,15 @@ If you do not know how to use this command, try running 'help factorial'.""",
         return
     for i in words:
         try:
-            ans = factorial(int(words))
+            n = int(words);
+            i = 1;
+            v = 1;
+
+            while i <= n:
+                v *= i;
+                i += 1;
+            
+            ans = v
         except ValueError:
             notifcheck(
                 notif,
@@ -27,6 +35,6 @@ If you do not know how to use this command, try running 'help factorial'.""",
                 ],
             )
             return
-        copycheck(copy, ans)
+        copycheck(copy, str(ans))
         notifcheck(notif, [str(ans), f"The Answer is {str(ans)}", 5])
         return ans
